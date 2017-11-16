@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # deploy ember app
-cd ~/Desktop/api-ember/public/ember-app
+cd ~/eRestoran-new/public/eRestaurant_FE
 ember build -prod
 
 # delete old buid files
@@ -13,7 +13,7 @@ rm ../stylesheets/ember-app.css
 
 # copy built filed for index scala
 cp dist/assets/vendor*.js ../javascripts/vendor.js
-cp dist/assets/ember-app*.js ../javascripts/ember-app.js
+cp dist/assets/e-restaurant-fe*.js ../javascripts/ember-app.js
 
 cp dist/assets/vendor*.css ../stylesheets/vendor.css
-cp dist/assets/ember-app*.css ../stylesheets/ember-app.css
+cp dist/assets/e-restaurant-fe*.css ../stylesheets/ember-app.css
