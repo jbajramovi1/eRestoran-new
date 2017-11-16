@@ -2,34 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ac3d82c2-ac42-4f22-a49a-40106f7a0c55" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/.bowerrc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/.editorconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/.ember-cli" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/.jshintrc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/.watchmanconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/components/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/controllers/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/helpers/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/models/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/resolver.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/router.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/routes/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/styles/app.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/templates/application.hbs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/app/templates/components/.gitkeep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/bower.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/config/environment.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/ember-app/ember-cli-build.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/root.iml" afterPath="$PROJECT_DIR$/.idea/modules/root.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/play2_project_settings.xml" afterPath="$PROJECT_DIR$/.idea/play2_project_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sbt.xml" afterPath="$PROJECT_DIR$/.idea/sbt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/play2_settings.xml" afterPath="$PROJECT_DIR$/.idea/play2_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build-ember.sh" afterPath="$PROJECT_DIR$/build-ember.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.sbt" afterPath="$PROJECT_DIR$/build.sbt" />
     </list>
     <ignored path="$PROJECT_DIR$/target/streams/" />
     <ignored path="$PROJECT_DIR$/target/web/" />
@@ -62,18 +38,38 @@
       <file leaf-file-name="build.sbt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.sbt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="345">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.conf" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BaseController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/BaseController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="62">
+              <caret line="17" column="20" lean-forward="false" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Procfile" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Procfile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="179" lean-forward="false" selection-start-line="0" selection-start-column="167" selection-end-line="0" selection-end-column="179" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="application.conf" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/conf/application.conf">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -82,8 +78,28 @@
       <file leaf-file-name="index.scala.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="67" lean-forward="false" selection-start-line="18" selection-start-column="59" selection-end-line="18" selection-end-column="67" />
+            <state relative-caret-position="255">
+              <caret line="17" column="65" lean-forward="false" selection-start-line="17" selection-start-column="65" selection-end-line="17" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="application.hbs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/eRestaurant_FE/app/templates/application.hbs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="3" lean-forward="false" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ember-app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/ember-app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -92,8 +108,8 @@
       <file leaf-file-name="environment.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/eRestaurant_FE/config/environment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="32" column="26" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+            <state relative-caret-position="342">
+              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -118,6 +134,8 @@
         <option value="$PROJECT_DIR$/public/ember-app/app/templates/application.hbs" />
         <option value="$PROJECT_DIR$/public/eRestaurant_FE/config/environment.js" />
         <option value="$PROJECT_DIR$/build-ember.sh" />
+        <option value="$PROJECT_DIR$/build.sbt" />
+        <option value="$PROJECT_DIR$/public/eRestaurant_FE/app/templates/application.hbs" />
       </list>
     </option>
   </component>
@@ -147,12 +165,12 @@
         <option value="play.core.j.PlayFormsMagicForJava._" />
         <option value="java.util._" />
         <option value="scala.collection.JavaConverters._" />
-        <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
         <option value="play.mvc.Http.Context.Implicit._" />
+        <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
       </array>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="70" />
     <option name="y" value="23" />
     <option name="width" value="1440" />
@@ -192,6 +210,24 @@
               <item name="api-ember" type="b2602c69:ProjectViewProjectNode" />
               <item name="eRestoran-new" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api-ember" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eRestoran-new" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api-ember" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eRestoran-new" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="repositories" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api-ember" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eRestoran-new" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -214,13 +250,25 @@
               <item name="api-ember" type="b2602c69:ProjectViewProjectNode" />
               <item name="eRestoran-new" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="javascripts" type="462c0819:PsiDirectoryNode" />
+              <item name="eRestaurant_FE" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="api-ember" type="b2602c69:ProjectViewProjectNode" />
               <item name="eRestoran-new" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="stylesheets" type="462c0819:PsiDirectoryNode" />
+              <item name="eRestaurant_FE" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api-ember" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eRestoran-new" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="eRestaurant_FE" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -349,7 +397,7 @@
     </configuration>
   </component>
   <component name="SbtLocalSettings">
-    <option name="lastUpdateTimestamp" value="1510839323314" />
+    <option name="lastUpdateTimestamp" value="1510841304446" />
     <option name="availableProjects">
       <map>
         <entry>
@@ -388,15 +436,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1510839271547</updated>
-      <workItem from="1510839272799" duration="1639000" />
+      <workItem from="1510839272799" duration="2069000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1639000" />
+    <option name="totallyTimeSpent" value="2069000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="70" y="23" width="1440" height="813" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="813" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -453,36 +501,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/eRestaurant_FE/config/environment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="32" column="26" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/eRestaurant_FE/app/templates/application.hbs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/ember-app/config/environment.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="28" column="26" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="28" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="67" lean-forward="false" selection-start-line="18" selection-start-column="59" selection-end-line="18" selection-end-column="67" />
           <folding />
         </state>
       </provider>
@@ -503,7 +525,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/eRestaurant_FE/config/environment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/build.sbt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="17" column="20" lean-forward="false" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="179" lean-forward="false" selection-start-line="0" selection-start-column="167" selection-end-line="0" selection-end-column="179" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/application.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="1" lean-forward="false" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/ember-app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -511,10 +575,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/application.conf">
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/vendor.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/vendor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="65" lean-forward="false" selection-start-line="17" selection-start-column="65" selection-end-line="17" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/eRestaurant_FE/app/templates/application.hbs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="3" lean-forward="false" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
           <folding />
         </state>
       </provider>

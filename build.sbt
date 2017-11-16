@@ -21,6 +21,3 @@ libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-library" % "2.12.2",
   javaWs
 )
-
-sources in doc in Compile := List()
-routesGenerator := InjectedRoutesGenerator
