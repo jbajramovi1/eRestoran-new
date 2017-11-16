@@ -43,7 +43,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.locationType = 'hash';
-    ENV.API_HOST = "https://aqueous-beyond-32829.herokuapp.com";
+    ENV.API_HOST = "https://stark-citadel-95079.herokuapp.com";
     ENV.API_VERSION = "1";
   }
 
