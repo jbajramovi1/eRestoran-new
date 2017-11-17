@@ -19,5 +19,6 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "9.4.1208.jre7",
   cache,
   "org.scala-lang" % "scala-library" % "2.12.2",
+  "org.mindrot" % "jbcrypt" % "0.3m",
   javaWs
 )
