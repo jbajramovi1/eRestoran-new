@@ -17,3 +17,4 @@ cp dist/assets/e-restaurant-fe*.js ../javascripts/ember-app.js
 
 cp dist/assets/vendor*.css ../stylesheets/vendor.css
 cp dist/assets/e-restaurant-fe*.css ../stylesheets/ember-app.css
+
