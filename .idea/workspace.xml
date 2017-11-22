@@ -35,8 +35,8 @@
       <file leaf-file-name="7.sql" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/conf/evolutions/default/7.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
+            <state relative-caret-position="15">
+              <caret line="1" column="31" lean-forward="false" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -429,12 +429,12 @@
       <workItem from="1511000921111" duration="7000" />
       <workItem from="1511033590040" duration="7337000" />
       <workItem from="1511260083425" duration="4183000" />
-      <workItem from="1511380580459" duration="1626000" />
+      <workItem from="1511380580459" duration="1816000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26951000" />
+    <option name="totallyTimeSpent" value="27141000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3" y="23" width="1440" height="813" extended-state="6" />
@@ -763,8 +763,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/conf/evolutions/default/7.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
+        <state relative-caret-position="15">
+          <caret line="1" column="31" lean-forward="false" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
           <folding />
         </state>
       </provider>
