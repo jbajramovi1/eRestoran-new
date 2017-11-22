@@ -1,5 +1,5 @@
  # --- !Ups
-create table account(
+create table IF NOT EXISTS account(
 id bigint not null,
 email varchar(255) not null,
 password varchar(255) not null,

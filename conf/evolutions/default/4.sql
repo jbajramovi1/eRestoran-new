@@ -1,5 +1,5 @@
 # --- !Ups
-create table reservation(
+create table IF NOT EXISTS reservation(
 id bigint not null,
 tables bigint,
 reservation_date date ,

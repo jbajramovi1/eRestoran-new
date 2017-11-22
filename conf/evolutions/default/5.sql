@@ -1,5 +1,5 @@
  # --- !Ups
-create table comment(
+create table IF NOT EXISTS comment(
 id bigint not null,
 content text,
 mark float not null,

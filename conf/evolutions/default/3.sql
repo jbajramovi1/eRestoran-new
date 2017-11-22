@@ -1,5 +1,5 @@
 # --- !Ups
-create table restaurant(
+create table IF NOT EXISTS restaurant(
 id bigint not null,
 name varchar(255),
 description text not null,
