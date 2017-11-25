@@ -4,6 +4,8 @@ import com.google.inject.ImplementedBy;
 
 import repositories.exceptions.RepositoryException;
 
+import java.util.List;
+
 /**
  * The interface Base repository.
  *
@@ -42,5 +44,13 @@ public interface BaseRepository<M> {
      * @throws RepositoryException the repository exception
      */
     void delete(M model) throws RepositoryException;
+
+    /**
+     * Return all models
+     *
+     * @return List
+     * @throws RepositoryException
+     */
+    List<M> findAll() throws RepositoryException;
 
 }

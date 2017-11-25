@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import play.db.jpa.JPA;
 import repositories.exceptions.RepositoryException;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 /**
  * The type Base repository implementation.
@@ -73,6 +74,15 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
             JPA.em().flush();
         } catch (PersistenceException e) {
             logger.error("ServiceException in BaseRepository@delete", e);
+            throw new RepositoryException(e.toString());
+        }
+    }
+
+    public List<M> findAll() throws RepositoryException{
+        try{
+            return getBaseCriteria().list();
+        }  catch (PersistenceException e){
+            logger.error("ServiceException in BaseRepository@findAll", e);
             throw new RepositoryException(e.toString());
         }
     }

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -139,6 +140,21 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
         }
     }
 
+    @Transactional
+    public Result findAll(){
+        try {
+            List<M> listAll = service.findAll();
+            return ok(Json.toJson(listAll));
+        } catch (ServiceException e){
+            logger.error("Service error in BaseController@findAll",e);
+            return internalServerError("Service error in BaseController@dfindAll");
+        }
+        catch (Exception e) {
+            logger.error("Internal server error in BaseController@findAll",e);
+            return internalServerError("Internal server error in BaseController@findAll");
+        }
+
+    }
     private Class<M> getParameterizedClass() {
         return (Class<M>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }

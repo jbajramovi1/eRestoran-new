@@ -14,6 +14,8 @@ GET /api/v1/logout @controllers.AccountController.logout()
 
 GET /api/v1/session @controllers.AccountController.getUserSession()
 
+GET /api/v1/accounts @controllers.AccountController.findAll()
+
 GET  /api/v1/restaurant/:id @controllers.RestaurantController.get(id:Long)
 
 POST /api/v1/comment @controllers.CommentController.create()
