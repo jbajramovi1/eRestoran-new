@@ -81,6 +81,7 @@ public class AccountController extends BaseController<Account, AccountService> {
     @Transactional
     public Result getUserSession(){
         try {
+
             return ok(Json.toJson(service.getCurrentUser(session().get("username"))));
         }
         catch (ServiceException e) {

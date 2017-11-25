@@ -7,9 +7,9 @@ GET     /                           @controllers.HomeController.index
 #POST    /api/v1/request             controllers.LogRequests.create
 POST /api/v1/user @controllers.AccountController.register()
 #DELETE /api/v1/user/:id @controllers.AccountController.delete(Long id)
-
++nocsrf
 POST /api/v1/login @controllers.AccountController.login()
-
++nocsrf
 GET /api/v1/logout @controllers.AccountController.logout()
 
 GET /api/v1/session @controllers.AccountController.getUserSession()
@@ -19,7 +19,7 @@ GET  /api/v1/restaurant/:id @controllers.RestaurantController.get(id:Long)
 POST /api/v1/comment @controllers.CommentController.create()
 
 POST /api/v1/reservation @controllers.ReservationController.create()
-
++nocsrf
 POST /api/v1/admin/addRestaurant @controllers.AdminController.insertRestaurant()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               @controllers.Assets.versioned(path="/public", file: Asset)

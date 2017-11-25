@@ -43,6 +43,7 @@ public class AccountService extends BaseService<Account, AccountRepository> {
             throw new ServiceException("entity not found");
         }
         session.clear();
+
         session.put("username", account.getEmail());
         return account;
     }

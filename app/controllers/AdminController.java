@@ -17,6 +17,7 @@ import services.exceptions.ServiceException;
 
 import javax.inject.Inject;
 
+
 import static play.mvc.Controller.session;
 import static play.mvc.Results.badRequest;
 import static play.mvc.Results.internalServerError;
@@ -31,6 +32,15 @@ public class AdminController {
      */
     final Logger logger = LoggerFactory.getLogger(AccountController.class);
     /**
+     * The Restaurant Service.
+     */
+    protected RestaurantService restaurantService;
+    /**
+     * The Account Service.
+     */
+    protected AccountService accountService;
+
+    /**
      * Sets form factory.
      *
      * @param formFactory the form factory
@@ -39,23 +49,39 @@ public class AdminController {
     public void setFormFactory(FormFactory formFactory) {
         this.formFactory = formFactory;
     }
+    /**
+     * Sets restaurantService.
+     *
+     * @param service the service
+     */
+    @Inject
+    public void setRestaurantService(RestaurantService service) {
+        this.restaurantService = service;
+    }
+
+    /**
+     * Sets accountService.
+     *
+     * @param service the service
+     */
+    @Inject
+    public void setAccountService(AccountService service) {
+        this.accountService = service;
+    }
 
     @Transactional
     public Result insertRestaurant() {
 
         try {
-
-            RestaurantService service=new RestaurantService();
-
-            if (session().isEmpty()){
-                logger.error("No privilegies to access admin panel");
-                return badRequest("No privilegies to access admin panel");
+            if (session().get("username").isEmpty()){
+                logger.error("Empty session");
+                return badRequest("Empty session");
             }
-            AccountService accountService=new AccountService();
+
             Account sessionAccount=accountService.getCurrentUser(session().get("username"));
-            if (sessionAccount==null || sessionAccount.getRole()!= Role.ADMIN){
-                logger.error("No privilegies to access admin panel");
-                return badRequest("No privilegies to access admin panel");
+            if (sessionAccount==null || sessionAccount.getRole().toString()!="ADMIN"){
+                logger.error("NO privilegies to access admin panel");
+                return badRequest("NO privilegies to access admin panel");
             }
 
             Form<Restaurant> form = formFactory.form(Restaurant.class).bindFromRequest();
@@ -64,7 +90,7 @@ public class AdminController {
                 return badRequest(form.errorsAsJson());
             }
 
-            return ok(Json.toJson(service.create(form.get())));
+            return ok(Json.toJson(restaurantService.create(form.get())));
         } catch (ServiceException e) {
             logger.error("Service error in AdminController@insertRestaurant", e);
             return badRequest(Json.toJson(""));
