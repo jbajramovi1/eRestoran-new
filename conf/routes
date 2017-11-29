@@ -5,6 +5,7 @@
 # An example controller showing a sample home page
 GET     /                           @controllers.HomeController.index
 #POST    /api/v1/request             controllers.LogRequests.create
++nocsrf
 POST /api/v1/user @controllers.AccountController.register()
 #DELETE /api/v1/user/:id @controllers.AccountController.delete(Long id)
 +nocsrf
@@ -19,9 +20,9 @@ GET /api/v1/accounts @controllers.AccountController.findAll()
 GET  /api/v1/restaurant/:id @controllers.RestaurantController.get(id:Long)
 
 GET /api/v1/restaurants @controllers.RestaurantController.findAll()
-
++nocsrf
 POST /api/v1/comment @controllers.CommentController.create()
-
++nocsrf
 POST /api/v1/reservation @controllers.ReservationController.create()
 +nocsrf
 POST /api/v1/admin/addRestaurant @controllers.AdminController.insertRestaurant()
