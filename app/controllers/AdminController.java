@@ -1,9 +1,8 @@
 package controllers;
 
-import javafx.concurrent.Service;
+
 import models.Account;
 import models.Restaurant;
-import models.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.data.Form;
@@ -12,7 +11,6 @@ import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Result;
 import services.AccountService;
-import play.mvc.Http.Session;
 import services.RestaurantService;
 import services.exceptions.ServiceException;
 
