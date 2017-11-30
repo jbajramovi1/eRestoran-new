@@ -102,6 +102,37 @@ public class AdminController {
     }
 
     @Transactional
+    public Result insertAccount() {
+
+        try {
+            if (session().get("username").isEmpty()){
+                logger.error("Empty session");
+                return badRequest("Empty session");
+            }
+
+            Account sessionAccount=accountService.getCurrentUser(session().get("username"));
+            if (sessionAccount==null || sessionAccount.getRole().toString()!="ADMIN"){
+                logger.error("NO privilegies to access admin panel");
+                return badRequest("NO privilegies to access admin panel");
+            }
+
+            Form<Account> form = formFactory.form(Account.class).bindFromRequest();
+            if (form.hasErrors()) {
+                logger.error("Restaurant insert attempt failed, form has errors.", form.errors());
+                return badRequest(form.errorsAsJson());
+            }
+
+            return ok(Json.toJson(accountService.create(form.get())));
+        } catch (ServiceException e) {
+            logger.error("Service error in AdminController@insertAccount", e);
+            return badRequest(Json.toJson(""));
+        } catch (Exception e) {
+            logger.error("Error in AdminController@insertAccount", e);
+            return internalServerError(Json.toJson("Internal server error in AdminController@insertAccount"));
+        }
+    }
+
+    @Transactional
     public Result deleteRestaurant(Long id){
         try {
             if (session().get("username").isEmpty()){
@@ -115,11 +146,6 @@ public class AdminController {
                 return badRequest("NO privilegies to access admin panel");
             }
 
-            Form<Restaurant> form = formFactory.form(Restaurant.class).bindFromRequest();
-            if (form.hasErrors()) {
-                logger.error("Restaurant delete attempt failed, form has errors.", form.errors());
-                return badRequest(form.errorsAsJson());
-            }
             restaurantService.delete(id);
             return ok();
         } catch (ServiceException e) {
@@ -132,7 +158,32 @@ public class AdminController {
     }
 
     @Transactional
-    public Result updateRestaurant() {
+    public Result deleteAccount(Long id){
+        try {
+            if (session().get("username").isEmpty()){
+                logger.error("Empty session");
+                return badRequest("Empty session");
+            }
+
+            Account sessionAccount=accountService.getCurrentUser(session().get("username"));
+            if (sessionAccount==null || sessionAccount.getRole().toString()!="ADMIN"){
+                logger.error("NO privilegies to access admin panel");
+                return badRequest("NO privilegies to access admin panel");
+            }
+
+            accountService.delete(id);
+            return ok();
+        } catch (ServiceException e) {
+            logger.error("Service error in AdminController@deleteAccount", e);
+            return badRequest(Json.toJson(""));
+        } catch (Exception e) {
+            logger.error("Error in AdminController@deleteAccount", e);
+            return internalServerError(Json.toJson("Internal server error in AdminController@deleteAccount"));
+        }
+    }
+
+    @Transactional
+    public Result updateRestaurant(Long id) {
 
         try {
             if (session().get("username").isEmpty()){
@@ -152,13 +203,44 @@ public class AdminController {
                 return badRequest(form.errorsAsJson());
             }
 
-            return ok(Json.toJson(restaurantService.update(form.get().getId(),form.get())));
+            return ok(Json.toJson(restaurantService.update(id,form.get())));
         } catch (ServiceException e) {
             logger.error("Service error in AdminController@updateRestaurant", e);
             return badRequest(Json.toJson(""));
         } catch (Exception e) {
             logger.error("Error in AdminController@insertRestaurant", e);
             return internalServerError(Json.toJson("Internal server error in AdminController@updateRestaurant"));
+        }
+    }
+
+    @Transactional
+    public Result updateAccount(Long id) {
+
+        try {
+            if (session().get("username").isEmpty()){
+                logger.error("Empty session");
+                return badRequest("Empty session");
+            }
+
+            Account sessionAccount=accountService.getCurrentUser(session().get("username"));
+            if (sessionAccount==null || sessionAccount.getRole().toString()!="ADMIN"){
+                logger.error("NO privilegies to access admin panel");
+                return badRequest("NO privilegies to access admin panel");
+            }
+
+            Form<Account> form = formFactory.form(Account.class).bindFromRequest();
+            if (form.hasErrors()) {
+                logger.error("Restaurant update attempt failed, form has errors.", form.errors());
+                return badRequest(form.errorsAsJson());
+            }
+
+            return ok(Json.toJson(accountService.update(id,form.get())));
+        } catch (ServiceException e) {
+            logger.error("Service error in AdminController@updateAccount", e);
+            return badRequest(Json.toJson(""));
+        } catch (Exception e) {
+            logger.error("Error in AdminController@insertAccount", e);
+            return internalServerError(Json.toJson("Internal server error in AdminController@updateAccount"));
         }
     }
 }

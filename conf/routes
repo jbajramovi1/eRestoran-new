@@ -20,6 +20,7 @@ GET /api/v1/accounts @controllers.AccountController.findAll()
 GET  /api/v1/restaurant/:id @controllers.RestaurantController.get(id:Long)
 
 GET /api/v1/restaurants @controllers.RestaurantController.findAll()
+
 +nocsrf
 POST /api/v1/comment @controllers.CommentController.create()
 +nocsrf
@@ -27,6 +28,18 @@ POST /api/v1/reservation @controllers.ReservationController.create()
 +nocsrf
 POST /api/v1/admin/addRestaurant @controllers.AdminController.insertRestaurant()
 +nocsrf
+POST /api/v1/admin/addAccount @controllers.AdminController.insertAccount()
++nocsrf
 DELETE /api/v1/admin/deleteRestaurant/:id @controllers.AdminController.deleteRestaurant(id:Long)
+
++nocsrf
+DELETE /api/v1/admin/deleteAccount/:id @controllers.AdminController.deleteAccount(id:Long)
+
++nocsrf
+POST /api/v1/admin/updateAccount/:id @controllers.AdminController.updateAccount(id:Long)
+
++nocsrf
+POST /api/v1/admin/updateRestaurant/:id @controllers.AdminController.updateRestaurant(id:Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               @controllers.Assets.versioned(path="/public", file: Asset)
