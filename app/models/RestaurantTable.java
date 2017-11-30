@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "restaurant_table")
 public class RestaurantTable extends BaseModel<RestaurantTable> {
-    @Column
+    @Column(name="sitting_places")
     @Constraints.Required(message = "Sitting places field is required")
     private Integer sittingPlaces;
     @ManyToOne
