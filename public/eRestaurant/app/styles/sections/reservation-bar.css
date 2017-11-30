@@ -1,0 +1,50 @@
+.btn-home{
+	position: absolute;
+	margin-left: 290px;
+	height: 30px;
+	background-color: #Fe4a49;
+	border-color: #fe4a49;
+	color: white;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 14px;
+	width:130px;
+	top:0;
+}
+
+.dropdown-home{
+	position: absolute;
+	height: 30px;
+	top:0;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 12px;
+}
+
+.dropdown-people{
+	margin-left: 0px;
+	width: 100px;
+}
+
+.dropdown-date{
+	margin-left: 100px;
+	width:120px;
+}
+
+.dropdown-time{
+	margin-left: 210px;
+	width: 80px;
+}
+
+.select-home{
+  -webkit-appearance: menulist-button ;
+  border: none!important;
+	height: 30px!important;
+	width:100%;
+
+}
+
+.pikaday{
+  -webkit-appearance: menulist-button;
+  border: none!important;
+  width: 110px!important;
+  height: 30px!important;
+}

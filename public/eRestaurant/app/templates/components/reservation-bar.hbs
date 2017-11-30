@@ -1,0 +1,22 @@
+<div class="dropdown-home dropdown-people">
+    <select class="select-home" onchange={{action "selectPeople" value="target.value"}}>
+        <option value="1">1 people</option>
+        <option value="2" selected>2 people</option>
+        <option value="3">3 people</option>
+        <option value="4">4 people</option>
+        <option value="5">5 people</option>
+    </select>
+</div>
+<div class="dropdown-home dropdown-date">
+    {{pikaday-input class="pikaday" format="MM/DD/YYYY" theme="dark-theme" value=date onSelection=(action 'selectDate')}}
+</div>
+<div class="dropdown-home dropdown-time">
+  <select class="select-home" onchange={{action "selectTime" value="target.value"}}>
+      <option value="5 PM">5 PM</option>
+      <option value="6 PM" selected>6 PM</option>
+      <option value="7 PM">7 PM</option>
+      <option value="8 PM">8 PM</option>
+      <option value="9 PM">9 PM</option>
+  </select>
+</div>
+<button {{action 'saveReservation'}} class="btn-outline btn-home">Find a table</button>
