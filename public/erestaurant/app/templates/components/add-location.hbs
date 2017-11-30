@@ -1,0 +1,10 @@
+{{#if enabled}}
+  <div class="add-location-panel">
+    {{input value=locationName class="location-input" placeholder="Set the location name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Set the location name'"
+          type="text"}}
+    <div class="map location-map">
+      <!--{{g-maps lat=lat lng=lng zoom=zoom markers=markers}}-->
+    </div>
+    <button class="add-location-btn">Save location</button>
+  </div>
+{{/if}}

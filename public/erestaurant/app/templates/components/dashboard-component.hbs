@@ -1,0 +1,31 @@
+{{#if enabled}}
+<div class="dashboard-row">
+  <div class="col-md-4 col-sm-4 col-xs-8 dashboard-col">
+    <div class="dashboard-content">
+      <div class="dashboard-text">
+        <h1>5142</h1>
+        <h6>Restaurants</h6>
+      </div>
+      <button {{action 'openAddRestaurant'}} class="button-add">Add restaurant</button>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-8 dashboard-col">
+    <div class="dashboard-content">
+      <div class="dashboard-text">
+        <h1>251</h1>
+        <h6>Locations</h6>
+      </div>
+      <button {{action 'openAddLocation'}} class="button-add">Add location</button>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-8 dashboard-col">
+    <div class="dashboard-content">
+      <div class="dashboard-text">
+        <h1>412</h1>
+        <h6>Users</h6>
+      </div>
+      <button {{action 'openAddUser'}} class="button-add">Add user</button>
+    </div>
+  </div>
+</div>
+{{/if}}

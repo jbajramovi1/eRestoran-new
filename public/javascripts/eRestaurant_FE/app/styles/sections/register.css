@@ -1,0 +1,33 @@
+.register-link{
+	margin-left: 100px;
+}
+
+.register-link:hover{
+	text-decoration: none;
+}
+
+
+
+.dropdown-country{
+	float: left;
+   width:70%;
+   height:100%;
+   margin-top:20px;
+ }
+
+ .select-country{
+	 height: 30px;
+ }
+
+ .dropdown-city{
+   float:right;
+   margin-top:20px;
+   height: 100%;
+   width: 30%!important;
+ }
+
+ .row-drop{
+	 height: 40px;
+	 width: 100%;
+
+ }
