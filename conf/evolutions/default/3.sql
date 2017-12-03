@@ -3,7 +3,7 @@ create table IF NOT EXISTS restaurant(
 id bigint not null,
 name varchar(255),
 description text not null,
-mark bigint ,
+mark float ,
 votes bigint,
 price_range bigint,
 image_file_name varchar(255),
