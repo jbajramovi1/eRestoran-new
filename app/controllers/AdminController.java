@@ -22,7 +22,6 @@ import static play.mvc.Results.badRequest;
 import static play.mvc.Results.internalServerError;
 import static play.mvc.Results.ok;
 
-
 public class AdminController {
 
     protected FormFactory formFactory;
