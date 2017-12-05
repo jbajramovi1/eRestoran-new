@@ -23,7 +23,7 @@ public class AccountService extends BaseService<Account, AccountRepository> {
     public Account getByEmail(Account data) throws ServiceException {
         Account account = repository.getByEmail(data);
         if (account == null) {
-            throw new ServiceException("entity not found");
+            throw new ServiceException("Entity not found");
         }
         return account;
     }
