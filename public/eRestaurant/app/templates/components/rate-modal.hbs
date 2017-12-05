@@ -1,0 +1,25 @@
+{{#if enableButton}}
+<button {{action 'toggleModal'}} class="rate-btn btn-outline">Rate this place <span class="glyphicon glyphicon-star"></span></button>
+{{/if}}
+{{#if enabled}}
+  <div class="modal-fog">
+    <div class="modal-frame">
+      <div {{action 'toggleModal'}} class="x"></div>
+      <div class="modal-title">
+        Rate this place
+      </div>
+      <div class="modal-body">
+        {{#star-rating rating=stars id="stars" baseColor="lightgray" fillColor="#Fe4a49" onClick=(action "rate") as |stars set|}}
+            {{#each stars as |star|}}
+              <a {{action set star.rating}}>
+                {{#if star.full}}*{{else}}_{{/if}}
+              </a>
+            {{/each}}
+        {{/star-rating}}
+        {{textarea value=review class="review-input input-large" placeholder="Write a review..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Write a review...'"
+              type="text"}}
+        <button {{action 'saveRating'}} class="save-rate-btn">Save</button>
+      </div>
+    </div>
+  </div>
+{{/if}}

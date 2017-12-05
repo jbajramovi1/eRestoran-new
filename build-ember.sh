@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # deploy ember app
-cd ~/eRestoran-new/public/eRestaurant_FE
+cd ~/eRestoran-new/public/eRestaurant
 ember build -prod
 
 # delete old buid files

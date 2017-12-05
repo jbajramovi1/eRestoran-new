@@ -1,0 +1,58 @@
+{{notification-container class="notification-cont"}}
+<div class="container" id="normal-container">
+   <div class="login-form">
+   <div class="row row-login">
+
+      <div class="col-md-12 col-sm-8 col-xs-12 col-centered">
+          <form >
+          <div class="row" >
+              {{input value=firstName class="login-input" placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'"
+                    type="text"}}
+
+          </div>
+          <div class="row">
+              {{input value=lastName class="login-input" placeholder="Last Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'"
+                    type="text"}}
+
+          </div>
+          <div class="row">
+              {{input value=email class="login-input" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'"
+                    type="text"}}
+              <div class="error">{{errorEmail}}</div>
+          </div>
+          <div class="row">
+              {{input value=phone class="login-input" placeholder="Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'"
+                    type="text"}}
+
+          </div>
+
+          <div class="row">
+              {{input value=country class="login-input" placeholder="Country" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Country'"
+                    type="text"}}
+
+          </div>
+          <div class="row">
+              {{input value=city class="login-input" placeholder="City" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'"
+                    type="text"}}
+
+          </div>
+            <div class="row">
+                {{input value=password class="login-input" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"
+                        type="password"}}
+                <div class="error">{{errorPassword}}</div>
+            </div>
+
+          <div class="row">
+              {{input value=passwordConf class="login-input" placeholder="Confirm Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirm Password'"
+                    type="password"}}
+              <div class="error">{{errorConfirmPassword}}</div>
+          </div>
+          </form>
+       </div>
+
+
+   <button {{action "register"}} class="btn btn-primary btn-outline btn-login" style="width: 100%">REGISTER</button>
+
+     </div>
+   </div>
+</div>

@@ -1,0 +1,33 @@
+.add-location-panel{
+  width: 100%;
+  height: 550px;
+  margin-bottom: 30px;
+  padding: 30px;
+  box-shadow: 1px 1px 5px 1px #d3d3d3;
+}
+.location-map{
+  padding: 100px;
+  padding-bottom: 0!important;
+  padding-top: 50px!important;
+  width: auto!important ;
+  height: auto;
+  margin: 10px;
+}
+.location-input{
+  width:60%;
+  margin-left: 20%;
+	height: 50px;
+	background-color: transparent;
+	border-style: none;
+	border-bottom: 0.1px solid lightslategrey!important;
+	text-align: center;
+}
+
+.add-location-btn{
+width: 40%;
+margin-top: 10px;
+margin-left: 30%;
+height: 40px;
+background-color:#Fe4a49;
+color:#fefefe;
+}

@@ -9,6 +9,8 @@ import repositories.BaseRepository;
 import repositories.exceptions.RepositoryException;
 import services.exceptions.ServiceException;
 
+import java.util.List;
+
 /**
  * The type Base service.
  *
@@ -110,4 +112,12 @@ public abstract class BaseService<M extends BaseModel<M>, R extends BaseReposito
 	            throw new ServiceException("Service couldn't find model [" + id + "].", e);
 	        }
 	    }
+
+	public List<M> findAll() throws ServiceException{
+		try {
+			return repository.findAll();
+		} catch (RepositoryException e){
+			throw new ServiceException("Service couldn't get models", e);
+		}
+	}
 }

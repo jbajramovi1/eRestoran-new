@@ -1,0 +1,29 @@
+{{notification-container class="notification-cont"}}
+<div class="container" id="normal-container">
+   <div class="login-form">
+   <div class="row row-login">
+
+      <div class="col-md-12 col-sm-8 col-xs-12 col-centered">
+          <form >
+          <div class="row" >
+              {{input value=username class="login-input" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'"
+                    type="text"}}
+                <i class="glyphicon glyphicon-username -user form-control-feedback pull-right" aria-hidden="true" style="margin-top: 10px; position: absolute; color:lightslategray"></i>
+                <div class="error">{{errorUsername}}</div>
+          </div>
+          <div class="row">
+              {{input value=password class="login-input" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'"
+                    type="password"}}
+                <i class="glyphicon glyphicon-pass glyphicon-lock form-control-feedback pull-right" aria-hidden="true" style="margin-top: 60px; color:lightslategray"></i>
+                  <div class="error">{{errorPassword}}</div>
+          </div>
+          </form>
+       </div>
+
+
+   <button {{action "authenticate"}} class="btn btn-primary btn-outline btn-login" style="width: 100%">LOGIN</button>
+   <a href="register" class="register-link">Register now!</a>
+     </div>
+   </div>
+
+</div>
