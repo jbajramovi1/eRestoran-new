@@ -25,8 +25,7 @@ public class InitialData {
 
     final org.slf4j.Logger logger = LoggerFactory.getLogger(InitialData.class);
     @Inject
-    public InitialData (Application app, final AccountService accountService) {
-        JPAApi api = app.injector().instanceOf(JPAApi.class);
+    public InitialData (final JPAApi api, final AccountService accountService) {
         api.withTransaction(()->{
             saveUser(accountService);
         });
