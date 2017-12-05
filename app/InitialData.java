@@ -1,42 +1,49 @@
+
 import models.Account;
 import models.Role;
 import org.slf4j.LoggerFactory;
+
+import play.Environment;
+import play.api.Application;
+import play.api.Configuration;
+import play.api.Play;
+import play.api.inject.ApplicationLifecycle;
+import play.db.jpa.JPA;
 import play.db.jpa.JPAApi;
+
 import play.db.jpa.Transactional;
-import play.mvc.Result;
+import play.libs.F;
 import services.AccountService;
 import services.exceptions.ServiceException;
 
 import javax.inject.Inject;
-import javax.swing.*;
+import javax.inject.Singleton;
 
-import static play.mvc.Results.ok;
-@Transactional
-public class InitialData extends JDialog{
 
-    protected AccountService accountService;
+@Singleton
+public class InitialData {
+
     final org.slf4j.Logger logger = LoggerFactory.getLogger(InitialData.class);
+    @Inject
+    public InitialData (Application app, final AccountService accountService) {
+        JPAApi api = app.injector().instanceOf(JPAApi.class);
+        api.withTransaction(()->{
+            saveUser(accountService);
+        });
 
-    public static class Factory {
-        @Inject private AccountService accountService;
-
-        public InitialData create(JFrame parent) {
-            return new InitialData(parent, accountService);
-        }
     }
 
-    @Inject
-    public InitialData(JFrame parent, AccountService accountService) {
-        super(parent, "", true);
-        this.accountService=accountService;
+    private void saveUser(AccountService service) {
         Account acc = new Account();
         acc.setEmail("admin@abhintern.ba");
         acc.setPassword("pass");
         acc.setRole(Role.ADMIN);
         try {
-            accountService.create(acc);
+            service.create(acc);
         } catch (ServiceException e) {
             logger.error("Service error in InitialData@constructor", e);
         }
     }
+
+
 }
