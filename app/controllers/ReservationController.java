@@ -5,6 +5,7 @@ import play.data.Form;
 import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Result;
+import play.mvc.Security;
 import services.ReservationService;
 import services.exceptions.ServiceException;
 
@@ -14,6 +15,7 @@ import services.exceptions.ServiceException;
 public class ReservationController extends BaseController<Reservation, ReservationService>{
     @Transactional
     @Override
+    @Security.Authenticated(Secured.class)
     public Result create() {
         try {
             Form<Reservation> form = formFactory.form(Reservation.class).bindFromRequest();

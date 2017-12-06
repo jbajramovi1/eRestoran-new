@@ -27,12 +27,12 @@ public class InitialData {
     @Inject
     public InitialData (final JPAApi api, final AccountService accountService) {
         api.withTransaction(()->{
-            saveUser(accountService);
+            insertAdmin(accountService);
         });
 
     }
 
-    private void saveUser(AccountService service) {
+    private void insertAdmin(AccountService service) {
         Account acc = new Account();
         acc.setEmail("admin@abhintern.ba");
         acc.setPassword("pass");
