@@ -45,7 +45,7 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
      * @return the base criteria
      */
     protected Criteria getBaseCriteria() {
-        Session session = ((HibernateEntityManager) JPA.em()).getSession();
+        Session session = ((HibernateEntityManager) jpaApi.em()).getSession();
         return session.createCriteria(getParameterizedClass());
     }
 
