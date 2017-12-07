@@ -23,12 +23,18 @@ public class SecuredAdmin extends Security.Authenticator {
     @Override
     public String getUsername(Context ctx) {
         String user=ctx.session().get("username");
-        if (user==null) return null;
+        if (user==null) {
+            return null;
+        }
 
         try {
             Account acc = accountService.getCurrentUser(user);
-            if (Role.ADMIN==acc.getRole()) return user;
-            else return null;
+            if (Role.ADMIN==acc.getRole()) {
+                return user;
+            }
+            else {
+                return null;
+            }
         }
         catch (ServiceException e){
             logger.error("User not found");

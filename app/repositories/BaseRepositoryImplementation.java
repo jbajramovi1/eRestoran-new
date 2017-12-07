@@ -96,4 +96,13 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
             throw new RepositoryException(e.toString());
         }
     }
+    public boolean hasData() throws RepositoryException{
+        try{
+            return (!getBaseCriteria().list().isEmpty());
+        }
+        catch (PersistenceException e){
+            logger.error("ServiceException in BaseRepository@hasData", e);
+            throw new RepositoryException(e.toString());
+        }
+    }
 }

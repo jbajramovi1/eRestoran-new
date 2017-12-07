@@ -12,10 +12,10 @@ import services.exceptions.ServiceException;
 /**
  * The type Reservation controller.
  */
+@Security.Authenticated(Secured.class)
 public class ReservationController extends BaseController<Reservation, ReservationService>{
     @Transactional
     @Override
-    @Security.Authenticated(Secured.class)
     public Result create() {
         try {
             Form<Reservation> form = formFactory.form(Reservation.class).bindFromRequest();

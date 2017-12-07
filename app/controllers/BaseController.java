@@ -155,6 +155,21 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
         }
 
     }
+
+    @Transactional
+    public Result hasData(){
+        try{
+            boolean hasData=service.hasData();
+            return ok(Json.toJson(hasData));
+        } catch (ServiceException e){
+            logger.error("Service error in BaseController@hasData",e);
+            return internalServerError("Service error in BaseController@dhasData");
+        }
+        catch (Exception e) {
+            logger.error("Internal server error in BaseController@hasData",e);
+            return internalServerError("Internal server error in BaseController@hasData");
+        }
+    }
     private Class<M> getParameterizedClass() {
         return (Class<M>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
