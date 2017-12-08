@@ -53,4 +53,5 @@ public interface BaseRepository<M> {
      */
     List<M> findAll() throws RepositoryException;
 
+    Number count() throws RepositoryException;
 }

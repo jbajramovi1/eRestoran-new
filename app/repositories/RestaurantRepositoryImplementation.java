@@ -1,9 +1,29 @@
 package repositories;
 
+import models.FilterResult;
 import models.Restaurant;
+import models.filters.RestaurantFilterModel;
+import repositories.exceptions.RepositoryException;
+import org.hibernate.Criteria;
+
+import javax.persistence.PersistenceException;
+import java.util.List;
 
 /**
  * The type Restaurant repository implementation.
  */
 public class RestaurantRepositoryImplementation extends BaseRepositoryImplementation<Restaurant> implements RestaurantRepository {
+    public FilterResult<Restaurant> filter(RestaurantFilterModel restaurantFilterModel) throws RepositoryException{
+        try {
+            Criteria criteria = restaurantFilterModel.addConditions(getBaseCriteria());
+            FilterResult<Restaurant> result=new FilterResult<Restaurant>();
+            result.setData(criteria.list());
+            result.setCount(restaurantFilterModel.getCount());
+            result.setPageSize(restaurantFilterModel.getPageSize());
+            result.setPageNumber(restaurantFilterModel.getPageNumber());
+            return result;
+        } catch(PersistenceException e) {
+            throw new RepositoryException("RestaurantRepository couldn't filter restaurants.", e);
+        }
+    }
 }

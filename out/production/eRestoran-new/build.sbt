@@ -1,6 +1,3 @@
-import play.sbt.PlayImport.PlayKeys
-import play.sbt.PlayJava
-
 name := """api-ember"""
 organization := "test"
 
