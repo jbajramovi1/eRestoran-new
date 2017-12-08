@@ -4,6 +4,9 @@ import javax.persistence.PersistenceException;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.jpa.HibernateEntityManager;
 import org.slf4j.LoggerFactory;
 import play.db.jpa.JPA;
@@ -86,4 +89,16 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
             throw new RepositoryException(e.toString());
         }
     }
+
+    public Number count() throws RepositoryException{
+        try{
+            return (Number)getBaseCriteria().setProjection(Projections.rowCount()).list();
+        } catch (PersistenceException e){
+            logger.error("ServiceException in BaseRepository@count", e);
+            throw new RepositoryException(e.toString());
+        }
+
+    }
+
+
 }

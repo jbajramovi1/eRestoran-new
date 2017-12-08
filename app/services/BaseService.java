@@ -120,4 +120,13 @@ public abstract class BaseService<M extends BaseModel<M>, R extends BaseReposito
 			throw new ServiceException("Service couldn't get models", e);
 		}
 	}
+
+	public int count() throws ServiceException{
+		try{
+			return (Integer)repository.count();
+		}
+		catch(RepositoryException e){
+			throw new ServiceException("Service couldn't get data count",e);
+		}
+	}
 }
