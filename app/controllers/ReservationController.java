@@ -20,7 +20,10 @@ public class ReservationController extends BaseController<Reservation, Reservati
             if (form.hasErrors()) {
                 return badRequest(form.errorsAsJson());
             }
-            return ok(Json.toJson(service.create(form.get())));
+            if (session().isEmpty()) {
+                return badRequest("Login to leave a reservation");
+            }
+            return ok(Json.toJson(service.create(form.get(),session())));
         } catch (ServiceException e) {
             logger.error("Service error in ReservationController@create",e);
             return badRequest("Service error in ReservationController@create");
