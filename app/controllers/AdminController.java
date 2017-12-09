@@ -3,6 +3,7 @@ package controllers;
 
 import models.Account;
 import models.Restaurant;
+import org.hibernate.annotations.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.data.Form;
@@ -10,6 +11,8 @@ import play.data.FormFactory;
 import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Result;
+import play.mvc.Security;
+import play.mvc.With;
 import services.AccountService;
 import services.RestaurantService;
 import services.exceptions.ServiceException;
@@ -22,7 +25,7 @@ import static play.mvc.Results.badRequest;
 import static play.mvc.Results.internalServerError;
 import static play.mvc.Results.ok;
 
-
+@Security.Authenticated(SecuredAdmin.class)
 public class AdminController {
 
     protected FormFactory formFactory;
