@@ -6,14 +6,14 @@ import services.BaseService;
 import services.exceptions.ServiceException;
 
 import javax.inject.Inject;
-
-import static play.mvc.Results.internalServerError;
+import javax.inject.Singleton;
 
 /**
  * The type Base filter model.
  *
  * @param <B> the type parameter
  */
+@Singleton
 public abstract class BaseFilterModel<B extends BaseFilterModel, S extends BaseService> {
     private Integer pageNumber;
     private Integer pageSize;
@@ -24,6 +24,7 @@ public abstract class BaseFilterModel<B extends BaseFilterModel, S extends BaseS
     /**
      * Instantiates a new Base filter model.
      */
+
     public BaseFilterModel() {
         setPageSize(0);
         setPageNumber(0);
@@ -58,19 +59,19 @@ public abstract class BaseFilterModel<B extends BaseFilterModel, S extends BaseS
      * @return the criteria
      */
     protected Criteria addLimitAndOffset(Criteria rootCriteria) {
-        try {
+        //try {
             if (getPageNumber() == null) {
                 setPageNumber(0);
             }
-            setCount ((int)(service.count()/getPageSize()));
+            //setCount ((int)(service.count()/getPageSize()));
             rootCriteria.setFirstResult(getPageNumber() * getPageSize());
             rootCriteria.setMaxResults(getPageSize());
             return rootCriteria;
-        }
-        catch (ServiceException e){
+        //}
+        //catch (ServiceException e){
 
-        }
-        return null;
+        //}
+        //return null;
     }
 
     /**
