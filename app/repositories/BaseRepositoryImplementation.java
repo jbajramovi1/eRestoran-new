@@ -5,6 +5,7 @@ import javax.persistence.PersistenceException;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.jpa.HibernateEntityManager;
 import org.slf4j.LoggerFactory;
 import play.db.jpa.JPA;
@@ -98,9 +99,9 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
     }
     public boolean hasData() throws RepositoryException{
         try{
-            return (!getBaseCriteria().list().isEmpty());
-        }
-        catch (PersistenceException e){
+            return ((Number)getBaseCriteria().setProjection(Projections.rowCount()).list().get(0)).intValue()!=0;
+
+        } catch (PersistenceException e){
             logger.error("ServiceException in BaseRepository@hasData", e);
             throw new RepositoryException(e.toString());
         }
