@@ -61,4 +61,5 @@ public interface BaseRepository<M> {
     boolean hasData() throws RepositoryException;
 
     Integer count() throws RepositoryException;
+
 }

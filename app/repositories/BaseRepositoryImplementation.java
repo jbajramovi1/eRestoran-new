@@ -97,6 +97,7 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
         }
     }
 
+
     public Integer count() throws RepositoryException{
         try{
             return ((Number)getBaseCriteria().setProjection(Projections.rowCount()).list().get(0)).intValue();
