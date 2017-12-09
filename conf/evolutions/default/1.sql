@@ -9,7 +9,7 @@ country varchar(255),
 city varchar(255),
 first_name varchar(255),
 last_name varchar(255),
-constraint account_pk_test primary key (id));
+constraint account_pk primary key (id));
 
  # --- !Downs
  drop table if exists account;

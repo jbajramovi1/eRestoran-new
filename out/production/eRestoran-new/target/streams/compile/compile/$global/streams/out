@@ -1,0 +1,40 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/RestaurantController.java:13:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   class Result[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.RestaurantController[0m
+[0m[[0m[31merror[0m] [0m[0m    public Result filter() {[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/RestaurantController.java:12:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   class Transactional[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.RestaurantController[0m
+[0m[[0m[31merror[0m] [0m[0m    @Transactional[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/RestaurantController.java:16:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   class Form[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.RestaurantController[0m
+[0m[[0m[31merror[0m] [0m[0m            Form<RestaurantFilterModel> form = formFactory.form(RestaurantFilterModel.class).bindFromRequest();[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/RestaurantController.java:22:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   class RestaurantFilterForm[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.RestaurantController[0m
+[0m[[0m[31merror[0m] [0m[0m            RestaurantFilterForm data = form.get();[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/RestaurantController.java:24:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   class RestaurantFilterBuilder[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.RestaurantController[0m
+[0m[[0m[31merror[0m] [0m[0m            RestaurantFilterModel rfm = new RestaurantFilterBuilder()[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/RestaurantController.java:32:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   variable Json[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.RestaurantController[0m
+[0m[[0m[31merror[0m] [0m[0m            return ok(Json.toJson(service.filter(rfm)));[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/RestaurantController.java:36:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   variable Json[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.RestaurantController[0m
+[0m[[0m[31merror[0m] [0m[0m            return internalServerError(Json.toJson("Internal server error in RestaurantController@filter"));[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jasmina/eRestoran-new/app/repositories/RestaurantRepositoryImplementation.java:15:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   variable criteria[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class repositories.RestaurantRepositoryImplementation[0m
+[0m[[0m[31merror[0m] [0m[0m            criteria = restaurantFilterModel.addConditions(getBaseCriteria());[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/jasmina/eRestoran-new/app/repositories/RestaurantRepositoryImplementation.java:16:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   variable criteria[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class repositories.RestaurantRepositoryImplementation[0m
+[0m[[0m[31merror[0m] [0m[0m            return criteria.list();[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/AccountController.java: Some input files use or override a deprecated API.[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/AccountController.java: Recompile with -Xlint:deprecation for details.[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/BaseController.java: Some input files use unchecked or unsafe operations.[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/jasmina/eRestoran-new/app/controllers/BaseController.java: Recompile with -Xlint:unchecked for details.[0m

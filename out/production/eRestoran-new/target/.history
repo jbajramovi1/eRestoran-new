@@ -1,0 +1,13 @@
+clean
+compile
+clean
+compile
+clean
+compile
+clean
+compile
+clean
+compile
+play libraryDependencies
+clean
+compile

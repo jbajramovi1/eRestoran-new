@@ -52,5 +52,12 @@ public interface BaseRepository<M> {
      * @throws RepositoryException
      */
     List<M> findAll() throws RepositoryException;
+    /**
+     * Return true if there are entities
+     *
+     * @return boolean
+     * @throws RepositoryException
+     */
+    boolean hasData() throws RepositoryException;
 
 }

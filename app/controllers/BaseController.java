@@ -155,6 +155,8 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
         }
 
     }
+
+
     private Class<M> getParameterizedClass() {
         return (Class<M>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
