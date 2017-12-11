@@ -1,5 +1,6 @@
 package controllers;
 
+import akka.http.javadsl.model.ResponseEntity;
 import models.Reservation;
 import models.RestaurantTable;
 import play.data.Form;
@@ -37,8 +38,16 @@ public class ReservationController extends BaseController<Reservation, Reservati
             if (form.hasErrors()) {
                 return badRequest(form.errorsAsJson());
             }
-            List<RestaurantTable> tables=restaurantTableService.getByRestaurant(form.get().getRestaurant());
-            return ok(Json.toJson(service.create(form.get(),session())));
+            List<RestaurantTable> tablesMatchingSeats=restaurantTableService.getByRestaurantAndSeats(form.get());
+            for (RestaurantTable restaurantTable:tablesMatchingSeats
+                 ) {
+                if (service.getByTableAndDate(restaurantTable,form.get())==null) {
+                    form.get().setRestaurantTable(restaurantTable);
+                    return ok(Json.toJson(service.create(form.get(),session())));
+                }
+            }
+            return badRequest("No available tables with requested sitting places");
+
         } catch (ServiceException e) {
             logger.error("Service error in ReservationController@create",e);
             return badRequest("Service error in ReservationController@create");

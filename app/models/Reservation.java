@@ -22,6 +22,9 @@ public class Reservation extends BaseModel<Reservation> {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+    @ManyToOne
+    @JoinColumn(name = "restaurant_table_id")
+    private RestaurantTable restaurantTable;
 
     /**‸
      * Gets tables.
@@ -93,6 +96,22 @@ public class Reservation extends BaseModel<Reservation> {
      */
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+    /**
+     * Gets restaurant table.
+     *
+     * @return the restaurant table
+     */
+    public RestaurantTable getRestaurantTable() {
+        return restaurantTable;
+    }
+    /**
+     * Sets restaurant table.
+     *
+     * @param restaurantTable the restaurant table
+     */
+    public void setRestaurantTable(RestaurantTable restaurantTable) {
+        this.restaurantTable = restaurantTable;
     }
 
     @Override

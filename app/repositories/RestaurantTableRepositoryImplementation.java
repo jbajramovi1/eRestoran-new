@@ -1,5 +1,6 @@
 package repositories;
 
+import models.Reservation;
 import models.Restaurant;
 import models.RestaurantTable;
 import org.hibernate.criterion.Restrictions;
@@ -14,5 +15,11 @@ public class RestaurantTableRepositoryImplementation extends BaseRepositoryImple
 
         return (List<RestaurantTable>) getBaseCriteria()
                 .add(Restrictions.eq("restaurant", restaurant)).list();
+    }
+
+    public List<RestaurantTable> getByRestaurantAndSeats(Reservation reservation){
+        return (List<RestaurantTable>) getBaseCriteria()
+                .add(Restrictions.eq("restaurant", reservation.getRestaurant()))
+                .add(Restrictions.eq("sittingPlaces", reservation.getTables())).list();
     }
 }

@@ -1,6 +1,7 @@
 package services;
 
 import models.Reservation;
+import models.RestaurantTable;
 import repositories.ReservationRepository;
 import play.mvc.Http;
 import repositories.exceptions.RepositoryException;
@@ -39,5 +40,9 @@ public class ReservationService extends BaseService<Reservation, ReservationRepo
             logger.error("Repository exception in CommentService@create", e);
             throw new ServiceException("Service couldn't create model.", e);
         }
+    }
+
+    public Reservation getByTableAndDate(RestaurantTable restaurantTable,Reservation reservation) throws ServiceException{
+            return repository.getByTableAndDate(restaurantTable,reservation);
     }
 }
