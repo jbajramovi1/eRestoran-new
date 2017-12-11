@@ -13,6 +13,7 @@ import services.RestaurantTableService;
 import services.exceptions.ServiceException;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +47,15 @@ public class ReservationController extends BaseController<Reservation, Reservati
                     return ok(Json.toJson(service.create(form.get(),session())));
                 }
             }
-            return badRequest("No available tables with requested sitting places");
+            List<RestaurantTable> tablesInRestaurant=restaurantTableService.getByRestaurant(form.get().getRestaurant());
+            ArrayList<RestaurantTable> availableTables=new ArrayList<RestaurantTable>();
+            for (RestaurantTable restaurantTable:tablesInRestaurant
+                    ) {
+                if (service.getByTableAndDate(restaurantTable,form.get())==null && restaurantTable.getSittingPlaces()>form.get().getTables()) {
+                    availableTables.add(restaurantTable);
+                }
+            }
+            return badRequest(Json.toJson(availableTables));
 
         } catch (ServiceException e) {
             logger.error("Service error in ReservationController@create",e);
@@ -56,4 +65,6 @@ public class ReservationController extends BaseController<Reservation, Reservati
             return internalServerError("Internal server error in ReservationController@create");
         }
     }
+
+
 }
