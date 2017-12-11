@@ -8,6 +8,7 @@ import repositories.exceptions.RepositoryException;
 import services.exceptions.ServiceException;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * The type Reservation service.
@@ -44,5 +45,18 @@ public class ReservationService extends BaseService<Reservation, ReservationRepo
 
     public Reservation getByTableAndDate(RestaurantTable restaurantTable,Reservation reservation) throws ServiceException{
             return repository.getByTableAndDate(restaurantTable,reservation);
+    }
+
+    public void clearReservations() throws ServiceException{
+        try{
+            List<Reservation> oldReservations=repository.getOldReservations();
+            for (Reservation reservation:oldReservations){
+                repository.delete(reservation);
+            }
+        } catch (RepositoryException e){
+            logger.error("Repository exception in ReservationService@clearReservations", e);
+            throw new ServiceException("Service couldn't execute update.", e);
+
+        }
     }
 }

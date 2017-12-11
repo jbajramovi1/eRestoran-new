@@ -1,8 +1,16 @@
 package repositories;
 
+import akka.http.impl.util.JavaMapping;
 import models.Reservation;
 import models.RestaurantTable;
+import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
+import repositories.exceptions.RepositoryException;
+
+import javax.persistence.PersistenceException;
+import java.util.Date;
+import java.util.List;
 
 /**
  * The type Reservation repository implementation.
@@ -13,5 +21,20 @@ public class ReservationRepositoryImplementation extends BaseRepositoryImplement
         return (Reservation)getBaseCriteria()
                 .add(Restrictions.eq("restaurantTable",restaurantTable))
                 .add(Restrictions.eq("reservationDate",reservation.getReservationDate())).uniqueResult();
+    }
+
+    @Override
+    public List<Reservation> getOldReservations() throws RepositoryException{
+
+        try {
+            DateTime dateTime = new DateTime().minusHours(4);
+            Date date=dateTime.toDate();
+            return (List<Reservation>)getBaseCriteria()
+                    .add(Restrictions.le("reservationDate",date)).list();
+
+        }catch (PersistenceException e) {
+            logger.error("ServiceException in ReservationRepository@clearReservations", e);
+            throw new RepositoryException(e.toString());
+        }
     }
 }

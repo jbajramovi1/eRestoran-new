@@ -39,6 +39,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
             if (form.hasErrors()) {
                 return badRequest(form.errorsAsJson());
             }
+            service.clearReservations();
             List<RestaurantTable> tablesMatchingSeats=restaurantTableService.getByRestaurantAndSeats(form.get());
             for (RestaurantTable restaurantTable:tablesMatchingSeats
                  ) {
