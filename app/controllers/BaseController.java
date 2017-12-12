@@ -156,6 +156,21 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
 
     }
 
+    protected String getString(String property, String defaultValue){
+        if (request().getQueryString(property)==null){
+            return defaultValue;
+        }
+        return request().getQueryString(property);
+    }
+
+    protected Integer getInteger(String property, Integer defaultValue){
+        if (request().getQueryString(property)==null){
+            return defaultValue;
+        }
+        return Integer.parseInt(request().getQueryString(property));
+    }
+
+
 
     private Class<M> getParameterizedClass() {
         return (Class<M>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];

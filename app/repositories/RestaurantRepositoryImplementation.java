@@ -9,6 +9,8 @@ import org.hibernate.Criteria;
 import javax.persistence.PersistenceException;
 import java.util.List;
 
+import static tyrex.services.DaemonMaster.getCount;
+
 /**
  * The type Restaurant repository implementation.
  */
@@ -18,7 +20,7 @@ public class RestaurantRepositoryImplementation extends BaseRepositoryImplementa
             Criteria criteria = restaurantFilterModel.addConditions(getBaseCriteria());
             FilterResult<Restaurant> result=new FilterResult<Restaurant>();
             result.setData(criteria.list());
-            result.setCount(restaurantFilterModel.getCount());
+            result.setCount(count()/restaurantFilterModel.getPageSize());
             result.setPageSize(restaurantFilterModel.getPageSize());
             result.setPageNumber(restaurantFilterModel.getPageNumber());
             return result;

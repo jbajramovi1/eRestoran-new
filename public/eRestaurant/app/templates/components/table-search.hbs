@@ -1,0 +1,14 @@
+{{#if enabled}}
+<div class="container">
+  <div class="row table-search-row">
+    <p>Available tables on selected date:</p>
+    {{#each model.tables as |table|}}
+
+    <div class="col-md-3 col-sm-3 col-xs-4 table-search-col">
+      <button class="btn table-search-btn">{{table.sittingPlaces}}</button>
+    </div>
+
+  {{/each}}
+  </div>
+</div>
+{{/if}}

@@ -5,6 +5,8 @@ export default Ember.Component.extend({
   reservation: Ember.inject.service('reservation-service'),
   notifications: Ember.inject.service('notification-messages'),
   sessionService: Ember.inject.service('session-service'),
+  restaurant:Ember.inject.controller(),
+  tableSearchEnable:false,
   people:2,
   time:"6 PM",
   date:new Date(),
@@ -30,7 +32,7 @@ export default Ember.Component.extend({
       var account=Account.create({});
       var restaurant=Restaurant.create({});
       account.set('id',this.get('sessionService').getCurrentUserId());
-      restaurant.set('id',this.get('model.id'))
+      restaurant.set('id',this.get('model.restaurant.id'))
       this.get('reservation').createReservation(this.get('people'),this.get('date'),restaurant)
       .done(response => {
            this.get('notifications').success('Successful reservation!', {
@@ -40,10 +42,16 @@ export default Ember.Component.extend({
 
      })
        .fail(response => {
-          this.get('notifications').error('Reservation error', {
+          this.get('notifications').error('Unable to make the reservation', {
            autoClear: true,
            clearDuration: 1500
          });
+
+         this.get('restaurant').send('refreshModel',response);
+         this.set('tableSearchEnable',true);
+
+
+
        });
      }
     }

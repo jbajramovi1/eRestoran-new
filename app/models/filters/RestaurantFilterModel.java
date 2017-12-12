@@ -3,35 +3,26 @@ package models.filters;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import services.RestaurantService;
 
-public class RestaurantFilterModel extends BaseFilterModel<RestaurantFilterModel, RestaurantService>{
+public class RestaurantFilterModel extends BaseFilterModel<RestaurantFilterModel>{
     private String name;
     private List<String> categories;
     private Integer rating;
     private Integer pricing;
 
-    public RestaurantFilterModel() {
-        setName("");
-        setCategories(new ArrayList<>());
-        setRating(null);
-        setPricing(null);
-    }
 
     @Override
     public Criteria addConditions(Criteria rootCriteria) {
-        if(!getName().isEmpty()) {
-            rootCriteria = rootCriteria.add(Restrictions.ilike("name", getName(), MatchMode.ANYWHERE));
+        if(StringUtils.isNotBlank(name)) {
+            rootCriteria = rootCriteria.add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
         }
-
         return super.addConditions(rootCriteria);
-    }
-
-    public String getName() {
-        return name;
     }
 
     public RestaurantFilterModel setName(String name) {
@@ -39,26 +30,15 @@ public class RestaurantFilterModel extends BaseFilterModel<RestaurantFilterModel
         return this;
     }
 
-    public List<String> getCategories() {
-        return categories;
-    }
-
     public RestaurantFilterModel setCategories(List<String> categories) {
         this.categories = categories;
         return this;
     }
 
-    public Integer getRating() {
-        return rating;
-    }
 
     public RestaurantFilterModel setRating(Integer rating) {
         this.rating = rating;
         return this;
-    }
-
-    public Integer getPricing() {
-        return pricing;
     }
 
     public RestaurantFilterModel setPricing(Integer pricing) {

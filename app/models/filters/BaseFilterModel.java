@@ -14,30 +14,17 @@ import javax.inject.Singleton;
  * @param <B> the type parameter
  */
 @Singleton
-public abstract class BaseFilterModel<B extends BaseFilterModel, S extends BaseService> {
+public abstract class BaseFilterModel<B extends BaseFilterModel> {
     private Integer pageNumber;
     private Integer pageSize;
     private Integer count;
     private String sortKey;
     private Boolean sortAsc;
-    protected S service;
+
     /**
      * Instantiates a new Base filter model.
      */
 
-    public BaseFilterModel() {
-        setPageSize(0);
-        setPageNumber(0);
-        setCount(0);
-        setSortKey("");
-        setSortAsc(false);
-    }
-
-
-    @Inject
-    public void setService(S service) {
-        this.service = service;
-    }
 
     /**
      * Add conditions criteria.
@@ -46,7 +33,7 @@ public abstract class BaseFilterModel<B extends BaseFilterModel, S extends BaseS
      * @return the criteria
      */
     protected Criteria addConditions(Criteria rootCriteria) {
-        if (getPageSize() != null && getPageSize() != 0) {
+        if (pageSize != null && pageSize != 0) {
             rootCriteria = this.addLimitAndOffset(rootCriteria);
         }
         return rootCriteria;
@@ -59,29 +46,14 @@ public abstract class BaseFilterModel<B extends BaseFilterModel, S extends BaseS
      * @return the criteria
      */
     protected Criteria addLimitAndOffset(Criteria rootCriteria) {
-        //try {
-            if (getPageNumber() == null) {
+            if (pageNumber == null) {
                 setPageNumber(0);
             }
-            //setCount ((int)(service.count()/getPageSize()));
-            rootCriteria.setFirstResult(getPageNumber() * getPageSize());
-            rootCriteria.setMaxResults(getPageSize());
+            rootCriteria.setFirstResult(pageNumber * pageSize);
+            rootCriteria.setMaxResults(pageSize);
             return rootCriteria;
-        //}
-        //catch (ServiceException e){
-
-        //}
-        //return null;
     }
 
-    /**
-     * Gets page number.
-     *
-     * @return the page number
-     */
-    public Integer getPageNumber() {
-        return pageNumber;
-    }
 
     /**
      * Sets page number.
@@ -93,13 +65,8 @@ public abstract class BaseFilterModel<B extends BaseFilterModel, S extends BaseS
         return (B)this;
     }
 
-    /**
-     * Gets page size.
-     *
-     * @return the page size
-     */
-    public Integer getPageSize() {
-        return pageSize;
+    public Integer getPageNumber() {
+        return pageNumber;
     }
 
     /**
@@ -112,13 +79,8 @@ public abstract class BaseFilterModel<B extends BaseFilterModel, S extends BaseS
         return (B)this;
     }
 
-    /**
-     * Gets count.
-     *
-     * @return the count
-     */
-    public Integer getCount() {
-        return count;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
     /**
@@ -131,21 +93,16 @@ public abstract class BaseFilterModel<B extends BaseFilterModel, S extends BaseS
         return (B)this;
     }
 
-    public String getSortKey() {
-        return sortKey;
-    }
 
     public B setSortKey(String sortKey) {
         this.sortKey = sortKey;
         return (B)this;
     }
 
-    public Boolean getSortAsc() {
-        return sortAsc;
-    }
-
-    public B setSortAsc(Boolean sortAsc) {
+    public B setSortAsc(boolean sortAsc) {
         this.sortAsc = sortAsc;
         return (B)this;
     }
+
+
 }

@@ -16,23 +16,14 @@ public class RestaurantController extends BaseController<Restaurant, RestaurantS
     public Result filter() {
         try {
 
-            play.data.Form<RestaurantFilterModel> form = formFactory.form(RestaurantFilterModel.class).bindFromRequest();
-            if(form.hasErrors()) {
-                logger.error("Restaurants filter attempt failed, form has errors.", form.errors());
-                return badRequest(form.errorsAsJson());
-            }
+            RestaurantFilterModel data = new RestaurantFilterModel();
 
-            RestaurantFilterModel data = form.get();
-
-            RestaurantFilterModel rfm = new RestaurantFilterModel()
-                    .setName(data.getName())
-                    .setPricing(data.getPricing())
-                    .setRating(data.getRating())
-                    .setCategories(data.getCategories())
-                    .setPageNumber(data.getPageNumber())
-                    .setPageSize(data.getPageSize());
-
-            return ok(Json.toJson(service.filter(rfm)));
+            data.setName(this.getString("name",""));
+            data.setPricing(this.getInteger("pricing",null));
+            data.setRating(this.getInteger("rating",null));
+            data.setPageSize(this.getInteger("pageSize",service.count()));
+            data.setPageNumber(this.getInteger("pageNumber",0));
+            return ok(Json.toJson(service.filter(data)));
 
         } catch(ServiceException e) {
             logger.error("Error in RestaurantController@filter", e);

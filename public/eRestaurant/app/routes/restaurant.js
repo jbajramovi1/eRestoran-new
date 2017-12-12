@@ -2,7 +2,7 @@ import Ember from 'ember';
 import Restaurant from '../models/restaurant';
 
 export default Ember.Route.extend({
-  restaurant: Ember.inject.service('restaurant-service'),
+  restaurantService: Ember.inject.service('restaurant-service'),
   setupController: function(controller,model) {
     this._super(controller, model);
     window.scrollTo(0,0);
@@ -22,16 +22,24 @@ export default Ember.Route.extend({
   },
 
   model(params){
-    return this.get('restaurant').getById(params.id)
-    .fail(response => {
-        this.transitionTo('home');
-         this.get('notifications').error("Restaurant load error occured!", {
-          autoClear: true,
-          clearDuration: 1500
-        });
+    console.log(this.get('tablesResponse'));
+    return Ember.RSVP.hash({
+    restaurant:this.get('restaurantService').getById(params.id)
+                .fail(response => {
+                    this.transitionTo('home');
+                     this.get('notifications').error("Restaurant load error occured!", {
+                      autoClear: true,
+                      clearDuration: 1500
+                    });
 
+                }),
+    tables:this.get('tablesResponse')
     });
-
+  },
+  actions:{
+    refresh(){
+      this.refresh();
+    }
   }
 
 });

@@ -1,3 +1,4 @@
+
 <div class="dropdown-home dropdown-people">
     <select class="select-home" onchange={{action "selectPeople" value="target.value"}}>
         <option value="1">1 people</option>
@@ -19,4 +20,6 @@
       <option value="9 PM">9 PM</option>
   </select>
 </div>
+
 <button {{action 'saveReservation'}} class="btn-outline btn-home">Find a table</button>
+{{#table-search model=model enabled=tableSearchEnable}}{{/table-search}}
