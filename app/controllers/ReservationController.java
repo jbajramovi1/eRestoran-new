@@ -56,7 +56,7 @@ public class ReservationController extends BaseController<Reservation, Reservati
                     availableTables.add(restaurantTable);
                 }
             }
-            return badRequest(Json.toJson(availableTables));
+            return ok(Json.toJson(service.returnTables(availableTables)));
 
         } catch (ServiceException e) {
             logger.error("Service error in ReservationController@create",e);

@@ -1,7 +1,9 @@
 package services;
 
 import models.Reservation;
+import models.ResponseType;
 import models.RestaurantTable;
+import models.Result;
 import repositories.ReservationRepository;
 import play.mvc.Http;
 import repositories.exceptions.RepositoryException;
@@ -32,13 +34,13 @@ public class ReservationService extends BaseService<Reservation, ReservationRepo
      * @return the reservation
      * @throws ServiceException the service exception
      */
-    public Reservation create(Reservation model, Http.Session session) throws ServiceException{
+    public Result create(Reservation model, Http.Session session) throws ServiceException{
         try {
             model.setAccount(accountService.getCurrentUser(session.get("username")));
             repository.create(model);
-            return model;
+            return new Result(ResponseType.SUCCESS,model);
         } catch (RepositoryException e) {
-            logger.error("Repository exception in CommentService@create", e);
+            logger.error("Repository exception in ReservationService@create", e);
             throw new ServiceException("Service couldn't create model.", e);
         }
     }
@@ -57,6 +59,15 @@ public class ReservationService extends BaseService<Reservation, ReservationRepo
             logger.error("Repository exception in ReservationService@clearReservations", e);
             throw new ServiceException("Service couldn't execute update.", e);
 
+        }
+    }
+
+    public Result returnTables(List<RestaurantTable> restaurantTables) throws ServiceException{
+        try{
+            return repository.returnTables(restaurantTables);
+        } catch (RepositoryException e) {
+            logger.error("Repository exception in ReservationService@returnTables", e);
+            throw new ServiceException("Service couldn't create model.", e);
         }
     }
 }

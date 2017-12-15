@@ -35,11 +35,5 @@ export default Ember.Route.extend({
                 }),
     tables:this.get('tablesResponse')
     });
-  },
-  actions:{
-    refresh(){
-      this.refresh();
-    }
   }
-
 });
