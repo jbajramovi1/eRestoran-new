@@ -5,8 +5,6 @@ import models.Restaurant;
 import models.RestaurantTable;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.criterion.Projections;
-import org.hibernate.transform.Transformers;
 
 import java.util.List;
 

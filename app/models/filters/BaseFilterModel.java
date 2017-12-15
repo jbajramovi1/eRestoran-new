@@ -1,11 +1,7 @@
 package models.filters;
 
 import org.hibernate.Criteria;
-import play.libs.Json;
-import services.BaseService;
-import services.exceptions.ServiceException;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**

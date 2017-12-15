@@ -2,12 +2,11 @@ package controllers;
 
 import models.Restaurant;
 import models.filters.RestaurantFilterModel;
-import play.api.data.Form;
 import play.db.jpa.Transactional;
 import play.libs.Json;
+import play.mvc.Result;
 import services.RestaurantService;
 import services.exceptions.ServiceException;
-import play.mvc.Result;
 /**
  * The type Restaurant controller.
  */

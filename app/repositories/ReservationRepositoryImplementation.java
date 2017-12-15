@@ -1,11 +1,9 @@
 package repositories;
 
-import akka.http.impl.util.JavaMapping;
 import models.Reservation;
 import models.ResponseType;
 import models.RestaurantTable;
 import models.Result;
-import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import repositories.exceptions.RepositoryException;

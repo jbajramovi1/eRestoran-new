@@ -1,6 +1,5 @@
 package controllers;
 
-import akka.http.javadsl.model.ResponseEntity;
 import models.Reservation;
 import models.RestaurantTable;
 import play.data.Form;
@@ -19,7 +18,7 @@ import java.util.List;
 /**
  * The type Reservation controller.
  */
-//@Security.Authenticated(Secured.class)
+@Security.Authenticated(Secured.class)
 public class ReservationController extends BaseController<Reservation, ReservationService>{
     private RestaurantTableService restaurantTableService;
 

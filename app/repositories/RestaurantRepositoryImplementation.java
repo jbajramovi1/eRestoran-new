@@ -3,13 +3,10 @@ package repositories;
 import models.FilterResult;
 import models.Restaurant;
 import models.filters.RestaurantFilterModel;
-import repositories.exceptions.RepositoryException;
 import org.hibernate.Criteria;
+import repositories.exceptions.RepositoryException;
 
 import javax.persistence.PersistenceException;
-import java.util.List;
-
-import static tyrex.services.DaemonMaster.getCount;
 
 /**
  * The type Restaurant repository implementation.

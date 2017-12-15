@@ -4,7 +4,6 @@ import com.google.inject.ImplementedBy;
 import models.Reservation;
 import models.Restaurant;
 import models.RestaurantTable;
-import services.exceptions.ServiceException;
 
 import java.util.List;
 

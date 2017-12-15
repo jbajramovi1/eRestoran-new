@@ -3,7 +3,6 @@ package controllers;
 
 import models.Account;
 import models.Restaurant;
-import org.hibernate.annotations.Check;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.data.Form;
@@ -12,18 +11,14 @@ import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Result;
 import play.mvc.Security;
-import play.mvc.With;
 import services.AccountService;
 import services.RestaurantService;
 import services.exceptions.ServiceException;
 
 import javax.inject.Inject;
 
-
 import static play.mvc.Controller.session;
-import static play.mvc.Results.badRequest;
-import static play.mvc.Results.internalServerError;
-import static play.mvc.Results.ok;
+import static play.mvc.Results.*;
 
 @Security.Authenticated(SecuredAdmin.class)
 public class AdminController {

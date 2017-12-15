@@ -1,9 +1,8 @@
 package repositories;
 
-import org.mindrot.jbcrypt.BCrypt;
-import play.mvc.Http.Session;
-import org.hibernate.criterion.Restrictions;
 import models.Account;
+import org.hibernate.criterion.Restrictions;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * The type Account repository implementation.

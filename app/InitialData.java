@@ -1,17 +1,7 @@
 
 import models.*;
 import org.slf4j.LoggerFactory;
-
-import play.Environment;
-import play.api.Application;
-import play.api.Configuration;
-import play.api.Play;
-import play.api.inject.ApplicationLifecycle;
-import play.db.jpa.JPA;
 import play.db.jpa.JPAApi;
-
-import play.db.jpa.Transactional;
-import play.libs.F;
 import services.*;
 import services.exceptions.ServiceException;
 

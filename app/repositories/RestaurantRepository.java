@@ -6,9 +6,6 @@ import models.Restaurant;
 import models.filters.RestaurantFilterModel;
 import repositories.exceptions.RepositoryException;
 
-import java.util.List;
-import java.util.logging.Filter;
-
 /**
  * The interface Restaurant repository.
  */

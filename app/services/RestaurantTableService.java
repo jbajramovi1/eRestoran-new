@@ -3,7 +3,6 @@ package services;
 import models.Reservation;
 import models.Restaurant;
 import models.RestaurantTable;
-import repositories.ReservationRepository;
 import repositories.RestaurantTableRepository;
 import services.exceptions.ServiceException;
 

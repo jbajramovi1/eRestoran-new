@@ -7,8 +7,6 @@ import repositories.RestaurantRepository;
 import repositories.exceptions.RepositoryException;
 import services.exceptions.ServiceException;
 
-import java.util.List;
-
 /**
  * The type Restaurant service.
  */
