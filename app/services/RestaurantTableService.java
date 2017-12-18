@@ -34,7 +34,6 @@ public class RestaurantTableService extends BaseService<RestaurantTable, Restaur
      * @return the by restaurant and seats
      * @throws ServiceException the service exception
      */
-
     public List<RestaurantTable> getByRestaurantAndSeats(Reservation data) throws ServiceException {
         List<RestaurantTable> tables = repository.getByRestaurantAndSeats(data);
         if (tables == null) {

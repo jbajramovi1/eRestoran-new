@@ -19,32 +19,28 @@ public class ReservationRepositoryImplementation extends BaseRepositoryImplement
 
     @Override
     public Reservation getByTableAndDate(RestaurantTable restaurantTable, Reservation reservation) {
-        return (Reservation)getBaseCriteria()
-                .add(Restrictions.eq("restaurantTable",restaurantTable))
-                .add(Restrictions.eq("reservationDate",reservation.getReservationDate())).uniqueResult();
+        return (Reservation) getBaseCriteria()
+                .add(Restrictions.eq("restaurantTable", restaurantTable))
+                .add(Restrictions.eq("reservationDate", reservation.getReservationDate())).uniqueResult();
     }
 
     @Override
-    public List<Reservation> getOldReservations() throws RepositoryException{
+    public List<Reservation> getOldReservations(int hours) throws RepositoryException {
 
         try {
-            DateTime dateTime = new DateTime().minusHours(4);
-            Date date=dateTime.toDate();
-            return (List<Reservation>)getBaseCriteria()
-                    .add(Restrictions.le("reservationDate",date)).list();
+            DateTime dateTime = new DateTime().minusHours(hours);
+            Date date = dateTime.toDate();
+            return (List<Reservation>) getBaseCriteria()
+                    .add(Restrictions.le("reservationDate", date)).list();
 
-        }catch (PersistenceException e) {
+        } catch (PersistenceException e) {
             logger.error("ServiceException in ReservationRepository@clearReservations", e);
             throw new RepositoryException(e.toString());
         }
     }
 
-    public Result returnTables(List<RestaurantTable> restaurantTables) throws RepositoryException{
-        try{
-            Result result=new Result(ResponseType.OPTIONAL,restaurantTables);
-            return result;
-        } catch(PersistenceException e) {
-            throw new RepositoryException("ReservationRepository couldn't get available tables.", e);
-        }
+    public Result returnTables(List<RestaurantTable> restaurantTables) throws RepositoryException {
+        Result result = new Result(ResponseType.OPTIONAL, restaurantTables);
+        return result;
     }
 }

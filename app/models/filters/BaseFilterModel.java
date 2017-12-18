@@ -42,12 +42,12 @@ public abstract class BaseFilterModel<B extends BaseFilterModel> {
      * @return the criteria
      */
     protected Criteria addLimitAndOffset(Criteria rootCriteria) {
-            if (pageNumber == null) {
-                setPageNumber(0);
-            }
-            rootCriteria.setFirstResult(pageNumber * pageSize);
-            rootCriteria.setMaxResults(pageSize);
-            return rootCriteria;
+        if (pageNumber == null) {
+            setPageNumber(0);
+        }
+        rootCriteria.setFirstResult(pageNumber * pageSize);
+        rootCriteria.setMaxResults(pageSize);
+        return rootCriteria;
     }
 
 
@@ -55,12 +55,18 @@ public abstract class BaseFilterModel<B extends BaseFilterModel> {
      * Sets page number.
      *
      * @param pageNumber the page number
+     * @return the page number
      */
     public B setPageNumber(int pageNumber) {
         this.pageNumber = pageNumber;
-        return (B)this;
+        return (B) this;
     }
 
+    /**
+     * Gets page number.
+     *
+     * @return the page number
+     */
     public Integer getPageNumber() {
         return pageNumber;
     }
@@ -69,12 +75,18 @@ public abstract class BaseFilterModel<B extends BaseFilterModel> {
      * Sets page size.
      *
      * @param pageSize the page size
+     * @return the page size
      */
     public B setPageSize(int pageSize) {
         this.pageSize = pageSize;
-        return (B)this;
+        return (B) this;
     }
 
+    /**
+     * Gets page size.
+     *
+     * @return the page size
+     */
     public Integer getPageSize() {
         return pageSize;
     }
@@ -83,21 +95,34 @@ public abstract class BaseFilterModel<B extends BaseFilterModel> {
      * Sets count.
      *
      * @param count the count
+     * @return the count
      */
     public B setCount(int count) {
         this.count = count;
-        return (B)this;
+        return (B) this;
     }
 
 
+    /**
+     * Sets sort key.
+     *
+     * @param sortKey the sort key
+     * @return the sort key
+     */
     public B setSortKey(String sortKey) {
         this.sortKey = sortKey;
-        return (B)this;
+        return (B) this;
     }
 
+    /**
+     * Sets sort asc.
+     *
+     * @param sortAsc the sort asc
+     * @return the sort asc
+     */
     public B setSortAsc(boolean sortAsc) {
         this.sortAsc = sortAsc;
-        return (B)this;
+        return (B) this;
     }
 
 

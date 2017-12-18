@@ -24,4 +24,8 @@ public class Result {
     public void setResponse(Object response){
         this.response=response;
     }
+
+    public static Result build(ResponseType responseType,Object response){
+        return new Result(responseType,response);
+    }
 }

@@ -67,7 +67,7 @@ public class AccountController extends BaseController<Account, AccountService> {
      * @return the result
      */
     @Transactional
-    public Result logout(){
+    public Result logout() {
 
         session().clear();
         return ok();
@@ -79,12 +79,11 @@ public class AccountController extends BaseController<Account, AccountService> {
      * @return the result
      */
     @Transactional
-    public Result getUserSession(){
+    public Result getUserSession() {
         try {
-            if (session().get("username")==null || session().get("username").isEmpty()) return ok();
+            if (session().get("username") == null || session().get("username").isEmpty()) return ok();
             return ok(Json.toJson(service.getCurrentUser(session().get("username"))));
-        }
-        catch (ServiceException e) {
+        } catch (ServiceException e) {
             logger.error("Service error in AccountController@session", e);
             return badRequest(Json.toJson(""));
         } catch (Exception e) {

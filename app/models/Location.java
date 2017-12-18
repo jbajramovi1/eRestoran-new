@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * The type Location.
+ */
 @Entity
 @Table(name = "location")
 public class Location extends BaseModel<Location> {
@@ -18,6 +21,7 @@ public class Location extends BaseModel<Location> {
     @Column
     @Constraints.Required(message = "Location name field is required")
     private String name;
+
     /**
      * Gets latitude.
      *
@@ -26,6 +30,7 @@ public class Location extends BaseModel<Location> {
     public Float getLatitude() {
         return latitude;
     }
+
     /**
      * Sets latitude.
      *
@@ -34,6 +39,7 @@ public class Location extends BaseModel<Location> {
     public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
+
     /**
      * Gets longitude.
      *
@@ -42,6 +48,7 @@ public class Location extends BaseModel<Location> {
     public Float getLongitude() {
         return longitude;
     }
+
     /**
      * Sets longitude.
      *
@@ -50,6 +57,7 @@ public class Location extends BaseModel<Location> {
     public void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
+
     /**
      * Gets name.
      *
@@ -58,6 +66,7 @@ public class Location extends BaseModel<Location> {
     public String getName() {
         return name;
     }
+
     /**
      * Sets name.
      *
@@ -72,10 +81,10 @@ public class Location extends BaseModel<Location> {
         if (data.getLatitude() != null) {
             setLatitude(data.getLatitude());
         }
-        if (data.getLongitude()!=null) {
+        if (data.getLongitude() != null) {
             setLongitude(data.getLongitude());
         }
-        if (data.getName()!=null){
+        if (data.getName() != null) {
             setName(data.getName());
         }
 

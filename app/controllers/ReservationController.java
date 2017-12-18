@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Reservation;
+import models.ResponseType;
 import models.RestaurantTable;
 import play.data.Form;
 import play.db.jpa.Transactional;
@@ -19,7 +20,7 @@ import java.util.List;
  * The type Reservation controller.
  */
 @Security.Authenticated(Secured.class)
-public class ReservationController extends BaseController<Reservation, ReservationService>{
+public class ReservationController extends BaseController<Reservation, ReservationService> {
     private RestaurantTableService restaurantTableService;
 
     /**
@@ -28,7 +29,9 @@ public class ReservationController extends BaseController<Reservation, Reservati
      * @param service the service
      */
     @Inject
-    public void setRestaurantTableService(RestaurantTableService service) { this.restaurantTableService=service;}
+    public void setRestaurantTableService(RestaurantTableService service) {
+        this.restaurantTableService = service;
+    }
 
     @Transactional
     @Override
@@ -39,29 +42,29 @@ public class ReservationController extends BaseController<Reservation, Reservati
                 return badRequest(form.errorsAsJson());
             }
             service.clearReservations();
-            List<RestaurantTable> tablesMatchingSeats=restaurantTableService.getByRestaurantAndSeats(form.get());
-            for (RestaurantTable restaurantTable:tablesMatchingSeats
-                 ) {
-                if (service.getByTableAndDate(restaurantTable,form.get())==null) {
+            List<RestaurantTable> tablesMatchingSeats = restaurantTableService.getByRestaurantAndSeats(form.get());
+            for (RestaurantTable restaurantTable : tablesMatchingSeats
+                    ) {
+                if (service.getByTableAndDate(restaurantTable, form.get()) == null) {
                     form.get().setRestaurantTable(restaurantTable);
-                    return ok(Json.toJson(service.create(form.get(),session())));
+                    return ok(Json.toJson(models.Result.build(ResponseType.SUCCESS, service.create(form.get(), session()))));
                 }
             }
-            List<RestaurantTable> tablesInRestaurant=restaurantTableService.getByRestaurant(form.get().getRestaurant());
-            ArrayList<RestaurantTable> availableTables=new ArrayList<RestaurantTable>();
-            for (RestaurantTable restaurantTable:tablesInRestaurant
+            List<RestaurantTable> tablesInRestaurant = restaurantTableService.getByRestaurant(form.get().getRestaurant());
+            ArrayList<RestaurantTable> availableTables = new ArrayList<RestaurantTable>();
+            for (RestaurantTable restaurantTable : tablesInRestaurant
                     ) {
-                if (service.getByTableAndDate(restaurantTable,form.get())==null && restaurantTable.getSittingPlaces()>form.get().getTables()) {
+                if (service.getByTableAndDate(restaurantTable, form.get()) == null && restaurantTable.getSittingPlaces() > form.get().getTables()) {
                     availableTables.add(restaurantTable);
                 }
             }
             return ok(Json.toJson(service.returnTables(availableTables)));
 
         } catch (ServiceException e) {
-            logger.error("Service error in ReservationController@create",e);
+            logger.error("Service error in ReservationController@create", e);
             return badRequest("Service error in ReservationController@create");
         } catch (Exception e) {
-            logger.error("Internal server error in ReservationController@create",e);
+            logger.error("Internal server error in ReservationController@create", e);
             return internalServerError("Internal server error in ReservationController@create");
         }
     }

@@ -4,6 +4,9 @@ import play.mvc.Http.Context;
 import play.mvc.Result;
 import play.mvc.Security;
 
+/**
+ * The type Secured.
+ */
 public class Secured extends Security.Authenticator {
 
 

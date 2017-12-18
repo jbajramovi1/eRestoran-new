@@ -4,6 +4,7 @@ import models.Account;
 import org.hibernate.criterion.Restrictions;
 import org.mindrot.jbcrypt.BCrypt;
 
+
 /**
  * The type Account repository implementation.
  */
@@ -27,7 +28,7 @@ public class AccountRepositoryImplementation extends BaseRepositoryImplementatio
     }
 
     @Override
-    public Account getCurrentUser(String email){
+    public Account getCurrentUser(String email) {
         return (Account) getBaseCriteria()
                 .add(Restrictions.eq("email", email))
                 .uniqueResult();

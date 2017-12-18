@@ -1,8 +1,5 @@
 package repositories;
 
-import javax.inject.Inject;
-import javax.persistence.PersistenceException;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
@@ -10,6 +7,9 @@ import org.hibernate.jpa.HibernateEntityManager;
 import org.slf4j.LoggerFactory;
 import play.db.jpa.JPAApi;
 import repositories.exceptions.RepositoryException;
+
+import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -24,11 +24,16 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
      */
     final org.slf4j.Logger logger = LoggerFactory.getLogger(BaseRepositoryImplementation.class);
     private JPAApi jpaApi;
+
+    /**
+     * Sets jpa api.
+     *
+     * @param jpaApi the jpa api
+     */
     @Inject
     public void setJpaApi(JPAApi jpaApi) {
         this.jpaApi = jpaApi;
     }
-
 
 
     private Class<M> getParameterizedClass() {
@@ -88,20 +93,20 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
         }
     }
 
-    public List<M> findAll() throws RepositoryException{
-        try{
+    public List<M> findAll() throws RepositoryException {
+        try {
             return getBaseCriteria().list();
-        }  catch (PersistenceException e){
+        } catch (PersistenceException e) {
             logger.error("ServiceException in BaseRepository@findAll", e);
             throw new RepositoryException(e.toString());
         }
     }
 
 
-    public Integer count() throws RepositoryException{
-        try{
-            return ((Number)getBaseCriteria().setProjection(Projections.rowCount()).list().get(0)).intValue();
-        } catch (PersistenceException e){
+    public Integer count() throws RepositoryException {
+        try {
+            return (Integer) getBaseCriteria().setProjection(Projections.rowCount()).uniqueResult();
+        } catch (PersistenceException e) {
             logger.error("ServiceException in BaseRepository@count", e);
             throw new RepositoryException(e.toString());
         }
@@ -109,11 +114,11 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
     }
 
 
-    public boolean hasData() throws RepositoryException{
-        try{
-            return ((Number)getBaseCriteria().setProjection(Projections.rowCount()).list().get(0)).intValue()!=0;
+    public boolean hasData() throws RepositoryException {
+        try {
+            return (Integer) getBaseCriteria().setProjection(Projections.rowCount()).uniqueResult() != 0;
 
-        } catch (PersistenceException e){
+        } catch (PersistenceException e) {
             logger.error("ServiceException in BaseRepository@hasData", e);
             throw new RepositoryException(e.toString());
         }

@@ -13,8 +13,31 @@ import java.util.List;
  */
 @ImplementedBy(ReservationRepositoryImplementation.class)
 public interface ReservationRepository extends BaseRepository<Reservation> {
-    Reservation getByTableAndDate(RestaurantTable restaurantTable,Reservation reservation);
-    List<Reservation> getOldReservations() throws RepositoryException;
+    /**
+     * Gets by table and date.
+     *
+     * @param restaurantTable the restaurant table
+     * @param reservation     the reservation
+     * @return the by table and date
+     */
+    Reservation getByTableAndDate(RestaurantTable restaurantTable, Reservation reservation);
+
+    /**
+     * Gets old reservations.
+     *
+     * @param hours the hours
+     * @return the old reservations
+     * @throws RepositoryException the repository exception
+     */
+    List<Reservation> getOldReservations(int hours) throws RepositoryException;
+
+    /**
+     * Return tables result.
+     *
+     * @param restaurantTables the restaurant tables
+     * @return the result
+     * @throws RepositoryException the repository exception
+     */
     Result returnTables(List<RestaurantTable> restaurantTables) throws RepositoryException;
 
 }

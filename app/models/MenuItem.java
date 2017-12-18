@@ -4,6 +4,9 @@ import play.data.validation.Constraints;
 
 import javax.persistence.*;
 
+/**
+ * The type Menu item.
+ */
 @Entity
 @Table(name = "menu_item")
 public class MenuItem extends BaseModel<MenuItem> {
@@ -26,6 +29,7 @@ public class MenuItem extends BaseModel<MenuItem> {
     public String getName() {
         return name;
     }
+
     /**
      * Sets name.
      *
@@ -43,6 +47,7 @@ public class MenuItem extends BaseModel<MenuItem> {
     public Float getPrice() {
         return price;
     }
+
     /**
      * Sets price.
      *
@@ -51,6 +56,7 @@ public class MenuItem extends BaseModel<MenuItem> {
     public void setPrice(Float price) {
         this.price = price;
     }
+
     /**
      * Gets description.
      *
@@ -59,6 +65,7 @@ public class MenuItem extends BaseModel<MenuItem> {
     public String getDescription() {
         return description;
     }
+
     /**
      * Sets description.
      *
@@ -67,6 +74,7 @@ public class MenuItem extends BaseModel<MenuItem> {
     public void setDescription(String description) {
         this.description = description;
     }
+
     /**
      * Gets menu.
      *
@@ -75,6 +83,7 @@ public class MenuItem extends BaseModel<MenuItem> {
     public Menu getMenu() {
         return menu;
     }
+
     /**
      * Sets menu.
      *
@@ -89,13 +98,13 @@ public class MenuItem extends BaseModel<MenuItem> {
         if (data.getName() != null) {
             setName(data.getName());
         }
-        if (data.getPrice()!=null) {
+        if (data.getPrice() != null) {
             setPrice(data.getPrice());
         }
-        if (data.getDescription()!=null) {
+        if (data.getDescription() != null) {
             setDescription(data.getDescription());
         }
-        if (data.getMenu() != null){
+        if (data.getMenu() != null) {
             setMenu(data.getMenu());
         }
 

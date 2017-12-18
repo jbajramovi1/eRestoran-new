@@ -12,6 +12,19 @@ import java.util.List;
  */
 @ImplementedBy(RestaurantTableRepositoryImplementation.class)
 public interface RestaurantTableRepository extends BaseRepository<RestaurantTable> {
+    /**
+     * Gets by restaurant.
+     *
+     * @param restaurant the restaurant
+     * @return the by restaurant
+     */
     List<RestaurantTable> getByRestaurant(Restaurant restaurant);
+
+    /**
+     * Gets by restaurant and seats.
+     *
+     * @param reservation the reservation
+     * @return the by restaurant and seats
+     */
     List<RestaurantTable> getByRestaurantAndSeats(Reservation reservation);
 }

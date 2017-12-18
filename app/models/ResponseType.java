@@ -1,7 +1,19 @@
 package models;
 
+/**
+ * The enum Response type.
+ */
 public enum ResponseType {
-    SUCCESS,FAIL,OPTIONAL
+    /**
+     * Success response type.
+     */
+    SUCCESS, /**
+     * Fail response type.
+     */
+    FAIL, /**
+     * Optional response type.
+     */
+    OPTIONAL
 
 }
 

@@ -11,5 +11,12 @@ import repositories.exceptions.RepositoryException;
  */
 @ImplementedBy(RestaurantRepositoryImplementation.class)
 public interface RestaurantRepository extends BaseRepository<Restaurant> {
+    /**
+     * Filter filter result.
+     *
+     * @param restaurantFilterModel the restaurant filter model
+     * @return the filter result
+     * @throws RepositoryException the repository exception
+     */
     FilterResult<Restaurant> filter(RestaurantFilterModel restaurantFilterModel) throws RepositoryException;
 }
