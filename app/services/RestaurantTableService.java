@@ -20,11 +20,7 @@ public class RestaurantTableService extends BaseService<RestaurantTable, Restaur
      * @throws ServiceException the service exception
      */
     public List<RestaurantTable> getByRestaurant(Restaurant data) throws ServiceException {
-        List<RestaurantTable> tables = repository.getByRestaurant(data);
-        if (tables == null) {
-            throw new ServiceException("Entity not found");
-        }
-        return tables;
+        return repository.getByRestaurant(data);
     }
 
     /**
@@ -35,11 +31,7 @@ public class RestaurantTableService extends BaseService<RestaurantTable, Restaur
      * @throws ServiceException the service exception
      */
     public List<RestaurantTable> getByRestaurantAndSeats(Reservation data) throws ServiceException {
-        List<RestaurantTable> tables = repository.getByRestaurantAndSeats(data);
-        if (tables == null) {
-            throw new ServiceException("Entity not found");
-        }
-        return tables;
+        return repository.getByRestaurantAndSeats(data);
     }
 }
 
