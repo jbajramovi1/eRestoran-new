@@ -1,6 +1,8 @@
 .add-restaurant-panel{
+  position: relative;
   width: 100%;
-  height: 600px;
+  min-height: 600px!important;
+  height: auto;
   margin-bottom: 20px;
   box-shadow: 1px 1px 5px 1px #d3d3d3;
 }
@@ -20,10 +22,19 @@
 }
 
 .row-add-restaurant{
+  min-height: 480px;
   height: auto;
+  width: 100%!important;
+}
+
+.row-buttons{
+  min-height: 90px!important;
+  height: auto;
+  width: 100%!important;
 }
 
 .col-add-restaurant{
+  float: left;
   height: 100%;
   width: 50%;
   padding: 40px;
@@ -137,5 +148,95 @@
 
 }
 .buttons-restaurant{
-  margin-top: 170px;
+
+  margin: 25px!important;
+
+}
+.menu-input-div{
+  height: 150px!important;
+  width: 500px;
+  margin: 20px;
+  position: relative;
+}
+.menu-input{
+  width: 400px!important;
+  text-align: left;
+  height: 40px;
+  margin: 15px!important;
+  padding-left: 10px;
+  float: left;
+}
+
+.input-row{
+  position: relative;
+  width: 600px;
+  height: 40px;
+}
+
+.price-input{
+  width: 70px;
+  height: 40px;
+  padding-left: 10px;
+  margin-top: 15px!important;
+  position: relative;
+  float: left;
+}
+
+.amount-input{
+  width: 100px;
+  height: 40px;
+  padding-left: 10px;
+  margin-top: 15px!important;
+  position: relative;
+  float: left;
+}
+
+.delete-item{
+  position: relative!important;
+  margin: 25px!important;
+  font-size: 18px;
+  float: left;
+  color: gray!important;
+}
+
+.delete-item:hover{
+  color: #fe4a49!important;
+}
+
+a{
+  cursor: pointer;
+}
+.add-item{
+  color: #fe4a49!important;
+  background-color:#d3d3d3;
+}
+.add-item:hover{
+  background-color: #d3d3d3!important;
+  color: #Fefefe;
+}
+
+.active-item{
+  background-color: #fe4a49!important;
+  color: white!important;
+}
+
+.active-item:hover{
+  color: white!important;
+}
+
+.select-tables{
+  -webkit-appearance: none!important;
+  height: 40px;
+  width: 300px;
+  float: left;
+  border-radius: 0!important;
+  position: relative;
+  width: 400px!important;
+  text-align: left;
+  height: 40px;
+  margin: 15px!important;
+  padding-left: 10px;
+  border-color: #d3d3d3;
+  font-family:Arial,sans-serif;
+  color: gray; opacity: 0.8;
 }

@@ -11,6 +11,10 @@ export default Ember.Component.extend({
   restaurantCategory:null,
   restaurantLocation:null,
   restaurantDesc:null,
+  enableBasic:true,
+  enableMenu:false,
+  enableTables:false,
+  
   actions:{
     addRestaurant(){
       this.set('errorName',null);
@@ -54,6 +58,21 @@ export default Ember.Component.extend({
     },
     cancel(){
       this.get('adminpanel').send('openRestaurants');
+    },
+    openBasic:function(){
+      this.set('enableBasic',true);
+      this.set('enableMenu',false);
+      this.set('enableTables',false);
+    },
+    openMenu:function(){
+      this.set('enableBasic',false);
+      this.set('enableMenu',true);
+      this.set('enableTables',false);
+    },
+    openTables:function(){
+      this.set('enableBasic',false);
+      this.set('enableMenu',false);
+      this.set('enableTables',true);
     }
 
   }

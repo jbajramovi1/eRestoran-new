@@ -1,6 +1,7 @@
 .container-admin{
   padding-left: 15vw;
   padding-right: 15vw;
+  height: auto!important;
 }
 
 .admin-menu{

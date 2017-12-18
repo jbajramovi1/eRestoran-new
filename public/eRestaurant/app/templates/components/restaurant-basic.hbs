@@ -1,0 +1,42 @@
+{{#if enabled}}
+<div class="row-add-restaurant">
+  <div class="col-add-restaurant col-left">
+    <p class="add-restaurant-par">Add Logo</p>
+      <div class="add-logo">
+        <a class="add-logo-link" href="#">
+          <span class="glyphicon glyphicon-cloud-upload"></span>
+          <p class="logo-link">Upload Logo</p>
+        </a>
+      </div>
+    <p class="add-restaurant-par">Name</p>
+    {{input value=restaurantName class="restaurant-input" onfocus="this.placeholder = ''" type="text"}}
+    <div class="error error-admin">{{errorName}}</div>
+    <p class="add-restaurant-par">Description</p>
+    {{textarea value=restaurantDesc class="description-input input-large"  onfocus="this.placeholder = ''"
+          type="text"}}
+    <div class="error error-admin">{{errorDesc}}</div>
+  </div>
+  <div class="col-add-restaurant col-right">
+    <p class="add-restaurant-par">Add Cover Photo</p>
+      <div class="add-cover">
+        <a class="add-cover-link" href="#">
+          <span class="glyphicon glyphicon-cloud-upload"></span>
+          <p class="logo-link">Upload Cover <br>Photo</p>
+        </a>
+      </div>
+      <div class="two-input-row">
+        <div class="input-row-left">
+          <p class="add-restaurant-par-double par-left">Category</p>
+          {{input value=restaurantCategory class="restaurant-input input-left" onfocus="this.placeholder = ''" type="text"}}
+          <div class="error error-admin">{{errorCategory}}</div>
+        </div>
+        <div class="input-row-right">
+          <p class="add-restaurant-par-double par-right">Location</p>
+          {{input value=restaurantLocation class="restaurant-input input-right" onfocus="this.placeholder = ''" type="text"}}
+        </div>
+      </div>
+      
+  </div>
+
+</div>
+{{/if}}

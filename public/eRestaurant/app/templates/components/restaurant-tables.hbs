@@ -1,0 +1,26 @@
+{{#if enabled}}
+  <div class="row-add-restaurant">
+
+    <div class="add-restaurant-menu">
+    <ul class="nav navbar-nav nav-add-restaurant">
+        <li class="nav-item "><a {{action 'addItem'}} class="restaurant-menu-item add-item" href="#">Add item</a></li>
+    </ul>
+  </div>
+        <div class="menu-input-div">
+
+          <div class="input-row">
+            <select class="select-tables" >
+                <option value="1">Table for 1 person</option>
+                <option value="2" selected>Table for 2 persons</option>
+                <option value="3">Table for 3 persons</option>
+                <option value="4">Table for 4 persons</option>
+                <option value="5">Table for 5 persons</option>
+            </select>
+            {{input value=table.amount class="amount-input" onfocus="this.placeholder=''" placeholder="Amount" type="text"}}
+
+          </div>
+          </div>
+
+
+  </div>
+{{/if}}
