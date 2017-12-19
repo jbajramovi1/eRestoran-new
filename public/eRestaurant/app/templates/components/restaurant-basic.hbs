@@ -3,8 +3,8 @@
   <div class="col-add-restaurant col-left">
     <p class="add-restaurant-par">Add Logo</p>
       <div class="add-logo">
-        <a class="add-logo-link" href="#">
-          <span class="glyphicon glyphicon-cloud-upload"></span>
+        <a {{action 'addFile'}} class="add-logo-link" href="#">
+          <div class="glyphicon-div"><span class="glyphicon glyphicon-cloud-upload"></span></div>
           <p class="logo-link">Upload Logo</p>
         </a>
       </div>
@@ -16,11 +16,15 @@
           type="text"}}
     <div class="error error-admin">{{errorDesc}}</div>
   </div>
+
   <div class="col-add-restaurant col-right">
+
     <p class="add-restaurant-par">Add Cover Photo</p>
       <div class="add-cover">
-        <a class="add-cover-link" href="#">
-          <span class="glyphicon glyphicon-cloud-upload"></span>
+        {{input type='file' id='files'}}
+        <a {{action 'addFile'}} class="add-cover-link" href="#">
+
+          <div class="glyphicon-div"><span class="glyphicon glyphicon-cloud-upload"></span></div>
           <p class="logo-link">Upload Cover <br>Photo</p>
         </a>
       </div>
@@ -35,7 +39,7 @@
           {{input value=restaurantLocation class="restaurant-input input-right" onfocus="this.placeholder = ''" type="text"}}
         </div>
       </div>
-      
+
   </div>
 
 </div>

@@ -9,7 +9,6 @@ export default Ember.Route.extend({
     this._super(controller, model);
   },
   beforeModel(transition) {
-    /*
       this.get('accountService').getSession()
       .done(response => {
              if (!response || response.role!=="ADMIN"){
@@ -30,14 +29,14 @@ export default Ember.Route.extend({
               }
             });
       this.set('restaurants',this.get('adminService').getRestaurants());
-      this.set('users',this.get('adminService').getUsers());*/
+      this.set('users',this.get('adminService').getUsers());
   },
   model(){
-    /*
+
     return Ember.RSVP.hash({
       restaurants: this.get('restaurants'),
       users: this.get('users')
-    });*/
+    });
   },
   actions:{
     refresh(){

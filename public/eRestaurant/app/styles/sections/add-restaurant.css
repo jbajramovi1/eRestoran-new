@@ -96,8 +96,8 @@
   border: solid 0.1px #d3d3d3;
   height: 150px;
   width: 95%;
-  padding-left: 43%;
-  padding-right: 135px;
+  padding-left: 100px;
+  padding-right: 100px;
   padding-top: 25px!important;
 }
 .add-cover-link{
@@ -131,6 +131,10 @@
   width: 50%;
   margin-left:0!important;
   float: right;
+}
+
+.glyphicon-div{
+  text-align: center;
 }
 
 .create-restaurant-btn{
@@ -174,6 +178,7 @@
   padding-left: 10px;
   float: left;
 }
+
 
 .input-row{
   position: relative;
@@ -247,4 +252,8 @@ a{
   border-color: #d3d3d3;
   font-family:Arial,sans-serif;
   color: gray; opacity: 0.8;
+}
+
+#files{
+  display: none!important;
 }
