@@ -116,7 +116,7 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
 
     public boolean hasData() throws RepositoryException {
         try {
-            return (Integer) getBaseCriteria().setProjection(Projections.rowCount()).uniqueResult() != 0;
+            return (Long)getBaseCriteria().setProjection(Projections.rowCount()).uniqueResult() != 0L;
 
         } catch (PersistenceException e) {
             logger.error("ServiceException in BaseRepository@hasData", e);
