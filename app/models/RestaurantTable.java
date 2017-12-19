@@ -4,15 +4,19 @@ import play.data.validation.Constraints;
 
 import javax.persistence.*;
 
+/**
+ * The type Restaurant table.
+ */
 @Entity
 @Table(name = "restaurant_table")
 public class RestaurantTable extends BaseModel<RestaurantTable> {
-    @Column(name="sitting_places")
+    @Column(name = "sitting_places")
     @Constraints.Required(message = "Sitting places field is required")
     private Integer sittingPlaces;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+
     /**
      * Gets sitting places.
      *
@@ -21,6 +25,7 @@ public class RestaurantTable extends BaseModel<RestaurantTable> {
     public Integer getSittingPlaces() {
         return sittingPlaces;
     }
+
     /**
      * Sets sitting places.
      *
@@ -29,6 +34,7 @@ public class RestaurantTable extends BaseModel<RestaurantTable> {
     public void setSittingPlaces(Integer sittingPlaces) {
         this.sittingPlaces = sittingPlaces;
     }
+
     /**
      * Gets restaurant.
      *
@@ -37,6 +43,7 @@ public class RestaurantTable extends BaseModel<RestaurantTable> {
     public Restaurant getRestaurant() {
         return restaurant;
     }
+
     /**
      * Sets restaurant.
      *
@@ -51,7 +58,7 @@ public class RestaurantTable extends BaseModel<RestaurantTable> {
         if (data.getSittingPlaces() != null) {
             setSittingPlaces(data.getSittingPlaces());
         }
-        if (data.getRestaurant()!=null) {
+        if (data.getRestaurant() != null) {
             setRestaurant(data.getRestaurant());
         }
 

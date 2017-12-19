@@ -4,6 +4,9 @@ import play.data.validation.Constraints;
 
 import javax.persistence.*;
 
+/**
+ * The type Menu.
+ */
 @Entity
 @Table(name = "menu")
 public class Menu extends BaseModel<Menu> {
@@ -22,6 +25,7 @@ public class Menu extends BaseModel<Menu> {
     public String getName() {
         return name;
     }
+
     /**
      * Sets name.
      *
@@ -39,6 +43,7 @@ public class Menu extends BaseModel<Menu> {
     public Restaurant getRestaurant() {
         return restaurant;
     }
+
     /**
      * Sets restaurant.
      *
@@ -53,7 +58,7 @@ public class Menu extends BaseModel<Menu> {
         if (data.getName() != null) {
             setName(data.getName());
         }
-        if (data.getRestaurant()!=null) {
+        if (data.getRestaurant() != null) {
             setRestaurant(data.getRestaurant());
         }
 

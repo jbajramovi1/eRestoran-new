@@ -3,5 +3,8 @@ package controllers;
 import models.Menu;
 import services.MenuService;
 
-public class MenuController extends BaseController<Menu, MenuService>{
+/**
+ * The type Menu controller.
+ */
+public class MenuController extends BaseController<Menu, MenuService> {
 }

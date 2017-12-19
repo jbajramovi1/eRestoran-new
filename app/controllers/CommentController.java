@@ -12,7 +12,8 @@ import services.exceptions.ServiceException;
 /**
  * The type Comment controller.
  */
-public class CommentController extends BaseController<Comment, CommentService>{
+public class CommentController extends BaseController<Comment, CommentService> {
+
 
     @Transactional
     @Override
@@ -23,12 +24,12 @@ public class CommentController extends BaseController<Comment, CommentService>{
             if (form.hasErrors()) {
                 return badRequest(form.errorsAsJson());
             }
-            return ok(Json.toJson(service.create(form.get(),session())));
+            return ok(Json.toJson(service.create(form.get(), session())));
         } catch (ServiceException e) {
-            logger.error("Service error in CommentController@create",e);
+            logger.error("Service error in CommentController@create", e);
             return badRequest("Service error in CommentController@create");
         } catch (Exception e) {
-            logger.error("Internal server error in CommentController@create",e);
+            logger.error("Internal server error in CommentController@create", e);
             return internalServerError("Internal server error in CommentController@create");
         }
     }

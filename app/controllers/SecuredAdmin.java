@@ -11,10 +11,21 @@ import services.exceptions.ServiceException;
 
 import javax.inject.Inject;
 
+/**
+ * The type Secured admin.
+ */
 public class SecuredAdmin extends Security.Authenticator {
     private static AccountService accountService;
+    /**
+     * The constant logger.
+     */
     final static org.slf4j.Logger logger = LoggerFactory.getLogger(Secured.class);
 
+    /**
+     * Sets account service.
+     *
+     * @param accountService the account service
+     */
     @Inject
     public void setAccountService(AccountService accountService) {
         this.accountService = accountService;
@@ -47,8 +58,5 @@ public class SecuredAdmin extends Security.Authenticator {
     public Result onUnauthorized(Context ctx) {
         return badRequest("Admin privilegies required");
     }
-
-
-
 
 }
