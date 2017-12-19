@@ -55,8 +55,8 @@ public class AccountService extends BaseService<Account, AccountRepository> {
      * @return the current user
      * @throws ServiceException the service exception
      */
-    public Account getCurrentUser(String email) throws ServiceException{
-        Account account=repository.getCurrentUser(email);
+    public Account getCurrentUser(String email) throws ServiceException {
+        Account account = repository.getCurrentUser(email);
         if (account == null) {
             logger.error("entity not found");
             throw new ServiceException("entity not found");

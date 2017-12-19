@@ -25,7 +25,6 @@ public class Restaurant extends BaseModel<Restaurant> {
     @Column
     private String category;
 
-    //+LOCATION
 
 
     /**

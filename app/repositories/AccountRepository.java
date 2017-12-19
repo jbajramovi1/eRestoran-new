@@ -1,9 +1,7 @@
 package repositories;
 
 import com.google.inject.ImplementedBy;
-
 import models.Account;
-import play.mvc.Http;
 
 /**
  * The interface Account repository.
