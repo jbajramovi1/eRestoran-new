@@ -23,10 +23,10 @@ public class RestaurantController extends BaseController<Restaurant, RestaurantS
 
             RestaurantFilterModel data = new RestaurantFilterModel();
 
-            data.setName(this.getString("name", ""));
+            data.setName(this.getString("name", null));
             data.setPricing(this.getInteger("pricing", null));
             data.setRating(this.getInteger("rating", null));
-            data.setPageSize(this.getInteger("pageSize", service.count()));
+            data.setPageSize(this.getInteger("pageSize", 10));
             data.setPageNumber(this.getInteger("pageNumber", 0));
             return ok(Json.toJson(service.filter(data)));
 

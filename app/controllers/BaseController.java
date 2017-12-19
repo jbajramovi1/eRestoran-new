@@ -184,12 +184,19 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
      * @param defaultValue the default value
      * @return the integer
      */
-    protected Integer getInteger(String property, Integer defaultValue) {
+    protected Integer getInteger(String property, Integer defaultValue) throws ServiceException{
         String value = request().getQueryString(property);
+
         if (value == null) {
             return defaultValue;
         }
+        try {
         return Integer.parseInt(value);
+        }
+        catch(NumberFormatException e){
+            throw new ServiceException("Can't parse data");
+        }
+
     }
 
 
