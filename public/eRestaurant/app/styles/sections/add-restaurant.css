@@ -154,8 +154,16 @@
 }
 .menu-input-div{
   height: 150px!important;
+
   width: 500px;
   margin: 20px;
+  position: relative;
+}
+
+.table-input-div{
+  height: 50px!important;
+  width: 500px;
+  margin:20px;
   position: relative;
 }
 .menu-input{

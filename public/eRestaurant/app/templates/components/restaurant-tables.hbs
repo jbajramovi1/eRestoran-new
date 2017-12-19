@@ -6,7 +6,8 @@
         <li class="nav-item "><a {{action 'addItem'}} class="restaurant-menu-item add-item" href="#">Add item</a></li>
     </ul>
   </div>
-        <div class="menu-input-div">
+  {{#each tables as |table|}}
+        <div class="table-input-div">
 
           <div class="input-row">
             <select class="select-tables" >
@@ -20,7 +21,7 @@
 
           </div>
           </div>
-
+          {{/each}}
 
   </div>
 {{/if}}
