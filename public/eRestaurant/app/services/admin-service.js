@@ -57,4 +57,31 @@ export default Ember.Service.extend({
       contentType:"application/json"
   })
 },
+getUser(id){
+  return $.ajax({
+        method:'GET',
+        url:'/api/v1/admin/getAccount/'+id,
+        contentType:"application/json",
+        dataType: 'json'
+
+});
+},
+updateUser(id,firstName,lastName,email,password,phone,country,city){
+  return $.ajax({
+        method:'PUT',
+        url:'/api/v1/admin/updateAccount/'+id,
+        data: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            password,
+            phone,
+            country,
+            city
+        }),
+        contentType:"application/json",
+        dataType: 'json'
+
+});
+}
 });

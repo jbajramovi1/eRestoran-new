@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   deleteEnabled:false,
   deleteId:null,
   deleteName:null,
+
   actions:{
     openAddUser:function(){
         this.get('adminpanel').send('openAddUser');
@@ -15,6 +16,12 @@ export default Ember.Component.extend({
       this.toggleProperty('deleteEnabled');
       this.set('deleteId',id);
       this.set('deleteName',name);
+    },
+    editUser:function(id){
+      this.get('adminpanel').set('userId',id);
+      this.get('adminpanel').send('refreshModel');
+      this.get('adminpanel').send('openUpdateUser');
+
     },
     deleteUser:function(){
       this.get('adminService').deleteUser(this.get('deleteId'))

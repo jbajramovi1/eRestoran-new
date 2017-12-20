@@ -1,0 +1,144 @@
+.cover{
+  width: 100%;
+  height: 300px;
+  top: 0;
+  position: absolute;
+  background-position: top;
+  background-size: cover;
+  background-image: url("/assets/images/home.jpg");
+}
+
+.nav-restaurant{
+  position: absolute;
+  top:400px;
+  left:210px;
+}
+
+.rest-img-div{
+  height: 180px;
+  width:180px;
+  position: absolute;
+  top: 200px;
+  left: 220px;
+  background-color: white;
+  border-radius: 3px;
+  padding:5px;
+}
+
+.rest-img{
+  height: 170px;
+  width: 170px;
+  position:relative;
+}
+
+.rest-main{
+  position: absolute;
+  top: 190px;
+  left:420px;
+  width: 100%;
+  color: white;
+
+}
+
+.rate-btn{
+  position: absolute;
+  top:-113px!important;
+  left: 220px;
+  color: white;
+  background-color: #Fe4a49;
+  border-color: #Fe4a49;
+  border-radius: 3px;
+  width: 150px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.rest-container{
+  position: absolute;
+  top: 320px;
+  left: 420px;
+  width: 50vw;
+  padding: 10px;
+}
+
+.rest-div{
+  position: relative;
+  height: 150px;
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 1px 1px 2px #888888;
+}
+
+.res-bar{
+  position: relative;
+  margin-left: 70px;
+  margin-top: 20px;
+}
+
+.rest-subtitle{
+  opacity: 0.9;
+  font-size: 16px;
+}
+
+.div-desc{
+  height: 100%!important;
+}
+
+.div-menu{
+  height: 450px!important;
+}
+
+.map{
+  position: relative;
+  height: 300px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.ember-cli-g-map {
+    height: 300px!important;
+}
+
+.rest-description{
+  text-align: justify;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.nav-menu{
+  position: absolute;
+  font-size: 13px;
+  top: 7px;
+  left: 80px;
+  margin-left: 0!important;
+}
+
+.menu{
+  padding: 0!important;
+  margin-top: 20px;
+}
+
+.menu li {
+  clear: both;
+}
+
+.menu li span:first-child {
+    float: left;
+    padding: 0 .4em 0 0;
+    margin: 0;
+}
+
+.menu li span + span {
+    float: right;
+    padding: 0 0 0 .4em;
+    margin: 0;
+}
+
+.menu li:after {
+    content: "";
+    display: block;
+    overflow: hidden;
+    height: 1em;
+    border-bottom: 1px dotted;
+}

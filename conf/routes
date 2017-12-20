@@ -36,7 +36,9 @@ DELETE /api/v1/admin/deleteRestaurant/:id @controllers.AdminController.deleteRes
 DELETE /api/v1/admin/deleteAccount/:id @controllers.AdminController.deleteAccount(id:Long)
 
 +nocsrf
-POST /api/v1/admin/updateAccount/:id @controllers.AdminController.updateAccount(id:Long)
+GET /api/v1/admin/getAccount/:id @controllers.AdminController.getAccount(id:Long)
++nocsrf
+PUT /api/v1/admin/updateAccount/:id @controllers.AdminController.updateAccount(id:Long)
 
 +nocsrf
 POST /api/v1/admin/updateRestaurant/:id @controllers.AdminController.updateRestaurant(id:Long)

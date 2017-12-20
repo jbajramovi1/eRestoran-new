@@ -8,9 +8,12 @@ export default Ember.Controller.extend({
   enableAddLocation:false,
   enableUsers:false,
   enableAddUser:false,
+  enableUpdateUser:false,
   adminService:Ember.inject.service('admin-service'),
   restaurants:[],
-  user:[],
+  users:[],
+  user:null,
+  userId:null,
   actions: {
         openDashboard: function() {
             this.set('enableDashboard',true);
@@ -20,6 +23,7 @@ export default Ember.Controller.extend({
             this.set('enableAddLocation',false);
             this.set('enableUsers',false);
             this.set('enableAddUser',false);
+            this.set('enableUpdateUser',false);
          },
          openRestaurants: function() {
            this.set('enableDashboard',false);
@@ -29,6 +33,7 @@ export default Ember.Controller.extend({
              this.set('enableAddLocation',false);
              this.set('enableUsers',false);
              this.set('enableAddUser',false);
+             this.set('enableUpdateUser',false);
           },
           openAddRestaurant: function() {
             this.set('enableDashboard',false);
@@ -38,6 +43,7 @@ export default Ember.Controller.extend({
               this.set('enableAddLocation',false);
               this.set('enableUsers',false);
               this.set('enableAddUser',false);
+              this.set('enableUpdateUser',false);
           },
           openLocations: function() {
             this.set('enableDashboard',false);
@@ -47,6 +53,7 @@ export default Ember.Controller.extend({
               this.set('enableAddLocation',false);
               this.set('enableUsers',false);
               this.set('enableAddUser',false);
+              this.set('enableUpdateUser',false);
           },
           openAddLocation: function() {
             this.set('enableDashboard',false);
@@ -56,6 +63,7 @@ export default Ember.Controller.extend({
               this.set('enableAddLocation',true);
               this.set('enableUsers',false);
               this.set('enableAddUser',false);
+              this.set('enableUpdateUser',false);
           },
           openUsers: function() {
             this.set('enableDashboard',false);
@@ -65,6 +73,7 @@ export default Ember.Controller.extend({
               this.set('enableAddLocation',false);
               this.set('enableUsers',true);
               this.set('enableAddUser',false);
+              this.set('enableUpdateUser',false);
           },
           openAddUser: function() {
             this.set('enableDashboard',false);
@@ -74,10 +83,27 @@ export default Ember.Controller.extend({
               this.set('enableAddLocation',false);
               this.set('enableUsers',false);
               this.set('enableAddUser',true);
+              this.set('enableUpdateUser',false);
+          },
+          openUpdateUser: function() {
+            this.set('enableDashboard',false);
+              this.set('enableRestaurants',false);
+              this.set('enableAddRestaurant',false);
+              this.set('enableLocations',false);
+              this.set('enableAddLocation',false);
+              this.set('enableUsers',false);
+              this.set('enableAddUser',false);
+              this.set('enableUpdateUser',true);
           },
           refreshModel: function() {
             this.set('restaurants',this.get('adminService').getRestaurants());
             this.set('users',this.get('adminService').getUsers());
+            if (this.get('userId')!=null) {
+              this.set('user',this.get('adminService').getUser(this.get('userId')));
+            }
+            else{
+              this.set('userId',null);
+            }
             this.send('refresh');
           }
 }

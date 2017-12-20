@@ -243,4 +243,17 @@ public class AdminController {
             return internalServerError(Json.toJson("Internal server error in AdminController@updateAccount"));
         }
     }
+
+    @Transactional
+    public Result getAccount(Long id){
+        try{
+            return ok(Json.toJson(accountService.get(id)));
+        } catch (ServiceException e) {
+            logger.error("Service error in AdminController@updateAccount", e);
+            return badRequest(Json.toJson(""));
+        } catch (Exception e) {
+            logger.error("Error in AdminController@insertAccount", e);
+            return internalServerError(Json.toJson("Internal server error in AdminController@updateAccount"));
+        }
+    }
 }

@@ -33,7 +33,7 @@ export default Ember.Component.extend({
           });
         return;
       }
-      this.get('adminService').addUser(this.get('firstName'),this.get('lastName'),this.get('email'),this.get('password'),this.get('phone'),this.get('country'),this.get('city'))
+      this.get('adminService').updateUser(this.get('firstName'),this.get('lastName'),this.get('email'),this.get('password'),this.get('phone'),this.get('country'),this.get('city'))
       .done(response => {
            this.get('notifications').success('Successfully added an user!', {
             autoClear: true,

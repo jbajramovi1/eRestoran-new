@@ -34,7 +34,7 @@
         <td>{{user.country}}</td>
         <td>{{user.city}}</td>
         <td>
-          <a href="#">
+          <a {{action 'editUser' user.id}} href="#">
           <span class="glyphicon glyphicon-pencil admin-glyphicon"></span>
           </a>
           <a {{action 'toggleModal' user.id user.email}} href="#">
