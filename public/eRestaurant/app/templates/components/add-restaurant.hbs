@@ -7,9 +7,9 @@
         <li class="nav-item "><a {{action 'openTables'}} class="restaurant-menu-item {{if enableTables "active-item"}}" href="#">Tables</a></li>
     </ul>
   </div>
-  {{#restaurant-basic enabled=enableBasic}}{{/restaurant-basic}}
-  {{#restaurant-menu enabled=enableMenu}}{{/restaurant-menu}}
-  {{#restaurant-tables enabled=enableTables}}{{/restaurant-tables}}
+  {{#restaurant-basic enabled=enableBasic restaurantName=restaurantName restaurantDesc=restaurantDesc restaurantCategory=restaurantCategory restaurantLocation=restaurantLocation errorName=errorName errorDesc=errorDesc errorCategory=errorCategory}}{{/restaurant-basic}}
+  {{#restaurant-menu enabled=enableMenu breakfast=breakfast lunch=lunch dinner=dinner}}{{/restaurant-menu}}
+  {{#restaurant-tables enabled=enableTables tables=tables}}{{/restaurant-tables}}
 
   <div class="row-buttons">
   <div class="buttons-restaurant">

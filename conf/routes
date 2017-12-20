@@ -4,7 +4,8 @@
 
 # An example controller showing a sample home page
 GET     /                           @controllers.HomeController.index
-#POST    /api/v1/request             controllers.LogRequests.create
+
+#ACCOUNT
 +nocsrf
 POST /api/v1/user @controllers.AccountController.register()
 #DELETE /api/v1/user/:id @controllers.AccountController.delete(Long id)
@@ -17,32 +18,49 @@ GET /api/v1/session @controllers.AccountController.getUserSession()
 
 GET /api/v1/accounts @controllers.AccountController.findAll()
 
+#RESTAURANT
+
 GET  /api/v1/restaurant/:id @controllers.RestaurantController.get(id:Long)
 
 GET /api/v1/restaurants @controllers.RestaurantController.findAll()
++nocsrf
+GET /api/v1/restaurants/filter @controllers.RestaurantController.filter()
++nocsrf
+POST /api/v1/restaurant @controllers.RestaurantController.create()
 
+#COMMENT
 +nocsrf
 POST /api/v1/comment @controllers.CommentController.create()
+
+#RESERVATION
 +nocsrf
 POST /api/v1/reservation @controllers.ReservationController.create()
+
+#RESTAURANT TABLE
++nocsrf
+POST /api/vi/restauranttable @controllers.RestaurantTableController.create()
+
+
+#ADMIN
 +nocsrf
 POST /api/v1/admin/addRestaurant @controllers.AdminController.insertRestaurant()
 +nocsrf
 POST /api/v1/admin/addAccount @controllers.AdminController.insertAccount()
 +nocsrf
 DELETE /api/v1/admin/deleteRestaurant/:id @controllers.AdminController.deleteRestaurant(id:Long)
-
 +nocsrf
 DELETE /api/v1/admin/deleteAccount/:id @controllers.AdminController.deleteAccount(id:Long)
-
 +nocsrf
 POST /api/v1/admin/updateAccount/:id @controllers.AdminController.updateAccount(id:Long)
-
 +nocsrf
 POST /api/v1/admin/updateRestaurant/:id @controllers.AdminController.updateRestaurant(id:Long)
-
 +nocsrf
-GET /api/v1/restaurants/filter @controllers.RestaurantController.filter()
+POST /api/v1/admin/menu @controllers.AdminController.insertMenu()
++nocsrf
+POST /api/v1/admin/menuitem @controllers.AdminController.insertMenuItem()
++nocsrf
+POST /api/v1/admin/restauranttable @controllers.AdminController.insertRestaurantTable()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               @controllers.Assets.versioned(path="/public", file: Asset)

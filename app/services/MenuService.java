@@ -7,4 +7,5 @@ import repositories.MenuRepository;
  * The type Menu service.
  */
 public class MenuService extends BaseService<Menu, MenuRepository> {
+
 }

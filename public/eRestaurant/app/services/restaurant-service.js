@@ -11,5 +11,20 @@ export default Ember.Service.extend({
 
   });
 
-    }
+},
+  createRestaurant(name,description,category,location,mark,votes){
+    return $.ajax({
+          method:'POST',
+          url:'/api/v1/restaurant',
+          data: JSON.stringify({
+              name,
+              description,
+              category,
+              location,
+              mark,
+              votes
+          }),
+          contentType:"application/json"
+    })
+  }
 });

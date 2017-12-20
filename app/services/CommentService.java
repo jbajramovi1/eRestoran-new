@@ -31,6 +31,7 @@ public class CommentService extends BaseService<Comment, CommentRepository> {
      * @return the comment
      * @throws ServiceException the service exception
      */
+
     public Comment create(Comment model, Http.Session session) throws ServiceException{
         try {
             model.setInsertTime(new Date());

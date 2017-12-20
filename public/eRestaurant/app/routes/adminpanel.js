@@ -36,7 +36,7 @@ export default Ember.Route.extend({
     return Ember.RSVP.hash({
       restaurants: this.get('restaurants'),
       users: this.get('users')
-    });
+    }); 
   },
   actions:{
     refresh(){

@@ -1,30 +1,32 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  breakfastId:1,
-  lunchId:1,
-  dinnerId:1,
-  breakfast:[{id:'1',name:'',description:'',price:''}],
-  lunch:[{id:'1',name:'',description:'',price:''}],
-  dinner:[{id:'1',name:'',description:'',price:''}],
+
   enableBreakfast:true,
   enableLunch:false,
   enableDinner:false,
-
+  breakfast: null,
+  newBreakfast: function () {
+    return this.get('breakfast').map(({name, description, price}) => ({
+      name,
+      description,
+      price
+    }));
+  }.property('breakfast'),
   actions:{
     addItem:function(){
       if (this.get('enableBreakfast')){
-        this.set('breakfastId',this.get('breakfastId')+1);
-        this.get('breakfast').pushObject({id:this.get('breakfastId'),name:'',description:'',price:''});
-    }
-    if (this.get('enableLunch')){
-      this.set('lunchId',this.get('lunchId')+1);
-      this.get('lunch').pushObject({id:this.get('lunchId'),name:'',description:'',price:''});
-    }
-    if (this.get('enableDinner')){
-      this.set('dinnerId',this.get('dinnerId')+1);
-      this.get('dinner').pushObject({id:this.get('dinnerId'),name:'',description:'',price:''})
-    }
+        debugger;
+        this.get('newBreakfast').push({name:null,description:null,price:null});
+
+      }
+      if (this.get('enableLunch')){
+        this.get('lunch').pushObject({name:null,description:null,price:null});
+      }
+      if (this.get('enableDinner')){
+        this.get('dinner').pushObject({name:null,description:null,price:null})
+      }
+
   },
   openBreakfast:function(){
     this.set('enableBreakfast',true);
@@ -43,7 +45,7 @@ export default Ember.Component.extend({
   },
   deleteItem:function(item){
     if (this.get('enableBreakfast') ){
-      this.get('breakfast').removeObject(item);
+      this.get('newBreakfast').removeObject(item);
     }
     if (this.get('enableLunch')){
       this.get('lunch').removeObject(item);
@@ -52,6 +54,5 @@ export default Ember.Component.extend({
       this.get('dinner').removeObject(item);
     }
   }
-
   }
 });

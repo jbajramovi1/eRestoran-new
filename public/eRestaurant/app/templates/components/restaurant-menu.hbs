@@ -8,10 +8,12 @@
         <li class="nav-item "><a {{action 'addItem'}} class="restaurant-menu-item add-item" href="#">Add item</a></li>
     </ul>
   </div>
+
   {{#if enableBreakfast}}
-    {{#each breakfast as |item|}}
+    {{#each newBreakfast as |item|}}
     <div class="menu-input-div">
       <div class="input-row">
+
         {{input value=item.name class="menu-input" onfocus="this.placeholder = ''" placeholder="Name" type="text"}}
         {{input value=item.price class="price-input" onfocus="this.placeholder=''" placeholder="$ Price" type="text"}}
           <a {{action 'deleteItem' item}}><i class="glyphicon glyphicon-trash delete-item"></i></a>
@@ -20,8 +22,9 @@
     </div>
     {{/each}}
     {{/if}}
+
     {{#if enableLunch}}
-      {{#each lunch as |item|}}
+      {{#each lunch as |item index|}}
       <div class="menu-input-div">
         <div class="input-row">
           {{input value=item.name class="menu-input" onfocus="this.placeholder = ''" placeholder="Name" type="text"}}
@@ -32,8 +35,9 @@
       </div>
       {{/each}}
       {{/if}}
+
       {{#if enableDinner}}
-        {{#each dinner as |item|}}
+        {{#each dinner as |item index|}}
         <div class="menu-input-div">
           <div class="input-row">
             {{input value=item.name class="menu-input" onfocus="this.placeholder = ''" placeholder="Name" type="text"}}

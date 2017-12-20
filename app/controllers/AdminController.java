@@ -1,8 +1,7 @@
 package controllers;
 
 
-import models.Account;
-import models.Restaurant;
+import models.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.data.Form;
@@ -11,8 +10,7 @@ import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Result;
 import play.mvc.Security;
-import services.AccountService;
-import services.RestaurantService;
+import services.*;
 import services.exceptions.ServiceException;
 
 import javax.inject.Inject;
@@ -41,6 +39,23 @@ public class AdminController {
      * The Account Service.
      */
     protected AccountService accountService;
+
+
+    /**
+     * The Menu service.
+     */
+    protected MenuService menuService;
+
+    /**
+     * The Menu item service.
+     */
+    protected MenuItemService menuItemService;
+
+
+    /**
+     * The Restaurant table service.
+     */
+    protected RestaurantTableService restaurantTableService;
 
     /**
      * Sets form factory.
@@ -72,6 +87,38 @@ public class AdminController {
         this.accountService = service;
     }
 
+
+    /**
+     * Sets menu service.
+     *
+     * @param service the service
+     */
+    @Inject
+    public void setMenuService(MenuService service) {
+        this.menuService = service;
+    }
+
+
+    /**
+     * Set menu item service.
+     *
+     * @param service the service
+     */
+    @Inject
+    public void setMenuItemService(MenuItemService service) {
+        this.menuItemService = service;
+    }
+
+
+    /**
+     * Set restaurant table service.
+     *
+     * @param service the service
+     */
+    @Inject
+    public void setRestaurantTableService(RestaurantTableService service){
+        this.restaurantTableService=service;
+    }
     /**
      * Create new restaurant.
      *
@@ -109,7 +156,7 @@ public class AdminController {
 
             Form<Account> form = formFactory.form(Account.class).bindFromRequest();
             if (form.hasErrors()) {
-                logger.error("Restaurant insert attempt failed, form has errors.", form.errors());
+                logger.error("Account insert attempt failed, form has errors.", form.errors());
                 return badRequest(form.errorsAsJson());
             }
 
@@ -123,6 +170,69 @@ public class AdminController {
         }
     }
 
+    /**
+     * Insert menu result.
+     *
+     * @return the result
+     */
+    @Transactional
+    public Result insertMenu() {
+        try {
+            Form<Menu> form = formFactory.form(Menu.class).bindFromRequest();
+            if (form.hasErrors()) {
+                logger.error("Menu insert attempt failed, form has errors.", form.errors());
+                return badRequest(form.errorsAsJson());
+            }
+            return ok(Json.toJson(menuService.create(form.get())));
+        } catch (ServiceException e) {
+            logger.error("Service error in AdminController@insertMenu", e);
+            return badRequest(Json.toJson(""));
+        } catch (Exception e) {
+            logger.error("Error in AdminController@insertAccount", e);
+            return internalServerError(Json.toJson("Internal server error in AdminController@insertMenu"));
+        }
+    }
+
+    /**
+     * Insert menu item result.
+     *
+     * @return the result
+     */
+    @Transactional
+    public Result insertMenuItem(){
+        try {
+            Form<MenuItem> form = formFactory.form(MenuItem.class).bindFromRequest();
+            if (form.hasErrors()) {
+                logger.error("MenuItem insert attempt failed, form has errors.", form.errors());
+                return badRequest(form.errorsAsJson());
+            }
+            return ok(Json.toJson(menuItemService.create(form.get())));
+        } catch (ServiceException e) {
+            logger.error("Service error in AdminController@insertMenuItem", e);
+            return badRequest(Json.toJson(""));
+        } catch (Exception e) {
+            logger.error("Error in AdminController@insertAccount", e);
+            return internalServerError(Json.toJson("Internal server error in AdminController@insertMenuItem"));
+        }
+    }
+
+    @Transactional
+    public Result insertRestaurantTable(){
+        try {
+            Form<RestaurantTable> form = formFactory.form(RestaurantTable.class).bindFromRequest();
+            if (form.hasErrors()) {
+                logger.error("RestaurantTable insert attempt failed, form has errors.", form.errors());
+                return badRequest(form.errorsAsJson());
+            }
+            return ok(Json.toJson(restaurantTableService.create(form.get())));
+        } catch (ServiceException e) {
+            logger.error("Service error in AdminController@insertRestaurantTable", e);
+            return badRequest(Json.toJson(""));
+        } catch (Exception e) {
+            logger.error("Error in AdminController@insertAccount", e);
+            return internalServerError(Json.toJson("Internal server error in AdminController@insertRestaurantTable"));
+        }
+    }
     /**
      * Delete restaurant result.
      *

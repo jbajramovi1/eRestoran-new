@@ -40,6 +40,7 @@ public class InitialData {
             insertTables(restaurantTableService, restaurantService);
             insertMenus(menuService, restaurantService);
             insertLocation(locationService);
+
         });
 
     }
