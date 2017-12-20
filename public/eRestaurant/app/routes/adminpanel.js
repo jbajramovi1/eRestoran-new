@@ -30,6 +30,9 @@ export default Ember.Route.extend({
             });
       this.set('restaurants',this.get('adminService').getRestaurants());
       this.set('users',this.get('adminService').getUsers());
+      if (this.get('userId')!=null) {
+        this.set('user',this.get('adminService').getUser(this.get('userId')));
+      }
   },
   model(){
     return Ember.RSVP.hash({

@@ -1,0 +1,23 @@
+{{#if enabled}}
+<div class="add-user-panel">
+  <div class="user-info-input">
+      <p class="add-user-par">First Name</p>
+      {{input value=model.firstName class="user-input" onfocus="this.placeholder = ''" type="text"}}
+      <p class="add-user-par">Last Name</p>
+      {{input value=model.lastName class="user-input" onfocus="this.placeholder = ''" type="text"}}
+      <p class="add-user-par">Email</p>
+      {{input value=model.email class="user-input" onfocus="this.placeholder = ''" type="text"}}
+      <div class="error">{{errorEmail}}</div>
+      <p class="add-user-par">Password</p>
+      {{input value=model.password class="user-input" onfocus="this.placeholder = ''" type="password"}}
+      <div class="error">{{errorPassword}}</div>
+      <p class="add-user-par">Phone</p>
+      {{input value=model.phone class="user-input" onfocus="this.placeholder = ''" type="text"}}
+      <p class="add-user-par">Country</p>
+      {{input value=model.country class="user-input" onfocus="this.placeholder = ''" type="text"}}
+      <p class="add-user-par">City</p>
+      {{input value=model.city class="user-input" onfocus="this.placeholder = ''" type="text"}}
+      <button {{action 'updateUser'}} class="button-add create-user-btn">Update user info</button>
+    </div>
+</div>
+{{/if}}

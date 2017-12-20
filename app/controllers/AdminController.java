@@ -17,7 +17,10 @@ import services.exceptions.ServiceException;
 
 import javax.inject.Inject;
 
+import static play.mvc.Controller.session;
 import static play.mvc.Results.*;
+
+
 
 /**
  * The type Admin controller.
@@ -132,7 +135,6 @@ public class AdminController {
     @Transactional
     public Result deleteRestaurant(Long id) {
         try {
-
             restaurantService.delete(id);
             return ok();
         } catch (ServiceException e) {
@@ -153,7 +155,6 @@ public class AdminController {
     @Transactional
     public Result deleteAccount(Long id) {
         try {
-
             accountService.delete(id);
             return ok();
         } catch (ServiceException e) {
@@ -174,10 +175,7 @@ public class AdminController {
      */
     @Transactional
     public Result updateRestaurant(Long id) {
-
         try {
-
-
             Form<Restaurant> form = formFactory.form(Restaurant.class).bindFromRequest();
             if (form.hasErrors()) {
                 logger.error("Restaurant update attempt failed, form has errors.", form.errors());
@@ -203,10 +201,7 @@ public class AdminController {
      */
     @Transactional
     public Result updateAccount(Long id) {
-
         try {
-
-
             Form<Account> form = formFactory.form(Account.class).bindFromRequest();
             if (form.hasErrors()) {
                 logger.error("Restaurant update attempt failed, form has errors.", form.errors());
@@ -214,6 +209,19 @@ public class AdminController {
             }
 
             return ok(Json.toJson(accountService.update(id, form.get())));
+        } catch (ServiceException e) {
+            logger.error("Service error in AdminController@updateAccount", e);
+            return badRequest(Json.toJson(""));
+        } catch (Exception e) {
+            logger.error("Error in AdminController@insertAccount", e);
+            return internalServerError(Json.toJson("Internal server error in AdminController@updateAccount"));
+        }
+    }
+
+    @Transactional
+    public Result getAccount(Long id){
+        try{
+            return ok(Json.toJson(accountService.get(id)));
         } catch (ServiceException e) {
             logger.error("Service error in AdminController@updateAccount", e);
             return badRequest(Json.toJson(""));
