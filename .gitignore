@@ -21,3 +21,4 @@ server.pid
 .project
 .iml
 *.log
+.idea/*
