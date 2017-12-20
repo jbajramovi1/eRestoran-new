@@ -99,12 +99,18 @@ export default Ember.Controller.extend({
             this.set('restaurants',this.get('adminService').getRestaurants());
             this.set('users',this.get('adminService').getUsers());
             if (this.get('userId')!=null) {
-              this.set('user',this.get('adminService').getUser(this.get('userId')));
+              this.get('adminService').getUser(this.get('userId'))
+              .done(response => {
+                       this.set('user',response);
+                       this.send('refresh');
+                       this.send('openUpdateUser');
+              });
             }
             else{
               this.set('userId',null);
+              this.send('refresh');
             }
-            this.send('refresh');
+
           }
 }
 });

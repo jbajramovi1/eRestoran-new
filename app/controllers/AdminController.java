@@ -16,11 +16,8 @@ import services.exceptions.ServiceException;
 
 import javax.inject.Inject;
 
-
 import static play.mvc.Controller.session;
-import static play.mvc.Results.badRequest;
-import static play.mvc.Results.internalServerError;
-import static play.mvc.Results.ok;
+import static play.mvc.Results.*;
 
 
 public class AdminController {

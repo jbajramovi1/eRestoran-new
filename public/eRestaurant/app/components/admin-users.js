@@ -20,7 +20,6 @@ export default Ember.Component.extend({
     editUser:function(id){
       this.get('adminpanel').set('userId',id);
       this.get('adminpanel').send('refreshModel');
-      this.get('adminpanel').send('openUpdateUser');
 
     },
     deleteUser:function(){

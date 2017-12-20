@@ -18,8 +18,14 @@ export default Ember.Component.extend({
       this.set('errorEmail',null);
       this.set('errorPassword',null);
       let errorFront=false;
+      let emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
       if (!this.get('email')) {
         this.set("errorEmail","Email field is required");
+        errorFront=true;
+      }
+      else if (!emailRegex.test(this.get('email'))){
+        this.set("errorEmail","Email format is incorrect");
         errorFront=true;
       }
       if (!this.get('password')) {
