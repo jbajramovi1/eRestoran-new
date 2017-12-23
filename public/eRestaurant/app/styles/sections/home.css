@@ -28,7 +28,7 @@
 	position: absolute;
 	background-size: cover;
 	background-position: center;
-	background-image: url("http://res.cloudinary.com/dxcx9k4in/image/upload/v1513860024/home.jpg");
+	background-image: url('https://res.cloudinary.com/dxcx9k4in/image/upload/v1513860024/home.jpg');
     margin-bottom: 30px;
 }
 
@@ -150,7 +150,7 @@
 	position: absolute;
 	background-size: cover;
 	background-position: center;
-	background-image: url("http://res.cloudinary.com/dxcx9k4in/image/upload/v1513860024/specials.jpg");
+	background-image: url('https://res.cloudinary.com/dxcx9k4in/image/upload/v1513860024/specials.jpg');
 }
 
 .home-specials{

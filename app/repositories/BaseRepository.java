@@ -48,9 +48,25 @@ public interface BaseRepository<M> {
     /**
      * Return all models
      *
-     * @return List
-     * @throws RepositoryException
+     * @return List list
+     * @throws RepositoryException the repository exception
      */
     List<M> findAll() throws RepositoryException;
+
+    /**
+     * Return true if there are entities
+     *
+     * @return boolean boolean
+     * @throws RepositoryException the repository exception
+     */
+    boolean hasData() throws RepositoryException;
+
+    /**
+     * Count integer.
+     *
+     * @return the integer
+     * @throws RepositoryException the repository exception
+     */
+    Long count() throws RepositoryException;
 
 }

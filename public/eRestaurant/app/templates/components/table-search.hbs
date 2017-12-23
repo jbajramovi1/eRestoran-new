@@ -1,0 +1,18 @@
+{{#if enabled}}
+<div class="container">
+  <div class="row table-search-row">
+    {{#if tablesEmpty}}
+      <p>No available tables on selected date!</p>
+    {{else}}
+      <p>Available tables on selected date:</p>
+    {{/if}}
+    {{#each model as |table|}}
+
+    <div class="col-md-3 col-sm-3 col-xs-4 table-search-col">
+      <button {{action makeNewReservation table.sittingPlaces}} class="btn table-search-btn">{{table.sittingPlaces}} people</button>
+    </div>
+
+  {{/each}}
+  </div>
+</div>
+{{/if}}

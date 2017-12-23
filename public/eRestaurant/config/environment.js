@@ -23,10 +23,12 @@ module.exports = function(environment) {
     },
     CLOUDINARY: {
       CLOUD_NAME: 'dxcx9k4in', // "cloud name" in Cloudinary
-      SECURE: false // use https? 
+      SECURE: true // use https? 
     }
   };
-
+  ENV.googleMap = {
+  apiKey: 'AIzaSyCQKiuoytD_QzAJBrVYiQtit3E-L-zya7E'
+};
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     ENV.APP.LOG_ACTIVE_GENERATION = true;

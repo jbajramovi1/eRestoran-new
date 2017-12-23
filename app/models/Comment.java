@@ -19,7 +19,7 @@ public class Comment extends BaseModel<Comment> {
     @Column(name = "insert_date")
     private Date insertTime;
     @ManyToOne
-    @JoinColumn(name="account_id")
+    @JoinColumn(name = "account_id")
     private Account account;
     @ManyToOne
     @JoinColumn(name = "restaurant_id")

@@ -1,14 +1,13 @@
 package services;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import models.BaseModel;
 import org.slf4j.LoggerFactory;
 import repositories.BaseRepository;
 import repositories.exceptions.RepositoryException;
 import services.exceptions.ServiceException;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.List;
 
 /**
@@ -120,4 +119,23 @@ public abstract class BaseService<M extends BaseModel<M>, R extends BaseReposito
 			throw new ServiceException("Service couldn't get models", e);
 		}
 	}
+
+
+	public int count() throws ServiceException {
+		try {
+			return repository.count().intValue();
+		} catch (RepositoryException e) {
+			throw new ServiceException("Service couldn't get data count", e);
+		}
+	}
+
+	public boolean hasData() throws ServiceException {
+		try {
+			return repository.hasData();
+		} catch (RepositoryException e) {
+			throw new ServiceException("Service couldn't get models", e);
+
+		}
+	}
+
 }

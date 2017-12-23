@@ -1,6 +1,18 @@
 package models;
 
+/**
+ * The enum Role.
+ */
 public enum Role {
-	 USER,ADMIN,MANAGER
+    /**
+     * User role.
+     */
+    USER, /**
+     * Admin role.
+     */
+    ADMIN, /**
+     * Manager role.
+     */
+    MANAGER
 
 }
