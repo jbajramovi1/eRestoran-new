@@ -2,24 +2,25 @@ package models.filters;
 
 import org.hibernate.Criteria;
 
+import javax.inject.Singleton;
+
 /**
  * The type Base filter model.
  *
  * @param <B> the type parameter
  */
+@Singleton
 public abstract class BaseFilterModel<B extends BaseFilterModel> {
     private Integer pageNumber;
     private Integer pageSize;
     private Integer count;
+    private String sortKey;
+    private Boolean sortAsc;
 
     /**
      * Instantiates a new Base filter model.
      */
-    public BaseFilterModel() {
-        setPageSize(0);
-        setPageNumber(0);
-        setCount(0);
-    }
+
 
     /**
      * Add conditions criteria.
@@ -28,7 +29,7 @@ public abstract class BaseFilterModel<B extends BaseFilterModel> {
      * @return the criteria
      */
     protected Criteria addConditions(Criteria rootCriteria) {
-        if (getPageSize() != null && getPageSize() != 0) {
+        if (pageSize != null && pageSize != 0) {
             rootCriteria = this.addLimitAndOffset(rootCriteria);
         }
         return rootCriteria;
@@ -41,12 +42,24 @@ public abstract class BaseFilterModel<B extends BaseFilterModel> {
      * @return the criteria
      */
     protected Criteria addLimitAndOffset(Criteria rootCriteria) {
-        if (getPageNumber() == null) {
+        if (pageNumber == null) {
             setPageNumber(0);
         }
-        rootCriteria.setFirstResult(getPageNumber() * getPageSize());
-        rootCriteria.setMaxResults(getPageSize());
+        rootCriteria.setFirstResult(pageNumber * pageSize);
+        rootCriteria.setMaxResults(pageSize);
         return rootCriteria;
+    }
+
+
+    /**
+     * Sets page number.
+     *
+     * @param pageNumber the page number
+     * @return the page number
+     */
+    public B setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+        return (B) this;
     }
 
     /**
@@ -59,12 +72,14 @@ public abstract class BaseFilterModel<B extends BaseFilterModel> {
     }
 
     /**
-     * Sets page number.
+     * Sets page size.
      *
-     * @param pageNumber the page number
+     * @param pageSize the page size
+     * @return the page size
      */
-    public void setPageNumber(int pageNumber) {
-        this.pageNumber = pageNumber;
+    public B setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+        return (B) this;
     }
 
     /**
@@ -77,29 +92,38 @@ public abstract class BaseFilterModel<B extends BaseFilterModel> {
     }
 
     /**
-     * Sets page size.
-     *
-     * @param pageSize the page size
-     */
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    /**
-     * Gets count.
-     *
-     * @return the count
-     */
-    public Integer getCount() {
-        return count;
-    }
-
-    /**
      * Sets count.
      *
      * @param count the count
+     * @return the count
      */
-    public void setCount(int count) {
+    public B setCount(int count) {
         this.count = count;
+        return (B) this;
     }
+
+
+    /**
+     * Sets sort key.
+     *
+     * @param sortKey the sort key
+     * @return the sort key
+     */
+    public B setSortKey(String sortKey) {
+        this.sortKey = sortKey;
+        return (B) this;
+    }
+
+    /**
+     * Sets sort asc.
+     *
+     * @param sortAsc the sort asc
+     * @return the sort asc
+     */
+    public B setSortAsc(boolean sortAsc) {
+        this.sortAsc = sortAsc;
+        return (B) this;
+    }
+
+
 }

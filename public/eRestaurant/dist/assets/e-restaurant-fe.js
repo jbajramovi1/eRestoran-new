@@ -1191,7 +1191,7 @@ define('e-restaurant-fe/components/rate-modal', ['exports', 'e-restaurant-fe/mod
         var restaurant = _restaurant.default.create({});
         account.set('id', this.get('sessionService').getCurrentUserId());
         comment.setProperties({ 'content': this.get('review'), 'mark': this.get('stars'), 'account': account });
-        restaurant.set('id', this.get('model.id'));
+        restaurant.set('id', this.get('model.restaurant.id'));
         this.get('commentService').leaveComment(this.get('review'), this.get('stars'), new Date(), restaurant).done(function (response) {
           _this.get('notifications').success('Your rating is saved!', {
             autoClear: true,
@@ -1223,9 +1223,15 @@ define('e-restaurant-fe/components/reservation-bar', ['exports', 'e-restaurant-f
     reservation: Ember.inject.service('reservation-service'),
     notifications: Ember.inject.service('notification-messages'),
     sessionService: Ember.inject.service('session-service'),
+    restaurant: Ember.inject.controller(),
+    tableSearchEnable: false,
+    tablesEmpty: false,
     people: 2,
-    time: "6 PM",
+    time: 18,
     date: new Date(),
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+    },
     actions: {
       selectPeople: function selectPeople(value) {
         this.set('people', value);
@@ -1248,19 +1254,40 @@ define('e-restaurant-fe/components/reservation-bar', ['exports', 'e-restaurant-f
           var account = _account.default.create({});
           var restaurant = _restaurant.default.create({});
           account.set('id', this.get('sessionService').getCurrentUserId());
-          restaurant.set('id', this.get('model.id'));
-          this.get('reservation').createReservation(this.get('people'), this.get('date'), restaurant).done(function (response) {
-            _this.get('notifications').success('Successful reservation!', {
-              autoClear: true,
-              clearDuration: 1500
-            });
+          restaurant.set('id', this.get('model.restaurant.id'));
+          var date = this.get('date');
+          date.setHours(date.getHours() + this.get('time'));
+          this.get('reservation').createReservation(this.get('people'), date, restaurant, account).done(function (response) {
+            if (response.responseType == "SUCCESS") {
+
+              _this.get('notifications').success('Successful reservation!', {
+                autoClear: true,
+                clearDuration: 1500
+              });
+              _this.set('tableSearchEnable', false);
+            } else {
+              _this.set('tablesEmpty', false);
+              _this.set('tablesResponse', response.response);
+              if (response.response.length == 0) {
+                _this.set('tablesEmpty', true);
+              }
+              _this.set('tableSearchEnable', true);
+            }
           }).fail(function (response) {
-            _this.get('notifications').error('Reservation error', {
+            _this.get('notifications').error('Unable to make the reservation', {
               autoClear: true,
               clearDuration: 1500
             });
           });
         }
+      },
+      makeNewReservation: function makeNewReservation(places) {
+        var oldValue = this.get('people');
+        this.set('people', places);
+        this.send('saveReservation');
+        this.set('tableSearchEnable', false);
+
+        this.set('people', oldValue);
       }
     }
 
@@ -1302,6 +1329,21 @@ define('e-restaurant-fe/components/swiper-slide', ['exports', 'ember-cli-swiper/
     enumerable: true,
     get: function () {
       return _swiperSlide.default;
+    }
+  });
+});
+define('e-restaurant-fe/components/table-search', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Component.extend({
+    reservationBar: Ember.inject.controller('reservation-bar'),
+    actions: {
+      makeNewReservation: function makeNewReservation(places) {
+        this.sendAction('makeNewReservation', places);
+      }
     }
   });
 });
@@ -1656,13 +1698,54 @@ define('e-restaurant-fe/controllers/register', ['exports', 'e-restaurant-fe/mode
     }
   });
 });
-define('e-restaurant-fe/controllers/restaurant', ['exports'], function (exports) {
+define('e-restaurant-fe/controllers/reservation-bar', ['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
   exports.default = Ember.Controller.extend({});
+});
+define('e-restaurant-fe/controllers/restaurant', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Controller.extend({
+    tablesResponse: []
+
+  });
+});
+define('e-restaurant-fe/controllers/restaurants', ['exports'], function (exports) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Controller.extend({
+    restaurants: [],
+    pageNumber: 1,
+    pageSize: 6,
+    totalPages: null,
+    name: "",
+    actions: {
+      search: function search() {
+        var _this = this;
+
+        this.get('restaurantService').filter(this.get('pageSize'), this.get('pageNumber'), this.get('name')).done(function (response) {
+          _this.set('pageNumber', response.pageNumber);
+          _this.set('restaurants', response.data);
+          _this.set('totalPages', response.count);
+        }).fail(function (response) {
+          _this.get('notifications').error("Error while loadin restaurants!", {
+            autoClear: true,
+            clearDuration: 1500
+          });
+        });
+      }
+    }
+  });
 });
 define('e-restaurant-fe/helpers/app-version', ['exports', 'e-restaurant-fe/config/environment', 'ember-cli-app-version/utils/regexp'], function (exports, _environment, _regexp) {
   'use strict';
@@ -2184,7 +2267,7 @@ define('e-restaurant-fe/routes/restaurant', ['exports', 'e-restaurant-fe/models/
     value: true
   });
   exports.default = Ember.Route.extend({
-    restaurant: Ember.inject.service('restaurant-service'),
+    restaurantService: Ember.inject.service('restaurant-service'),
     setupController: function setupController(controller, model) {
       this._super(controller, model);
       window.scrollTo(0, 0);
@@ -2204,12 +2287,16 @@ define('e-restaurant-fe/routes/restaurant', ['exports', 'e-restaurant-fe/models/
     model: function model(params) {
       var _this = this;
 
-      return this.get('restaurant').getById(params.id).fail(function (response) {
-        _this.transitionTo('home');
-        _this.get('notifications').error("Restaurant load error occured!", {
-          autoClear: true,
-          clearDuration: 1500
-        });
+      console.log(this.get('tablesResponse'));
+      return Ember.RSVP.hash({
+        restaurant: this.get('restaurantService').getById(params.id).fail(function (response) {
+          _this.transitionTo('home');
+          _this.get('notifications').error("Restaurant load error occured!", {
+            autoClear: true,
+            clearDuration: 1500
+          });
+        }),
+        tables: this.get('tablesResponse')
       });
     }
   });
@@ -2220,7 +2307,32 @@ define('e-restaurant-fe/routes/restaurants', ['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.Route.extend({});
+  exports.default = Ember.Route.extend({
+    restaurantService: Ember.inject.service('restaurant-service'),
+    notifications: Ember.inject.service('notification-messages'),
+    setupController: function setupController(controller, model) {
+      this._super(controller, model);
+    },
+    beforeModel: function beforeModel(transition) {
+      var _this = this;
+
+      this.get('restaurantService').filter(this.get('pageSize'), this.get('pageNumber'), this.get('name')).done(function (response) {
+        _this.set('pageNumber', response.pageNumber);
+        _this.set('restaurants', response.data);
+        _this.set('totalPages', response.count);
+      }).fail(function (response) {
+        _this.get('notifications').error("Error while loadin restaurants!", {
+          autoClear: true,
+          clearDuration: 1500
+        });
+      });
+    },
+    model: function model() {
+      return Ember.RSVP.hash({
+        restaurants: this.get('restaurants')
+      });
+    }
+  });
 });
 define('e-restaurant-fe/services/account-service', ['exports'], function (exports) {
     'use strict';
@@ -2423,14 +2535,15 @@ define('e-restaurant-fe/services/reservation-service', ['exports'], function (ex
         value: true
     });
     exports.default = Ember.Service.extend({
-        createReservation: function createReservation(tables, reservationDate, restaurant) {
+        createReservation: function createReservation(tables, reservationDate, restaurant, account) {
             return $.ajax({
                 method: 'POST',
                 url: '/api/v1/reservation',
                 data: JSON.stringify({
                     tables: tables,
                     reservationDate: reservationDate,
-                    restaurant: restaurant
+                    restaurant: restaurant,
+                    account: account
                 }),
                 contentType: "application/json"
             });
@@ -2451,6 +2564,14 @@ define('e-restaurant-fe/services/restaurant-service', ['exports', 'e-restaurant-
         contentType: "application/json",
         dataType: 'json'
 
+      });
+    },
+    filter: function filter(pageSize, pageNumber, name) {
+      return $.ajax({
+        method: 'GET',
+        url: '/api/v1/restaurants/filter?pageSize=' + pageSize + '&pageNumber=' + pageNumber + '&name=' + name,
+        contentType: "application/json",
+        dataType: 'json'
       });
     }
   });
@@ -2603,7 +2724,15 @@ define("e-restaurant-fe/templates/components/reservation-bar", ["exports"], func
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "VvNPeLwy", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"dropdown-home dropdown-people\"],[13],[0,\"\\n    \"],[11,\"select\",[]],[15,\"class\",\"select-home\"],[16,\"onchange\",[33,[\"action\"],[[28,[null]],\"selectPeople\"],[[\"value\"],[\"target.value\"]]],null],[13],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"1\"],[13],[0,\"1 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"2\"],[15,\"selected\",\"\"],[13],[0,\"2 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"3\"],[13],[0,\"3 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"4\"],[13],[0,\"4 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"5\"],[13],[0,\"5 people\"],[14],[0,\"\\n    \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"dropdown-home dropdown-date\"],[13],[0,\"\\n    \"],[1,[33,[\"pikaday-input\"],null,[[\"class\",\"format\",\"theme\",\"value\",\"onSelection\"],[\"pikaday\",\"MM/DD/YYYY\",\"dark-theme\",[28,[\"date\"]],[33,[\"action\"],[[28,[null]],\"selectDate\"],null]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"dropdown-home dropdown-time\"],[13],[0,\"\\n  \"],[11,\"select\",[]],[15,\"class\",\"select-home\"],[16,\"onchange\",[33,[\"action\"],[[28,[null]],\"selectTime\"],[[\"value\"],[\"target.value\"]]],null],[13],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"5 PM\"],[13],[0,\"5 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"6 PM\"],[15,\"selected\",\"\"],[13],[0,\"6 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"7 PM\"],[13],[0,\"7 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"8 PM\"],[13],[0,\"8 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"9 PM\"],[13],[0,\"9 PM\"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-home\"],[5,[\"action\"],[[28,[null]],\"saveReservation\"]],[13],[0,\"Find a table\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-restaurant-fe/templates/components/reservation-bar.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "fNyEHyuW", "block": "{\"statements\":[[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"dropdown-home dropdown-people\"],[13],[0,\"\\n    \"],[11,\"select\",[]],[15,\"class\",\"select-home\"],[16,\"onchange\",[33,[\"action\"],[[28,[null]],\"selectPeople\"],[[\"value\"],[\"target.value\"]]],null],[13],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"1\"],[13],[0,\"1 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"2\"],[15,\"selected\",\"\"],[13],[0,\"2 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"3\"],[13],[0,\"3 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"4\"],[13],[0,\"4 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"5\"],[13],[0,\"5 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"6\"],[13],[0,\"6 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"7\"],[13],[0,\"7 people\"],[14],[0,\"\\n        \"],[11,\"option\",[]],[15,\"value\",\"8\"],[13],[0,\"8 people\"],[14],[0,\"\\n    \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"dropdown-home dropdown-date\"],[13],[0,\"\\n    \"],[1,[33,[\"pikaday-input\"],null,[[\"class\",\"format\",\"theme\",\"value\",\"onSelection\"],[\"pikaday\",\"MM/DD/YYYY\",\"dark-theme\",[28,[\"date\"]],[33,[\"action\"],[[28,[null]],\"selectDate\"],null]]]],false],[0,\"\\n\"],[14],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"dropdown-home dropdown-time\"],[13],[0,\"\\n  \"],[11,\"select\",[]],[15,\"class\",\"select-home\"],[16,\"onchange\",[33,[\"action\"],[[28,[null]],\"selectTime\"],[[\"value\"],[\"target.value\"]]],null],[13],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"12\"],[13],[0,\"12 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"13\"],[13],[0,\"1 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"14\"],[13],[0,\"2 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"15\"],[13],[0,\"3 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"16\"],[13],[0,\"4 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"17\"],[13],[0,\"5 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"18\"],[15,\"selected\",\"\"],[13],[0,\"6 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"19\"],[13],[0,\"7 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"20\"],[13],[0,\"8 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"21\"],[13],[0,\"9 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"22\"],[13],[0,\"10 PM\"],[14],[0,\"\\n      \"],[11,\"option\",[]],[15,\"value\",\"23\"],[13],[0,\"11 PM\"],[14],[0,\"\\n  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-home\"],[5,[\"action\"],[[28,[null]],\"saveReservation\"]],[13],[0,\"Find a table\"],[14],[0,\"\\n\"],[6,[\"table-search\"],null,[[\"model\",\"enabled\",\"tablesEmpty\",\"makeNewReservation\"],[[28,[\"tablesResponse\"]],[28,[\"tableSearchEnable\"]],[28,[\"tablesEmpty\"]],\"makeNewReservation\"]],{\"statements\":[],\"locals\":[]},null],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-restaurant-fe/templates/components/reservation-bar.hbs" } });
+});
+define("e-restaurant-fe/templates/components/table-search", ["exports"], function (exports) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.HTMLBars.template({ "id": "UYxVJfeY", "block": "{\"statements\":[[6,[\"if\"],[[28,[\"enabled\"]]],null,{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"row table-search-row\"],[13],[0,\"\\n\"],[6,[\"if\"],[[28,[\"tablesEmpty\"]]],null,{\"statements\":[[0,\"      \"],[11,\"p\",[]],[13],[0,\"No available tables on selected date!\"],[14],[0,\"\\n\"]],\"locals\":[]},{\"statements\":[[0,\"      \"],[11,\"p\",[]],[13],[0,\"Available tables on selected date:\"],[14],[0,\"\\n\"]],\"locals\":[]}],[6,[\"each\"],[[28,[\"model\"]]],null,{\"statements\":[[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3 col-xs-4 table-search-col\"],[13],[0,\"\\n      \"],[11,\"button\",[]],[15,\"class\",\"btn table-search-btn\"],[5,[\"action\"],[[28,[null]],[28,[\"makeNewReservation\"]],[28,[\"table\",\"sittingPlaces\"]]]],[13],[1,[28,[\"table\",\"sittingPlaces\"]],false],[0,\" people\"],[14],[0,\"\\n    \"],[14],[0,\"\\n\\n\"]],\"locals\":[\"table\"]},null],[0,\"  \"],[14],[0,\"\\n\"],[14],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-restaurant-fe/templates/components/table-search.hbs" } });
 });
 define("e-restaurant-fe/templates/home", ["exports"], function (exports) {
   "use strict";
@@ -2635,7 +2764,7 @@ define("e-restaurant-fe/templates/restaurant", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "LY/vkm44", "block": "{\"statements\":[[1,[33,[\"notification-container\"],null,[[\"class\"],[\"notification-cont\"]]],false],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"container-default\"],[13],[0,\"\\n\\n  \"],[11,\"div\",[]],[15,\"class\",\"cover\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"mask\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"rest-img-div\"],[13],[0,\"\\n        \"],[11,\"img\",[]],[15,\"class\",\"rest-img\"],[16,\"src\",[28,[\"model\",\"imageFileName\"]],null],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"rest-main\"],[13],[0,\"\\n        \"],[11,\"h3\",[]],[15,\"class\",\"rest-name\"],[13],[1,[28,[\"model\",\"name\"]],false],[14],[0,\"\\n          \"],[1,[33,[\"star-rating\"],null,[[\"rating\",\"id\",\"baseColor\",\"fillColor\",\"readOnly\"],[[28,[\"model\",\"mark\"]],\"stars-display\",\"lightgray\",\"#Fe4a49\",true]]],false],[0,\"\\n        \"],[11,\"p\",[]],[15,\"class\",\"rest-category\"],[13],[1,[28,[\"model\",\"category\"]],false],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n\\n  \"],[11,\"ul\",[]],[15,\"class\",\"nav navbar-left nav-restaurant\"],[13],[0,\"\\n      \"],[11,\"li\",[]],[15,\"class\",\"nav-item\"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Reservation\"],[14],[14],[0,\"\\n      \"],[11,\"li\",[]],[15,\"class\",\"nav-item\"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"About\"],[14],[14],[0,\"\\n      \"],[11,\"li\",[]],[15,\"class\",\"nav-item \"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Menu\"],[14],[14],[0,\"\\n      \"],[11,\"li\",[]],[15,\"class\",\"nav-item \"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Photos\"],[14],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"rest-container\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"rest-div div-reserve\"],[13],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"rest-subtitle\"],[13],[0,\"Make a free reservation\"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"res-bar\"],[13],[0,\"\\n        \"],[6,[\"reservation-bar\"],null,[[\"model\"],[[28,[\"model\"]]]],{\"statements\":[],\"locals\":[]},null],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"rest-div div-desc\"],[13],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"rest-subtitle\"],[13],[0,\"About Restaurant name\"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"map\"],[13],[0,\"\\n        \"],[1,[33,[\"g-maps\"],null,[[\"lat\",\"lng\",\"zoom\",\"markers\"],[[28,[\"lat\"]],[28,[\"lng\"]],[28,[\"zoom\"]],[28,[\"markers\"]]]]],false],[4,\"\"],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"rest-subtitle\"],[13],[0,\"Description\"],[14],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"rest-description\"],[13],[1,[28,[\"model\",\"description\"]],false],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"rest-div div-menu\"],[13],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"rest-subtitle\"],[13],[0,\"Menu\"],[14],[0,\"\\n      \"],[11,\"ul\",[]],[15,\"class\",\"nav navbar-nav navbar-left nav-menu\"],[13],[0,\"\\n          \"],[11,\"li\",[]],[15,\"class\",\"nav-item\"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Breakfast\"],[14],[14],[0,\"\\n          \"],[11,\"li\",[]],[15,\"class\",\"nav-item \"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Lunch\"],[14],[14],[0,\"\\n          \"],[11,\"li\",[]],[15,\"class\",\"nav-item \"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Dinner\"],[14],[14],[0,\"\\n      \"],[14],[0,\"\\n\\n      \"],[11,\"ul\",[]],[15,\"class\",\"menu\"],[13],[0,\"\\n        \"],[11,\"li\",[]],[13],[11,\"span\",[]],[13],[0,\"Broccoli Rabe\"],[14],[11,\"span\",[]],[13],[0,\"$8.95\"],[14],[14],[0,\"\\n        \"],[11,\"li\",[]],[13],[11,\"span\",[]],[13],[0,\"Fried Mozzarell\"],[14],[11,\"span\",[]],[13],[0,\"$8.95\"],[14],[14],[0,\"\\n      \"],[14],[0,\"\\n\\n\\n    \"],[14],[0,\"\\n    \"],[6,[\"rate-modal\"],null,[[\"value\",\"model\",\"enabled\"],[[28,[\"modal\"]],[28,[\"model\"]],false]],{\"statements\":[],\"locals\":[]},null],[0,\"\\n  \"],[14],[0,\"\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-restaurant-fe/templates/restaurant.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "y8EKTfyX", "block": "{\"statements\":[[1,[33,[\"notification-container\"],null,[[\"class\"],[\"notification-cont\"]]],false],[0,\"\\n\"],[11,\"div\",[]],[15,\"class\",\"container-default\"],[13],[0,\"\\n\\n  \"],[11,\"div\",[]],[15,\"class\",\"cover\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"mask\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"rest-img-div\"],[13],[0,\"\\n        \"],[11,\"img\",[]],[15,\"class\",\"rest-img\"],[16,\"src\",[28,[\"model\",\"restaurant\",\"imageFileName\"]],null],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"rest-main\"],[13],[0,\"\\n        \"],[11,\"h3\",[]],[15,\"class\",\"rest-name\"],[13],[1,[28,[\"model\",\"restaurant\",\"name\"]],false],[14],[0,\"\\n          \"],[1,[33,[\"star-rating\"],null,[[\"rating\",\"id\",\"baseColor\",\"fillColor\",\"readOnly\"],[[28,[\"model\",\"restaurant\",\"mark\"]],\"stars-display\",\"lightgray\",\"#Fe4a49\",true]]],false],[0,\"\\n        \"],[11,\"p\",[]],[15,\"class\",\"rest-category\"],[13],[1,[28,[\"model\",\"restaurant\",\"category\"]],false],[14],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n\\n  \"],[11,\"ul\",[]],[15,\"class\",\"nav navbar-left nav-restaurant\"],[13],[0,\"\\n      \"],[11,\"li\",[]],[15,\"class\",\"nav-item\"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Reservation\"],[14],[14],[0,\"\\n      \"],[11,\"li\",[]],[15,\"class\",\"nav-item\"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"About\"],[14],[14],[0,\"\\n      \"],[11,\"li\",[]],[15,\"class\",\"nav-item \"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Menu\"],[14],[14],[0,\"\\n      \"],[11,\"li\",[]],[15,\"class\",\"nav-item \"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Photos\"],[14],[14],[0,\"\\n  \"],[14],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"rest-container\"],[13],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"rest-div div-reserve\"],[13],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"rest-subtitle\"],[13],[0,\"Make a free reservation\"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"res-bar\"],[13],[0,\"\\n        \"],[6,[\"reservation-bar\"],null,[[\"model\"],[[28,[\"model\"]]]],{\"statements\":[],\"locals\":[]},null],[0,\"\\n      \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"rest-div div-desc\"],[13],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"rest-subtitle\"],[13],[0,\"About Restaurant name\"],[14],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"map\"],[13],[0,\"\\n        \"],[1,[33,[\"g-maps\"],null,[[\"lat\",\"lng\",\"zoom\",\"markers\"],[[28,[\"lat\"]],[28,[\"lng\"]],[28,[\"zoom\"]],[28,[\"markers\"]]]]],false],[4,\"\"],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"rest-subtitle\"],[13],[0,\"Description\"],[14],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"rest-description\"],[13],[1,[28,[\"model\",\"restaurant\",\"description\"]],false],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[11,\"div\",[]],[15,\"class\",\"rest-div div-menu\"],[13],[0,\"\\n      \"],[11,\"p\",[]],[15,\"class\",\"rest-subtitle\"],[13],[0,\"Menu\"],[14],[0,\"\\n      \"],[11,\"ul\",[]],[15,\"class\",\"nav navbar-nav navbar-left nav-menu\"],[13],[0,\"\\n          \"],[11,\"li\",[]],[15,\"class\",\"nav-item\"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Breakfast\"],[14],[14],[0,\"\\n          \"],[11,\"li\",[]],[15,\"class\",\"nav-item \"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Lunch\"],[14],[14],[0,\"\\n          \"],[11,\"li\",[]],[15,\"class\",\"nav-item \"],[13],[11,\"a\",[]],[15,\"href\",\"#\"],[13],[0,\"Dinner\"],[14],[14],[0,\"\\n      \"],[14],[0,\"\\n\\n      \"],[11,\"ul\",[]],[15,\"class\",\"menu\"],[13],[0,\"\\n        \"],[11,\"li\",[]],[13],[11,\"span\",[]],[13],[0,\"Broccoli Rabe\"],[14],[11,\"span\",[]],[13],[0,\"$8.95\"],[14],[14],[0,\"\\n        \"],[11,\"li\",[]],[13],[11,\"span\",[]],[13],[0,\"Fried Mozzarell\"],[14],[11,\"span\",[]],[13],[0,\"$8.95\"],[14],[14],[0,\"\\n      \"],[14],[0,\"\\n\\n\\n    \"],[14],[0,\"\\n    \"],[6,[\"rate-modal\"],null,[[\"value\",\"model\",\"enabled\"],[[28,[\"modal\"]],[28,[\"model\"]],false]],{\"statements\":[],\"locals\":[]},null],[0,\"\\n  \"],[14],[0,\"\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-restaurant-fe/templates/restaurant.hbs" } });
 });
 define("e-restaurant-fe/templates/restaurants", ["exports"], function (exports) {
   "use strict";
@@ -2643,7 +2772,7 @@ define("e-restaurant-fe/templates/restaurants", ["exports"], function (exports) 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "SyXe85QJ", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container-default\"],[13],[0,\"\\n\\n\\n\"],[11,\"div\",[]],[15,\"class\",\"restaurants-wrap\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"search-restaurants\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"inner-addon left-addon\"],[13],[0,\"\\n          \"],[11,\"i\",[]],[15,\"class\",\"glyphicon glyphicon-search\"],[13],[14],[0,\"\\n          \"],[11,\"input\",[]],[15,\"type\",\"text\"],[15,\"class\",\"form-control search-input rest-search-input\"],[15,\"placeholder\",\"Search for a restaurant...\"],[13],[14],[0,\"\\n      \"],[14],[0,\"\\n      \"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-restaurants\"],[5,[\"action\"],[[28,[null]],\"seach\"]],[13],[0,\"Search\"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n    \"],[11,\"div\",[]],[15,\"class\",\"row restaurant-row row-list\"],[13],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3 col-xs-8 restaurant-col\"],[13],[0,\"\\n            \"],[11,\"img\",[]],[15,\"class\",\"restaurant-img\"],[15,\"src\",\"/assets/images/restaurant.jpg\"],[13],[14],[0,\"\\n            \"],[6,[\"link-to\"],[\"restaurant\",31],null,{\"statements\":[[11,\"p\",[]],[15,\"class\",\"restaurant-name\"],[13],[0,\"Restaurant 1\"],[14]],\"locals\":[]},null],[0,\"\\n            \"],[1,[33,[\"star-rating\"],null,[[\"rating\",\"baseColor\",\"fillColor\",\"readOnly\"],[3,\"lightgray\",\"#Fe4a49\",true]]],false],[0,\"\\n            \"],[11,\"hr\",[]],[15,\"class\",\"thin\"],[13],[14],[0,\"\\n            \"],[11,\"p\",[]],[15,\"class\",\"restaurant-category\"],[13],[0,\"International\"],[14],[0,\"\\n            \"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-reserve\"],[13],[0,\"Reserve now\"],[14],[0,\"\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3 col-xs-8 restaurant-col\"],[13],[0,\"\\n            \"],[11,\"img\",[]],[15,\"class\",\"restaurant-img\"],[15,\"src\",\"/assets/images/restaurant2.jpg\"],[13],[14],[0,\"\\n            \"],[6,[\"link-to\"],[\"restaurant\",32],null,{\"statements\":[[11,\"p\",[]],[15,\"class\",\"restaurant-name\"],[13],[0,\"Restaurant 2\"],[14]],\"locals\":[]},null],[0,\"\\n            \"],[1,[33,[\"star-rating\"],null,[[\"rating\",\"baseColor\",\"fillColor\",\"readOnly\"],[4,\"lightgray\",\"#Fe4a49\",true]]],false],[0,\"\\n            \"],[11,\"hr\",[]],[15,\"class\",\"thin\"],[13],[14],[0,\"\\n            \"],[11,\"p\",[]],[15,\"class\",\"restaurant-category\"],[13],[0,\"Indian | International\"],[14],[0,\"\\n            \"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-reserve\"],[13],[0,\"Reserve now\"],[14],[0,\"\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3 col-xs-8 restaurant-col\"],[13],[0,\"\\n            \"],[11,\"img\",[]],[15,\"class\",\"restaurant-img\"],[15,\"src\",\"/assets/images/restaurant3.jpg\"],[13],[14],[0,\"\\n            \"],[6,[\"link-to\"],[\"restaurant\",33],null,{\"statements\":[[11,\"p\",[]],[15,\"class\",\"restaurant-name\"],[13],[0,\"Restaurant 3\"],[14]],\"locals\":[]},null],[0,\"\\n            \"],[1,[33,[\"star-rating\"],[2],[[\"baseColor\",\"fillColor\",\"readOnly\"],[\"lightgray\",\"#Fe4a49\",true]]],false],[0,\"\\n            \"],[11,\"hr\",[]],[15,\"class\",\"thin\"],[13],[14],[0,\"\\n            \"],[11,\"p\",[]],[15,\"class\",\"restaurant-category\"],[13],[0,\"Italian | International\"],[14],[0,\"\\n            \"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-reserve\"],[13],[0,\"Reserve now\"],[14],[0,\"\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3 col-xs-8 restaurant-col\"],[13],[0,\"\\n            \"],[11,\"img\",[]],[15,\"class\",\"restaurant-img\"],[15,\"src\",\"/assets/images/restaurant4.jpg\"],[13],[14],[0,\"\\n            \"],[6,[\"link-to\"],[\"restaurant\",34],null,{\"statements\":[[11,\"p\",[]],[15,\"class\",\"restaurant-name\"],[13],[0,\"Restaurant 4\"],[14]],\"locals\":[]},null],[0,\"\\n            \"],[1,[33,[\"star-rating\"],null,[[\"rating\",\"baseColor\",\"fillColor\",\"readOnly\"],[2,\"lightgray\",\"#Fe4a49\",true]]],false],[0,\"\\n            \"],[11,\"hr\",[]],[15,\"class\",\"thin\"],[13],[14],[0,\"\\n            \"],[11,\"p\",[]],[15,\"class\",\"restaurant-category\"],[13],[0,\"Mediterranean | International\"],[14],[0,\"\\n            \"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-reserve\"],[13],[0,\"Reserve now\"],[14],[0,\"\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3 col-xs-8 restaurant-col\"],[13],[0,\"\\n            \"],[11,\"img\",[]],[15,\"class\",\"restaurant-img\"],[15,\"src\",\"/assets/images/restaurant5.jpg\"],[13],[14],[0,\"\\n            \"],[6,[\"link-to\"],[\"restaurant\",35],null,{\"statements\":[[11,\"p\",[]],[15,\"class\",\"restaurant-name\"],[13],[0,\"Restaurant 5\"],[14]],\"locals\":[]},null],[0,\"\\n            \"],[1,[33,[\"star-rating\"],null,[[\"rating\",\"baseColor\",\"fillColor\",\"readOnly\"],[5,\"lightgray\",\"#Fe4a49\",true]]],false],[0,\"\\n            \"],[11,\"hr\",[]],[15,\"class\",\"thin\"],[13],[14],[0,\"\\n            \"],[11,\"p\",[]],[15,\"class\",\"restaurant-category\"],[13],[0,\"International\"],[14],[0,\"\\n            \"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-reserve\"],[13],[0,\"Reserve now\"],[14],[0,\"\\n        \"],[14],[0,\"\\n        \"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3 col-xs-8 restaurant-col\"],[13],[0,\"\\n            \"],[11,\"img\",[]],[15,\"class\",\"restaurant-img\"],[15,\"src\",\"/assets/images/restaurant6.jpg\"],[13],[14],[0,\"\\n            \"],[6,[\"link-to\"],[\"restaurant\",36],null,{\"statements\":[[11,\"p\",[]],[15,\"class\",\"restaurant-name\"],[13],[0,\"Restaurant 6\"],[14]],\"locals\":[]},null],[0,\"\\n            \"],[1,[33,[\"star-rating\"],null,[[\"rating\",\"baseColor\",\"fillColor\",\"readOnly\"],[1,\"lightgray\",\"#Fe4a49\",true]]],false],[0,\"\\n            \"],[11,\"hr\",[]],[15,\"class\",\"thin\"],[13],[14],[0,\"\\n            \"],[11,\"p\",[]],[15,\"class\",\"restaurant-category\"],[13],[0,\"International\"],[14],[0,\"\\n            \"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-reserve\"],[13],[0,\"Reserve now\"],[14],[0,\"\\n        \"],[14],[0,\"\\n    \"],[14],[0,\"\\n    \"],[1,[33,[\"page-numbers\"],null,[[\"class\",\"page\",\"totalPages\"],[\"pagination-bar\",1,3]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-restaurant-fe/templates/restaurants.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "xeE8rINQ", "block": "{\"statements\":[[11,\"div\",[]],[15,\"class\",\"container-default\"],[13],[0,\"\\n\\n\\n\"],[11,\"div\",[]],[15,\"class\",\"restaurants-wrap\"],[13],[0,\"\\n  \"],[11,\"div\",[]],[15,\"class\",\"search-restaurants\"],[13],[0,\"\\n      \"],[11,\"div\",[]],[15,\"class\",\"inner-addon left-addon\"],[13],[0,\"\\n          \"],[11,\"i\",[]],[15,\"class\",\"glyphicon glyphicon-search\"],[13],[14],[0,\"\\n          \"],[1,[33,[\"input\"],null,[[\"type\",\"value\",\"class\",\"placeholder\"],[\"text\",[28,[\"name\"]],\"form-control search-input rest-search-input\",\"Search for a restaurant...\"]]],false],[0,\"\\n\\n      \"],[14],[0,\"\\n      \"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-restaurants\"],[5,[\"action\"],[[28,[null]],\"seach\"]],[13],[0,\"Search\"],[14],[0,\"\\n  \"],[14],[0,\"\\n\\n    \"],[11,\"div\",[]],[15,\"class\",\"row restaurant-row row-list\"],[13],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\",\"restaurants\"]]],null,{\"statements\":[[0,\"        \"],[11,\"div\",[]],[15,\"class\",\"col-md-3 col-sm-3 col-xs-8 restaurant-col\"],[13],[0,\"\\n            \"],[11,\"img\",[]],[15,\"class\",\"restaurant-img\"],[15,\"src\",\"/assets/images/restaurant.jpg\"],[13],[14],[0,\"\\n            \"],[6,[\"link-to\"],[\"restaurant\",[28,[\"restaurant\",\"id\"]]],null,{\"statements\":[[11,\"p\",[]],[15,\"class\",\"restaurant-name\"],[13],[1,[28,[\"restaurant\",\"name\"]],false],[14]],\"locals\":[]},null],[0,\"\\n            \"],[1,[33,[\"star-rating\"],null,[[\"rating\",\"baseColor\",\"fillColor\",\"readOnly\"],[[28,[\"restaurant\",\"mark\"]],\"lightgray\",\"#Fe4a49\",true]]],false],[0,\"\\n            \"],[11,\"hr\",[]],[15,\"class\",\"thin\"],[13],[14],[0,\"\\n            \"],[11,\"p\",[]],[15,\"class\",\"restaurant-category\"],[13],[1,[28,[\"restaurant\",\"category\"]],false],[14],[0,\"\\n            \"],[11,\"button\",[]],[15,\"class\",\"btn-outline btn-reserve\"],[13],[0,\"Reserve now\"],[14],[0,\"\\n        \"],[14],[0,\"\\n\"]],\"locals\":[\"restaurant\"]},null],[0,\"    \"],[14],[0,\"\\n    \"],[1,[33,[\"page-numbers\"],null,[[\"class\",\"page\",\"totalPages\"],[\"pagination-bar\",[28,[\"pageNumber\"]],[28,[\"totalPages\"]]]]],false],[0,\"\\n\"],[14],[0,\"\\n\\n\"],[14],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "e-restaurant-fe/templates/restaurants.hbs" } });
 });
 define('e-restaurant-fe/utils/g-maps/child-collection', ['exports', 'ember-cli-g-maps/utils/g-maps/child-collection'], function (exports, _childCollection) {
   'use strict';
@@ -2687,10 +2816,10 @@ define('e-restaurant-fe/utils/load-google-maps', ['exports', 'ember-cli-g-maps/u
 
 
 define('e-restaurant-fe/config/environment', ['ember'], function(Ember) {
-  var exports = {'default': {"modulePrefix":"e-restaurant-fe","environment":"development","rootURL":"/","locationType":"auto","EmberENV":{"FEATURES":{},"EXTEND_PROTOTYPES":{"Date":false}},"APP":{"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"e-restaurant-fe","version":"0.0.0+3739a853"},"API_HOST":"http://localhost:9000","API_VERSION":"1","exportApplicationGlobal":true}};Object.defineProperty(exports, '__esModule', {value: true});return exports;
+  var exports = {'default': {"modulePrefix":"e-restaurant-fe","environment":"development","rootURL":"/","locationType":"auto","EmberENV":{"FEATURES":{},"EXTEND_PROTOTYPES":{"Date":false}},"APP":{"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"e-restaurant-fe","version":"0.0.0+b8b1b55f"},"googleMap":{"apiKey":"AIzaSyCQKiuoytD_QzAJBrVYiQtit3E-L-zya7E"},"API_HOST":"http://localhost:9000","API_VERSION":"1","exportApplicationGlobal":true}};Object.defineProperty(exports, '__esModule', {value: true});return exports;
 });
 
 if (!runningTests) {
-  require("e-restaurant-fe/app")["default"].create({"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"e-restaurant-fe","version":"0.0.0+3739a853"});
+  require("e-restaurant-fe/app")["default"].create({"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"e-restaurant-fe","version":"0.0.0+b8b1b55f"});
 }
 //# sourceMappingURL=e-restaurant-fe.map

@@ -1,11 +1,5 @@
 package controllers;
 
-import java.lang.reflect.ParameterizedType;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import models.BaseModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +11,11 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import services.BaseService;
 import services.exceptions.ServiceException;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 /**
  * The type Base controller.
@@ -70,7 +69,7 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
         try {
             return ok(Json.toJson(service.get(id)));
         } catch (Exception e) {
-            logger.error("Internal server error in BaseController@get",e);
+            logger.error("Internal server error in BaseController@get", e);
             return internalServerError("Internal server error in BaseController@get");
         }
     }
@@ -89,10 +88,10 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
             }
             return ok(Json.toJson(service.create(form.get())));
         } catch (ServiceException e) {
-            logger.error("Service error in BaseController@create",e);
+            logger.error("Service error in BaseController@create", e);
             return badRequest("Service error in BaseController@create");
         } catch (Exception e) {
-            logger.error("Internal server error in BaseController@create",e);
+            logger.error("Internal server error in BaseController@create", e);
             return internalServerError("Internal server error in BaseController@create");
         }
     }
@@ -112,10 +111,10 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
             }
             return ok(Json.toJson(service.update(id, form.get())));
         } catch (ServiceException e) {
-            logger.error("Service error in BaseController@update",e);
+            logger.error("Service error in BaseController@update", e);
             return badRequest("Service error in BaseController@update");
         } catch (Exception e) {
-            logger.error("Internal server error in BaseController@update",e);
+            logger.error("Internal server error in BaseController@update", e);
             return internalServerError("Internal server error in BaseController@update");
         }
     }
@@ -132,29 +131,75 @@ public abstract class BaseController<M extends BaseModel<M>, S extends BaseServi
             service.delete(id);
             return ok(Json.toJson("success"));
         } catch (ServiceException e) {
-            logger.error("Service error in BaseController@delete",e);
+            logger.error("Service error in BaseController@delete", e);
             return badRequest("Service error in BaseController@delete");
         } catch (Exception e) {
-            logger.error("Internal server error in BaseController@delete",e);
+            logger.error("Internal server error in BaseController@delete", e);
             return internalServerError("Internal server error in BaseController@delete");
         }
     }
 
+
+    /**
+     * Find all result.
+     *
+     * @return the result
+     */
     @Transactional
-    public Result findAll(){
+    public Result findAll() {
         try {
             List<M> listAll = service.findAll();
             return ok(Json.toJson(listAll));
-        } catch (ServiceException e){
-            logger.error("Service error in BaseController@findAll",e);
+        } catch (ServiceException e) {
+            logger.error("Service error in BaseController@findAll", e);
             return internalServerError("Service error in BaseController@dfindAll");
-        }
-        catch (Exception e) {
-            logger.error("Internal server error in BaseController@findAll",e);
+        } catch (Exception e) {
+            logger.error("Internal server error in BaseController@findAll", e);
             return internalServerError("Internal server error in BaseController@findAll");
         }
 
     }
+
+
+    /**
+     * Get string string.
+     *
+     * @param property     the property
+     * @param defaultValue the default value
+     * @return the string
+     */
+    protected String getString(String property, String defaultValue) {
+        String value = request().getQueryString(property);
+        if (value == null) {
+            return defaultValue;
+        }
+        return value;
+    }
+
+
+    /**
+     * Get integer integer.
+     *
+     * @param property     the property
+     * @param defaultValue the default value
+     * @return the integer
+     */
+    protected Integer getInteger(String property, Integer defaultValue) throws ServiceException{
+        String value = request().getQueryString(property);
+
+        if (value == null) {
+            return defaultValue;
+        }
+        try {
+        return Integer.parseInt(value);
+        }
+        catch(NumberFormatException e){
+            throw new ServiceException("Can't parse data");
+        }
+
+    }
+
+
     private Class<M> getParameterizedClass() {
         return (Class<M>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }

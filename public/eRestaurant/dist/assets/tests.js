@@ -55,6 +55,11 @@ define('e-restaurant-fe/tests/app.lint-test', [], function () {
     assert.ok(false, 'components/reservation-bar.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
   });
 
+  QUnit.test('components/table-search.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'components/table-search.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
+  });
+
   QUnit.test('controllers/add-location.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'controllers/add-location.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
@@ -80,9 +85,19 @@ define('e-restaurant-fe/tests/app.lint-test', [], function () {
     assert.ok(false, 'controllers/register.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
   });
 
+  QUnit.test('controllers/reservation-bar.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'controllers/reservation-bar.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
+  });
+
   QUnit.test('controllers/restaurant.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'controllers/restaurant.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
+  });
+
+  QUnit.test('controllers/restaurants.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'controllers/restaurants.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
   });
 
   QUnit.test('models/account.js', function (assert) {
@@ -574,6 +589,36 @@ define('e-restaurant-fe/tests/helpers/start-app', ['exports', 'e-restaurant-fe/a
     });
   }
 });
+define('e-restaurant-fe/tests/integration/components/table-search-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForComponent)('table-search', 'Integration | Component | table search', {
+    integration: true
+  });
+
+  (0, _emberQunit.test)('it renders', function (assert) {
+
+    // Set any properties with this.set('myProperty', 'value');
+    // Handle any actions with this.on('myAction', function(val) { ... });
+
+    this.render(Ember.HTMLBars.template({
+      "id": "hetESTrd",
+      "block": "{\"statements\":[[1,[26,[\"table-search\"]],false]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), '');
+
+    // Template block usage:
+    this.render(Ember.HTMLBars.template({
+      "id": "KzkhEpqM",
+      "block": "{\"statements\":[[0,\"\\n\"],[6,[\"table-search\"],null,null,{\"statements\":[[0,\"      template block text\\n\"]],\"locals\":[]},null],[0,\"  \"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}",
+      "meta": {}
+    }));
+
+    assert.equal(this.$().text().trim(), 'template block text');
+  });
+});
 define('e-restaurant-fe/tests/integration/components/update-restaurant-test', ['ember-qunit'], function (_emberQunit) {
   'use strict';
 
@@ -665,6 +710,11 @@ define('e-restaurant-fe/tests/tests.lint-test', [], function () {
     assert.ok(false, 'helpers/start-app.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
   });
 
+  QUnit.test('integration/components/table-search-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'integration/components/table-search-test.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
+  });
+
   QUnit.test('integration/components/update-restaurant-test.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'integration/components/update-restaurant-test.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
@@ -680,6 +730,16 @@ define('e-restaurant-fe/tests/tests.lint-test', [], function () {
     assert.ok(false, 'test-helper.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
   });
 
+  QUnit.test('unit/controllers/reservation-bar-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'unit/controllers/reservation-bar-test.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
+  });
+
+  QUnit.test('unit/controllers/restaurants-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'unit/controllers/restaurants-test.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
+  });
+
   QUnit.test('unit/routes/restaurants-test.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'unit/routes/restaurants-test.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
@@ -688,6 +748,34 @@ define('e-restaurant-fe/tests/tests.lint-test', [], function () {
   QUnit.test('unit/services/admin-service-test.js', function (assert) {
     assert.expect(1);
     assert.ok(false, 'unit/services/admin-service-test.js should pass ESLint\n\n1:1 - Parsing error: The keyword \'import\' is reserved (null)');
+  });
+});
+define('e-restaurant-fe/tests/unit/controllers/reservation-bar-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('controller:reservation-bar', 'Unit | Controller | reservation bar', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var controller = this.subject();
+    assert.ok(controller);
+  });
+});
+define('e-restaurant-fe/tests/unit/controllers/restaurants-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleFor)('controller:restaurants', 'Unit | Controller | restaurants', {
+    // Specify the other units that are required for this test.
+    // needs: ['controller:foo']
+  });
+
+  // Replace this with your real tests.
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var controller = this.subject();
+    assert.ok(controller);
   });
 });
 define('e-restaurant-fe/tests/unit/routes/restaurants-test', ['ember-qunit'], function (_emberQunit) {

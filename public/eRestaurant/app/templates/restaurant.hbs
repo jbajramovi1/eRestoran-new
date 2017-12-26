@@ -4,12 +4,12 @@
   <div class="cover">
     <div class="mask">
       <div class="rest-img-div">
-        <img class="rest-img" src={{model.imageFileName}}>
+        <img class="rest-img" src={{model.restaurant.imageFileName}}>
       </div>
       <div class="rest-main">
-        <h3 class="rest-name">{{model.name}}</h3>
-          {{star-rating rating=model.mark id="stars-display" baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
-        <p class="rest-category">{{model.category}}</p>
+        <h3 class="rest-name">{{model.restaurant.name}}</h3>
+          {{star-rating rating=model.restaurant.mark id="stars-display" baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
+        <p class="rest-category">{{model.restaurant.category}}</p>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
         <!--{{g-maps lat=lat lng=lng zoom=zoom markers=markers }}-->
       </div>
       <p class="rest-subtitle">Description</p>
-      <p class="rest-description">{{model.description}}</p>
+      <p class="rest-description">{{model.restaurant.description}}</p>
     </div>
     <div class="rest-div div-menu">
       <p class="rest-subtitle">Menu</p>

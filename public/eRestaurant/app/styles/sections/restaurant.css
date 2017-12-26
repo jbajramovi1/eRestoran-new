@@ -62,7 +62,8 @@
 
 .rest-div{
   position: relative;
-  height: 150px;
+  min-height: 150px;
+  height: auto;
   width: 100%;
   background-color: white;
   padding: 20px;

@@ -11,5 +11,13 @@ export default Ember.Service.extend({
 
   });
 
-    }
+},
+filter(pageSize,pageNumber,name){
+    return $.ajax({
+          method:'GET',
+          url:'/api/v1/restaurants/filter?pageSize='+pageSize+'&pageNumber='+pageNumber+'&name='+name,
+          contentType:"application/json",
+          dataType: 'json'
+  });
+}
 });

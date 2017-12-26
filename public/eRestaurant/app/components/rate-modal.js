@@ -32,7 +32,7 @@ export default Ember.Component.extend({
           var restaurant=Restaurant.create({});
           account.set('id',this.get('sessionService').getCurrentUserId());
           comment.setProperties({'content':this.get('review'),'mark':this.get('stars'),'account':account});
-          restaurant.set('id',this.get('model.id'))
+          restaurant.set('id',this.get('model.restaurant.id'))
           this.get('commentService').leaveComment(this.get('review'),this.get('stars'),new Date(),restaurant)
           .done(response => {
                this.get('notifications').success('Your rating is saved!', {
