@@ -1,0 +1,38 @@
+.restaurants-wrap{
+  margin: 100px!important;
+  margin-top: 20px!important;
+}
+
+.row-list{
+  margin:0!important;
+}
+
+.search-restaurants{
+  position: relative!important;
+  margin-left: 40px;
+}
+
+.rest-search-input{
+  height: 40px!important;
+  width: 77%;
+  font-size: 16px;
+}
+
+.btn-restaurants{
+  position: absolute;
+	margin-left: 77%;
+	height: 40px;
+	background-color: #Fe4a49;
+	border-color: #fe4a49;
+	color: white;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: 16px;
+	width:130px;
+	top:0;
+}
+
+.pagination-bar{
+  text-align: center;!important;
+  margin-top: 30px!important;
+  margin: 0 auto;
+}

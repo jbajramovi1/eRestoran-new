@@ -17,6 +17,7 @@ Router.map(function() {
   this.route('register');
   this.route('restaurant',{path: 'restaurant/:id'});
   this.route('adminpanel');
+  this.route('restaurants');
 });
 
 export default Router;

@@ -1,0 +1,66 @@
+<div class="container-default">
+
+
+<div class="restaurants-wrap">
+  <div class="search-restaurants">
+      <div class="inner-addon left-addon">
+          <i class="glyphicon glyphicon-search"></i>
+          <input type="text" class="form-control search-input rest-search-input" placeholder="Search for a restaurant..." />
+      </div>
+      <button {{action 'seach'}} class="btn-outline btn-restaurants">Search</button>
+  </div>
+
+    <div class="row restaurant-row row-list">
+        <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
+            <img class="restaurant-img" src="/assets/images/restaurant.jpg">
+            {{#link-to "restaurant" 31}}<p class="restaurant-name">Restaurant 1</p>{{/link-to}}
+            {{star-rating rating=3 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
+            <hr class="thin">
+            <p class="restaurant-category">International</p>
+            <button class="btn-outline btn-reserve">Reserve now</button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
+            <img class="restaurant-img" src="/assets/images/restaurant2.jpg">
+            {{#link-to "restaurant" 32}}<p class="restaurant-name">Restaurant 2</p>{{/link-to}}
+            {{star-rating rating=4 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
+            <hr class="thin">
+            <p class="restaurant-category">Indian | International</p>
+            <button class="btn-outline btn-reserve">Reserve now</button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
+            <img class="restaurant-img" src="/assets/images/restaurant3.jpg">
+            {{#link-to "restaurant" 33}}<p class="restaurant-name">Restaurant 3</p>{{/link-to}}
+            {{star-rating 2 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
+            <hr class="thin">
+            <p class="restaurant-category">Italian | International</p>
+            <button class="btn-outline btn-reserve">Reserve now</button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
+            <img class="restaurant-img" src="/assets/images/restaurant4.jpg">
+            {{#link-to "restaurant" 34}}<p class="restaurant-name">Restaurant 4</p>{{/link-to}}
+            {{star-rating rating=2 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
+            <hr class="thin">
+            <p class="restaurant-category">Mediterranean | International</p>
+            <button class="btn-outline btn-reserve">Reserve now</button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
+            <img class="restaurant-img" src="/assets/images/restaurant5.jpg">
+            {{#link-to "restaurant" 35}}<p class="restaurant-name">Restaurant 5</p>{{/link-to}}
+            {{star-rating rating=5 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
+            <hr class="thin">
+            <p class="restaurant-category">International</p>
+            <button class="btn-outline btn-reserve">Reserve now</button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
+            <img class="restaurant-img" src="/assets/images/restaurant6.jpg">
+            {{#link-to "restaurant" 36}}<p class="restaurant-name">Restaurant 6</p>{{/link-to}}
+            {{star-rating rating=1 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
+            <hr class="thin">
+            <p class="restaurant-category">International</p>
+            <button class="btn-outline btn-reserve">Reserve now</button>
+        </div>
+    </div>
+    {{page-numbers class="pagination-bar" page=1 totalPages=3}}
+</div>
+
+</div>
