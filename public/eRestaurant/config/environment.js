@@ -23,7 +23,7 @@ module.exports = function(environment) {
     },
     CLOUDINARY: {
       CLOUD_NAME: 'dxcx9k4in', // "cloud name" in Cloudinary
-      SECURE: true // use https? 
+      SECURE: true // use https?
     }
   };
   ENV.googleMap = {
