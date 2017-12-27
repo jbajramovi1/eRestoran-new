@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Restaurant extends BaseModel<Restaurant> {
     @Column
     private String name;
-    @Column
+    @Column (name = "description")
     private String description;
     @Column
     private Double mark;

@@ -8,13 +8,13 @@
           {{input type="text" value=name class="form-control search-input rest-search-input" placeholder="Search for a restaurant..." }}
 
       </div>
-      <button {{action 'seach'}} class="btn-outline btn-restaurants">Search</button>
+      <button {{action 'search'}} class="btn-outline btn-restaurants">Search</button>
   </div>
 
     <div class="row restaurant-row row-list">
-      {{#each model.restaurants as |restaurant|}}
+      {{#each restaurants as |restaurant|}}
         <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
-            <img class="restaurant-img" src="/assets/images/restaurant.jpg">
+            <img class="restaurant-img" src={{cloudinary-url restaurant.imageFileName}}>
             {{#link-to "restaurant" restaurant.id}}<p class="restaurant-name">{{restaurant.name}}</p>{{/link-to}}
             {{star-rating rating=restaurant.mark baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
             <hr class="thin">

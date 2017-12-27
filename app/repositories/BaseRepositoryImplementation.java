@@ -103,9 +103,9 @@ public class BaseRepositoryImplementation<M> implements BaseRepository<M> {
     }
 
 
-    public Integer count() throws RepositoryException {
+    public Long count() throws RepositoryException {
         try {
-            return (Integer) getBaseCriteria().setProjection(Projections.rowCount()).uniqueResult();
+            return (Long)getBaseCriteria().setProjection(Projections.rowCount()).uniqueResult();
         } catch (PersistenceException e) {
             logger.error("ServiceException in BaseRepository@count", e);
             throw new RepositoryException(e.toString());

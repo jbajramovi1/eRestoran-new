@@ -67,6 +67,6 @@ public interface BaseRepository<M> {
      * @return the integer
      * @throws RepositoryException the repository exception
      */
-    Integer count() throws RepositoryException;
+    Long count() throws RepositoryException;
 
 }

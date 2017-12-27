@@ -20,54 +20,16 @@
     <h3 class="popular-title">Popular for lunch today</h3>
     <div class="restaurant-list">
         <div class="row restaurant-row">
+          {{#each model.data as |restaurant|}}
             <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
-                <img class="restaurant-img" src="/assets/images/restaurant.jpg">
-                {{#link-to "restaurant" 31}}<p class="restaurant-name">Restaurant 1</p>{{/link-to}}
-                {{star-rating rating=3 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
+                <img class="restaurant-img" src={{cloudinary-url restaurant.imageFileName}}>
+                {{#link-to "restaurant" restaurant.id}}<p class="restaurant-name">{{restaurant.name}}</p>{{/link-to}}
+                {{star-rating rating=restaurant.mark baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
                 <hr class="thin">
-                <p class="restaurant-category">International</p>
+                <p class="restaurant-category">{{restaurant.category}}</p>
                 <button class="btn-outline btn-reserve">Reserve now</button>
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
-                <img class="restaurant-img" src="/assets/images/restaurant2.jpg">
-                {{#link-to "restaurant" 32}}<p class="restaurant-name">Restaurant 2</p>{{/link-to}}
-                {{star-rating rating=4 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
-                <hr class="thin">
-                <p class="restaurant-category">Indian | International</p>
-                <button class="btn-outline btn-reserve">Reserve now</button>
-            </div>
-            <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
-                <img class="restaurant-img" src="/assets/images/restaurant3.jpg">
-                {{#link-to "restaurant" 33}}<p class="restaurant-name">Restaurant 3</p>{{/link-to}}
-                {{star-rating 2 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
-                <hr class="thin">
-                <p class="restaurant-category">Italian | International</p>
-                <button class="btn-outline btn-reserve">Reserve now</button>
-            </div>
-            <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
-                <img class="restaurant-img" src="/assets/images/restaurant4.jpg">
-                {{#link-to "restaurant" 34}}<p class="restaurant-name">Restaurant 4</p>{{/link-to}}
-                {{star-rating rating=2 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
-                <hr class="thin">
-                <p class="restaurant-category">Mediterranean | International</p>
-                <button class="btn-outline btn-reserve">Reserve now</button>
-            </div>
-            <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
-                <img class="restaurant-img" src="/assets/images/restaurant5.jpg">
-                {{#link-to "restaurant" 35}}<p class="restaurant-name">Restaurant 5</p>{{/link-to}}
-                {{star-rating rating=5 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
-                <hr class="thin">
-                <p class="restaurant-category">International</p>
-                <button class="btn-outline btn-reserve">Reserve now</button>
-            </div>
-            <div class="col-md-3 col-sm-3 col-xs-8 restaurant-col">
-                <img class="restaurant-img" src="/assets/images/restaurant6.jpg">
-                {{#link-to "restaurant" 36}}<p class="restaurant-name">Restaurant 6</p>{{/link-to}}
-                {{star-rating rating=1 baseColor="lightgray" fillColor="#Fe4a49" readOnly=true}}
-                <hr class="thin">
-                <p class="restaurant-category">International</p>
-                <button class="btn-outline btn-reserve">Reserve now</button>
-            </div>
+          {{/each}}
         </div>
 
         </div>
@@ -81,19 +43,19 @@
                     {{#swiper-slide class='myslide myslide-1'}}
                         <div class="row specials-items">
                           <div class="col-md-3 col-sm-3 col-xs-2 specials-col">
-                              <img class="specials-img" src="assets\images\specials.jpg">
+                              <img class="specials-img" src={{cloudinary-url "specials"}}>
                               <p class="specials-name">Best pizza</p>
                               <hr class="thin">
                               <p class="specials-location">New York | 12 restaurans</p>
                           </div>
                           <div class="col-md-3 col-sm-3 col-xs-2 specials-col">
-                              <img class="specials-img" src="assets\images\dish1.jpg">
+                              <img class="specials-img" src={{cloudinary-url "dish1"}}>
                               <p class="specials-name">Best pizza</p>
                               <hr class="thin">
                               <p class="specials-location">New York | 12 restaurans</p>
                           </div>
                           <div class="col-md-3 col-sm-3 col-xs-2 specials-col">
-                              <img class="specials-img" src="assets\images\dish3.jpg">
+                              <img class="specials-img" src={{cloudinary-url "dish3"}}>
                               <p class="specials-name">Best pizza</p>
                               <hr class="thin">
                               <p class="specials-location">New York | 12 restaurans</p>
@@ -103,19 +65,19 @@
                     {{#swiper-slide class='myslide myslide-1'}}
                         <div class="row specials-items">
                           <div class="col-md-3 col-sm-3 col-xs-2 specials-col">
-                              <img class="specials-img" src="assets\images\dish3.jpg">
+                              <img class="specials-img" src={{cloudinary-url "dish3"}}>
                               <p class="specials-name">Best pizza</p>
                               <hr class="thin">
                               <p class="specials-location">New York | 12 restaurans</p>
                           </div>
                           <div class="col-md-3 col-sm-3 col-xs-2 specials-col">
-                              <img class="specials-img" src="assets\images\specials.jpg">
+                              <img class="specials-img" src={{cloudinary-url "specials"}}>
                               <p class="specials-name">Best pizza</p>
                               <hr class="thin">
                               <p class="specials-location">New York | 12 restaurans</p>
                           </div>
                           <div class="col-md-3 col-sm-3 col-xs-2 specials-col">
-                              <img class="specials-img" src="assets\images\dish1.jpg">
+                              <img class="specials-img" src={{cloudinary-url "dish1"}}>
                               <p class="specials-name">Best pizza</p>
                               <hr class="thin">
                               <p class="specials-location">New York | 12 restaurans</p>
