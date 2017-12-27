@@ -2816,10 +2816,10 @@ define('e-restaurant-fe/utils/load-google-maps', ['exports', 'ember-cli-g-maps/u
 
 
 define('e-restaurant-fe/config/environment', ['ember'], function(Ember) {
-  var exports = {'default': {"modulePrefix":"e-restaurant-fe","environment":"development","rootURL":"/","locationType":"auto","EmberENV":{"FEATURES":{},"EXTEND_PROTOTYPES":{"Date":false}},"APP":{"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"e-restaurant-fe","version":"0.0.0+b8b1b55f"},"googleMap":{"apiKey":"AIzaSyCQKiuoytD_QzAJBrVYiQtit3E-L-zya7E"},"API_HOST":"http://localhost:9000","API_VERSION":"1","exportApplicationGlobal":true}};Object.defineProperty(exports, '__esModule', {value: true});return exports;
+  var exports = {'default': {"modulePrefix":"e-restaurant-fe","environment":"development","rootURL":"/","locationType":"auto","EmberENV":{"FEATURES":{},"EXTEND_PROTOTYPES":{"Date":false}},"APP":{"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"e-restaurant-fe","version":"0.0.0+4ea118a6"},"googleMap":{"apiKey":"AIzaSyCQKiuoytD_QzAJBrVYiQtit3E-L-zya7E"},"API_HOST":"http://localhost:9000","API_VERSION":"1","exportApplicationGlobal":true}};Object.defineProperty(exports, '__esModule', {value: true});return exports;
 });
 
 if (!runningTests) {
-  require("e-restaurant-fe/app")["default"].create({"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"e-restaurant-fe","version":"0.0.0+b8b1b55f"});
+  require("e-restaurant-fe/app")["default"].create({"LOG_ACTIVE_GENERATION":true,"LOG_TRANSITIONS":true,"LOG_TRANSITIONS_INTERNAL":true,"LOG_VIEW_LOOKUPS":true,"name":"e-restaurant-fe","version":"0.0.0+4ea118a6"});
 }
 //# sourceMappingURL=e-restaurant-fe.map
