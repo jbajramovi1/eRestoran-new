@@ -2,7 +2,7 @@
 create table IF NOT EXISTS reservation(
 id bigint not null,
 tables bigint,
-reservation_date date ,
+reservation_date timestamp ,
 account_id bigint,
 restaurant_id bigint,
 constraint reservation_pk primary key (id),

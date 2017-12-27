@@ -3,7 +3,7 @@ create table IF NOT EXISTS comment(
 id bigint not null,
 content text,
 mark float not null,
-insert_date date,
+insert_date timestamp,
 account_id bigint,
 restaurant_id bigint,
 constraint comment_pk primary key (id),

@@ -18,6 +18,7 @@ libraryDependencies ++= Seq(
   jdbc,
   evolutions,
   javaJpa,
+  filters,
   "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final",
   "org.postgresql" % "postgresql" % "9.4.1208.jre7",
   cache,

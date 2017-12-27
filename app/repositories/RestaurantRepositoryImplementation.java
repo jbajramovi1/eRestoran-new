@@ -17,7 +17,7 @@ public class RestaurantRepositoryImplementation extends BaseRepositoryImplementa
             Criteria criteria = restaurantFilterModel.addConditions(getBaseCriteria());
             FilterResult<Restaurant> result = new FilterResult<Restaurant>();
             result.setData(criteria.list());
-            result.setCount(count() / restaurantFilterModel.getPageSize());
+            result.setCount(count().intValue() / restaurantFilterModel.getPageSize());
             result.setPageSize(restaurantFilterModel.getPageSize());
             result.setPageNumber(restaurantFilterModel.getPageNumber());
             return result;
